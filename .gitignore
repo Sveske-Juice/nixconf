@@ -2,3 +2,4 @@ result
 result-*
 build/
 .cache/
+*.qcow2
