@@ -10,9 +10,17 @@
     imports = [
       self.nixosModules.base
       self.nixosModules.general
+      self.nixosModules.secrets
     ];
 
-    preferences.user.name = "cvpl";
+    preferences = {
+      host = {
+        name = "themata";
+      };
+      user = {
+        name = "cvpl";
+      };
+    };
 
     system.stateVersion = "26.05";
   };
