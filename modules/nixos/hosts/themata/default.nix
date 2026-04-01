@@ -6,9 +6,10 @@
     ];
   };
 
-  flake.nixosModules.hostThemata = {pkgs, ...}: {
+  flake.nixosModules.hostThemata = _: {
     imports = [
       self.nixosModules.base
+      self.nixosModules.general
     ];
 
     preferences.user.name = "cvpl";

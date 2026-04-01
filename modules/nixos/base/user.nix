@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {self, pkgs, lib, ...}: {
+  flake.nixosModules.base = {self', pkgs, lib, ...}: {
     options.preferences.user = lib.mkOption {
       type = lib.types.submodule {
         options = {
@@ -10,7 +10,7 @@
             type = lib.types.str;
             description = "Home directory of user";
             default = let
-              user = self.nixosModules.base.config.preferences.user.name;
+              user = self'.config.preferences.user.name;
             in
               if pkgs.stdenv.isLinux then "/home/${user}" else "/Users/${user}";
           };
