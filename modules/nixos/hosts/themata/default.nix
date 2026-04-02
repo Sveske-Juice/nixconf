@@ -1,17 +1,16 @@
-{self, inputs, ...}: 
+{self, ...}: 
 {
-  flake.nixosConfigurations.themata = inputs.nixpkgs.lib.nixosSystem {
-    modules = [
-      self.nixosModules.hostThemata
-    ];
-  };
+  flake.nixosConfigurations = self.lib.mkHost "themata" [
+    self.nixosModules.hostThemata
+  ];
 
-  flake.nixosModules.hostThemata = _: {
+  flake.nixosModules.hostThemata = {lib, isVM, ...}: {
     imports = [
       self.nixosModules.base
       self.nixosModules.general
-      self.nixosModules.secrets
-    ];
+    ] ++ lib.optionals (!isVM) [
+        self.nixosModules.secrets
+      ];
 
     preferences = {
       host = {
