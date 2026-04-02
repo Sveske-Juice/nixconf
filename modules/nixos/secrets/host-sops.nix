@@ -11,9 +11,11 @@
       ssh-to-age
     ];
 
-    sops.defaultSopsFile = lib.path.append ./secrets/hosts "${config.preferences.host.name}";
-    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    sops = {
+      defaultSopsFile = lib.path.append ../../../secrets/hosts "${config.preferences.host.name}.yaml";
+      age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
-    sops.secrets.hello = {};
+      secrets.hello = {};
+    };
   };
 }
