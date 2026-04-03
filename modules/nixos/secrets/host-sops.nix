@@ -1,6 +1,11 @@
 # Unlock the host secrets from it's host SSH key
 {inputs, ...}: {
-  flake.nixosModules.secrets = {lib, pkgs, config, ...}: {
+  flake.nixosModules.secrets = {
+    lib,
+    pkgs,
+    config,
+    ...
+  }: {
     imports = [
       inputs.sops-nix.nixosModules.sops
     ];
@@ -13,7 +18,7 @@
 
     sops = {
       defaultSopsFile = lib.path.append ../../../secrets/hosts "${config.preferences.host.name}.yaml";
-      age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
     };
   };
 }

@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.base = {lib, isVM, ...}: {
+  flake.nixosModules.base = {
+    lib,
+    isVM,
+    ...
+  }: {
     options.preferences.secrets = lib.mkOption {
       type = lib.types.bool;
       default = !isVM;

@@ -1,6 +1,10 @@
 # Generates a simple user defined in options.preferences.user
 {
-  flake.nixosModules.general = {lib, config, ...}: {
+  flake.nixosModules.general = {
+    lib,
+    config,
+    ...
+  }: {
     users.mutableUsers = false;
 
     sops.secrets."passwords/${config.preferences.user.name}" = lib.mkIf config.preferences.secrets {};

@@ -18,6 +18,5 @@ in {
         inherit modules;
       };
     };
-
   };
 }

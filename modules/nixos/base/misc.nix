@@ -1,6 +1,6 @@
 {self, ...}: {
   flake.nixosModules.base = _: {
-    # We need sops options always, but the actual deployment configuration 
+    # We need sops options always, but the actual deployment configuration
     # gets conditionally imported depending on whether or not secrets are on
     imports = [
       self.inputs.sops-nix.nixosModules.sops
