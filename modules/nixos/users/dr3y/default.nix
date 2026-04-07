@@ -5,7 +5,6 @@ _: {
       email = "sveske_juice@tuta.com";
     };
 
-    # deploy-gpg.enable = config.preferences.secrets;
-    deploy-gpg.enable = false;
+    deploy-gpg.enable = config.preferences.secrets;
   };
 }

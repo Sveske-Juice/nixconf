@@ -16,5 +16,5 @@ build-vm-with-secrets *args:
   nixos-rebuild build-vm --flake . {{args}}
 
 run-vm-with-secrets *args:
-  just build-vm-with-secrets {{args}}
-  ./result/bin/run-*-vm
+  just build-vm-with-secrets
+  ./result/bin/run-*-vm {{args}}
