@@ -8,7 +8,7 @@
     users.mutableUsers = false;
 
     sops.secrets."users/${config.preferences.user.name}" = lib.mkIf config.preferences.secrets {
-      sopsFile = ../../../secrets/users/${config.preferences.user.name}.yaml;
+      sopsFile = ../../../../secrets/users/${config.preferences.user.name}.yaml;
       neededForUsers = true;
     };
 

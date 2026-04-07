@@ -4,8 +4,6 @@
   ];
 
   flake.nixosModules.host-themata = {
-    lib,
-    isVM,
     ...
   }: {
     imports =
@@ -13,14 +11,14 @@
         self.nixosModules.base
         self.nixosModules.general
         self.nixosModules.user-dr3y
-      ]
-      ++ lib.optionals (!isVM) [
         self.nixosModules.secrets
       ];
+
 
     preferences.host = {
       name = "themata";
     };
+    preferences.secrets = true;
 
     system.stateVersion = "26.05";
   };
