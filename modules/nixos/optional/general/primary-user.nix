@@ -7,7 +7,7 @@
   }: {
     users.mutableUsers = false;
 
-    sops.secrets."passwords/${config.preferences.user.name}" = lib.mkIf config.preferences.secrets {
+    sops.secrets."users/${config.preferences.user.name}" = lib.mkIf config.preferences.secrets {
       sopsFile = ../../../secrets/users/${config.preferences.user.name}.yaml;
       neededForUsers = true;
     };
@@ -18,7 +18,7 @@
         "wheel"
       ];
       password = lib.mkIf (!config.preferences.secrets) config.preferences.user.name;
-      hashedPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."passwords/${config.preferences.user.name}".path;
+      hashedPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."users/${config.preferences.user.name}".path;
     };
   };
 }
