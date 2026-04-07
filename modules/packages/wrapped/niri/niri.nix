@@ -1,10 +1,18 @@
-{self, inputs, ...}: {
-  flake.wrappersModules.niri = {lib, pkgs, ...}: {
-      settings = {
-        binds = {
-          "Mod+Return".spawn = "${lib.getExe pkgs.kitty}";
-        };
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.wrappersModules.niri = {
+    lib,
+    pkgs,
+    ...
+  }: {
+    settings = {
+      binds = {
+        "Mod+Return".spawn = "${lib.getExe pkgs.kitty}";
       };
+    };
   };
 
   perSystem = {pkgs, ...}: {

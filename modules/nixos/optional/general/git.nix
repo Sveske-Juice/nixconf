@@ -1,5 +1,10 @@
 _: {
-  flake.nixosModules.general = {pkgs, lib, config, ...}: {
+  flake.nixosModules.general = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
     programs.git = {
       enable = true;
       package = pkgs.gitFull;
@@ -9,7 +14,7 @@ _: {
           inherit (config.preferences.user) name email;
           signingkey = lib.mkIf (config.preferences.user.gpgKey != null) config.preferences.user.gpgKey;
         };
-        safe.directory = [ "/etc/nixos" ];
+        safe.directory = ["/etc/nixos"];
         commit = {
           gpgsign = lib.mkIf (config.preferences.user.gpgKey != null) true;
         };
@@ -43,4 +48,3 @@ _: {
     };
   };
 }
-
