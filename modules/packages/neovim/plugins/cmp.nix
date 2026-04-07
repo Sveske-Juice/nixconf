@@ -1,73 +1,78 @@
 _: {
-  perSystem = {lib, pkgs, ...}: {
-    nvfModules = [{
-      vim.lazy.plugins = {
-        "colorful-menu.nvim" = {
-          package = pkgs.vimPlugins.colorful-menu-nvim;
+  perSystem = {
+    lib,
+    pkgs,
+    ...
+  }: {
+    nvfModules = [
+      {
+        vim.lazy.plugins = {
+          "colorful-menu.nvim" = {
+            package = pkgs.vimPlugins.colorful-menu-nvim;
+          };
         };
-      };
-      vim.autocomplete.blink-cmp = {
-        enable = true;
-
-        # mappings = {
-        #   close = "<esc>";
-        #   complete = "<C-Space>"; # I never use this
-        #   confirm = "<CR>";
-        #
-        #   next = "<C-n>";
-        #   previous = "<C-p>";
-        #
-        #   scrollDocsDown = "<C-d>";
-        #   scrollDocsUp = "<C-u>";
-        # };
-        sourcePlugins.lsp = {
+        vim.autocomplete.blink-cmp = {
           enable = true;
-          package = pkgs.vimPlugins.blink-cmp;
-          module = "blink.cmp.sources.lsp";
-        };
-        sourcePlugins.buffer = {
-          enable = true;
-          package = pkgs.vimPlugins.blink-cmp;
-          module = "blink.cmp.sources.buffer";
-        };
-        sourcePlugins.path = {
-          enable = true;
-          package = pkgs.vimPlugins.blink-cmp;
-          module = "blink.cmp.sources.path";
-        };
-        sourcePlugins.emoji.enable = true;
 
-        setupOpts = {
-          signature.enabled = true;
+          # mappings = {
+          #   close = "<esc>";
+          #   complete = "<C-Space>"; # I never use this
+          #   confirm = "<CR>";
+          #
+          #   next = "<C-n>";
+          #   previous = "<C-p>";
+          #
+          #   scrollDocsDown = "<C-d>";
+          #   scrollDocsUp = "<C-u>";
+          # };
+          sourcePlugins.lsp = {
+            enable = true;
+            package = pkgs.vimPlugins.blink-cmp;
+            module = "blink.cmp.sources.lsp";
+          };
+          sourcePlugins.buffer = {
+            enable = true;
+            package = pkgs.vimPlugins.blink-cmp;
+            module = "blink.cmp.sources.buffer";
+          };
+          sourcePlugins.path = {
+            enable = true;
+            package = pkgs.vimPlugins.blink-cmp;
+            module = "blink.cmp.sources.path";
+          };
+          sourcePlugins.emoji.enable = true;
 
-          completion.ghost_text.enabled = true;
-          sources.default = [
-            "lsp"
-            "path"
-            "buffer"
-          ];
+          setupOpts = {
+            signature.enabled = true;
 
-          # Use colorful-menu
-          completion.menu.draw =
-            lib.generators.mkLuaInline # lua
+            completion.ghost_text.enabled = true;
+            sources.default = [
+              "lsp"
+              "path"
+              "buffer"
+            ];
 
-            ''
-            {
-              columns = { { "kind_icon" }, { "label", gap = 1 } },
-              components = {
-                label = {
-                  text = function(ctx)
-                    return require("colorful-menu").blink_components_text(ctx);
-                  end,
-                  highlight = function(ctx)
-                    return require("colorful-menu").blink_components_highlight(ctx)
-                  end,
+            # Use colorful-menu
+            completion.menu.draw =
+              lib.generators.mkLuaInline # lua
+              
+              ''
+                {
+                  columns = { { "kind_icon" }, { "label", gap = 1 } },
+                  components = {
+                    label = {
+                      text = function(ctx)
+                        return require("colorful-menu").blink_components_text(ctx);
+                      end,
+                      highlight = function(ctx)
+                        return require("colorful-menu").blink_components_highlight(ctx)
+                      end,
+                    },
+                  }
                 },
-              }
-            },
               '';
 
-              keymap = {
+            keymap = {
               preset = "none"; # No default keybinds
 
               # When we press <esc> and hide the completion menu
@@ -76,68 +81,69 @@ _: {
               # runs and we return to normal mode without having
               # to press <esc> twice.
               "<esc>" = [
-              (
-              lib.generators.mkLuaInline # lua
+                (
+                  lib.generators.mkLuaInline # lua
+                  
+                  ''
+                      function(cmp)
+                      cmp["hide"]();
+                      return false;
+                    end
+                  ''
+                )
+                "fallback"
+              ];
 
-              ''
-              function(cmp)
-              cmp["hide"]();
-              return false;
-            end
-            ''
-              )
-              "fallback"
-            ];
+              # Disable tab
+              "<Tab>" = ["fallback"];
+              "<S-Tab>" = ["fallback"];
 
-            # Disable tab
-            "<Tab>" = ["fallback"];
-            "<S-Tab>" = ["fallback"];
+              "<C-e>" = [
+                "hide"
+                "fallback"
+              ];
 
-            "<C-e>" = [
-              "hide"
-              "fallback"
-            ];
+              "<CR>" = [
+                "select_and_accept"
+                "fallback"
+              ];
+              "<C-y>" = [
+                "select_and_accept"
+                "fallback"
+              ];
 
-            "<CR>" = [
-              "select_and_accept"
-              "fallback"
-            ];
-            "<C-y>" = [
-              "select_and_accept"
-              "fallback"
-            ];
+              "<C-n>" = [
+                "select_next"
+                "fallback"
+              ];
+              "<C-p>" = [
+                "select_prev"
+                "fallback"
+              ];
 
-            "<C-n>" = [
-              "select_next"
-              "fallback"
-            ];
-            "<C-p>" = [
-              "select_prev"
-              "fallback"
-            ];
+              "<C-u>" = [
+                "scroll_documentation_up"
+                "fallback"
+              ];
+              "<C-d>" = [
+                "scroll_documentation_down"
+                "fallback"
+              ];
 
-            "<C-u>" = [
-              "scroll_documentation_up"
-              "fallback"
-            ];
-            "<C-d>" = [
-              "scroll_documentation_down"
-              "fallback"
-            ];
-
-            "<C-Space>" = [
-              "show"
-              "show_documentation"
-              "hide_documentation"
-            ];
-            "<C-k>" = [
-              "show_signature"
-              "hide_signature"
-              "fallback"
-            ]; # idk this doesnt seem to work
+              "<C-Space>" = [
+                "show"
+                "show_documentation"
+                "hide_documentation"
+              ];
+              "<C-k>" = [
+                "show_signature"
+                "hide_signature"
+                "fallback"
+              ]; # idk this doesnt seem to work
+            };
           };
         };
-      };
-    }];
+      }
+    ];
   };
 }

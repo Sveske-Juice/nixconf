@@ -1,8 +1,5 @@
 _: {
-  perSystem = {
-    pkgs,
-    ...
-  }: {
+  perSystem = {pkgs, ...}: {
     nvfModules = [
       ({lib, ...}: {
         vim = {

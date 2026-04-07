@@ -1,17 +1,19 @@
 _: {
-  perSystem.nvfModules = [{
-    vim.lsp.trouble = {
-      enable = true;
+  perSystem.nvfModules = [
+    {
+      vim.lsp.trouble = {
+        enable = true;
 
-      # Disable default mappings
-      mappings = {
-        workspaceDiagnostics = null;
-        documentDiagnostics = null;
-        lspReferences = null;
-        quickfix = null;
-        locList = null;
-        symbols = null;
+        # Disable default mappings
+        mappings = {
+          workspaceDiagnostics = null;
+          documentDiagnostics = null;
+          lspReferences = null;
+          quickfix = null;
+          locList = null;
+          symbols = null;
+        };
       };
-    };
-  }];
+    }
+  ];
 }

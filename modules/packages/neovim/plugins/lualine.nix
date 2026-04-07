@@ -1,7 +1,9 @@
 _: {
-  perSystem.nvfModules = [{
-    vim.statusline.lualine = {
-      enable = true;
-    };
-  }];
+  perSystem.nvfModules = [
+    {
+      vim.statusline.lualine = {
+        enable = true;
+      };
+    }
+  ];
 }
