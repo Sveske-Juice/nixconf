@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.hostThemata = {
+  flake.nixosModules.host-themata = {
     config,
     lib,
     modulesPath,

@@ -7,7 +7,10 @@
   }: {
     users.mutableUsers = false;
 
-    sops.secrets."passwords/${config.preferences.user.name}" = lib.mkIf config.preferences.secrets {};
+    sops.secrets."passwords/${config.preferences.user.name}" = lib.mkIf config.preferences.secrets {
+      sopsFile = ../../../secrets/users/dr3y.yaml;
+      neededForUsers = true;
+    };
 
     users.users."${config.preferences.user.name}" = {
       isNormalUser = true;

@@ -18,7 +18,11 @@
 
     sops = {
       defaultSopsFile = lib.path.append ../../../secrets/hosts "${config.preferences.host.name}.yaml";
-      age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+      # Try either host SSH key or user SSH key
+      age.sshKeyPaths = [
+        "/etc/ssh/ssh_host_ed25519_key"
+        "${config.preferences.user.home}/.ssh/id_ed25519.pub"
+      ];
     };
   };
 }

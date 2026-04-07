@@ -1,6 +1,6 @@
 {
   flake.nixosModules.base = {
-    self',
+    config,
     pkgs,
     lib,
     ...
@@ -11,11 +11,18 @@
           name = lib.mkOption {
             type = lib.types.str;
           };
+          email = lib.mkOption {
+            type = lib.types.str;
+          };
+          gpgKey = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+          };
           home = lib.mkOption {
             type = lib.types.str;
             description = "Home directory of user";
             default = let
-              user = self'.config.preferences.user.name;
+              user = config.preferences.user.name;
             in
               if pkgs.stdenv.isLinux
               then "/home/${user}"

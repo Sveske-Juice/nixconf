@@ -1,9 +1,9 @@
 {self, ...}: {
   flake.nixosConfigurations = self.lib.mkHost "themata" [
-    self.nixosModules.hostThemata
+    self.nixosModules.host-themata
   ];
 
-  flake.nixosModules.hostThemata = {
+  flake.nixosModules.host-themata = {
     lib,
     isVM,
     ...
@@ -12,18 +12,14 @@
       [
         self.nixosModules.base
         self.nixosModules.general
+        self.nixosModules.user-dr3y
       ]
       ++ lib.optionals (!isVM) [
         self.nixosModules.secrets
       ];
 
-    preferences = {
-      host = {
-        name = "themata";
-      };
-      user = {
-        name = "cvpl";
-      };
+    preferences.host = {
+      name = "themata";
     };
 
     system.stateVersion = "26.05";
