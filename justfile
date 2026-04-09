@@ -49,14 +49,11 @@ install-remote host user metal *args:
       TEMP_VAL="$SOPS_AGE_KEY"
   fi
 
-  install -dm755 "$temp/etc/ssh"
-  install -dm755 "$temp/home/{{user}}/.ssh"
-
   echo "extracting '{{host}}' key..."
-  sops -d "secrets/hosts/{{host}}.yaml" | yq -r ".ssh.key" > "$temp/etc/ssh/ssh_host_ed25519_key"
+  sops -d "secrets/hosts/{{host}}.yaml" | yq -r ".ssh.key" > "$temp/host-ssh-key"
 
   echo "extracting '{{user}}' key..."
-  sops -d "secrets/users/{{user}}.yaml" | yq -r ".ssh.key" > "$temp/home/{{user}}/.ssh/id_ed25519"
+  sops -d "secrets/users/{{user}}.yaml" | yq -r ".ssh.key" > "$temp/user-ssh-key"
 
   # nixos-anywhere
-  nixos-anywhere --extra-files "$temp" --flake .#$HOST {{args}} 
+  nixos-anywhere --extra-files "$temp" --flake ".#$HOST" {{args}} 

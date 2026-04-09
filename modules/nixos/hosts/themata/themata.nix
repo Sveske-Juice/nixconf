@@ -10,7 +10,6 @@
   }: {
     imports =
       [
-        self.diskoConfigurations.themata
         self.nixosModules.base
         self.nixosModules.general
         self.nixosModules.user-dr3y
@@ -18,9 +17,15 @@
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-themata
+        (self.lib.mkThemataDisko {
+          rootDisk = "/dev/vda";
+        })
       ]
       ++ lib.optionals (!isVM) [
         self.nixosModules.hardware-metal-themata
+        (self.lib.mkThemataDisko {
+          rootDisk = "/dev/nvme0n1";
+        })
       ];
 
     preferences.host = {

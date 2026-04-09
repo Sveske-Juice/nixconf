@@ -8,8 +8,8 @@
   }: let
     masterKeyPath = "/tmp/sops-master-key";
     sopsKeyPath = "/var/lib/sops-nix/key.txt";
-    hostSSHKeyPath = "/etc/ssh/ssh_host_ed25519_key";
-    userSSHKeyPath = username: "/home/${username}/.ssh/id_ed25519";
+    hostSSHKeyPath = "/host-ssh-key";
+    userSSHKeyPath = "/user-ssh-key";
   in {
     imports = [
       inputs.sops-nix.nixosModules.sops
@@ -41,8 +41,7 @@
           # bash
           ''
             mkdir -p $(dirname "${sopsKeyPath}")
-            : > "${sopsKeyPath}"
-            chmod 600 "${sopsKeyPath}"
+            : > "${sopsKeyPath}" && chmod 600 "${sopsKeyPath}"
 
             priv_ssh_to_age() {
               local input_path=$1
@@ -57,14 +56,27 @@
             if [ -d /sys/firmware/qemu_fw_cfg/by_name/opt/masterKey ]; then
               cat "/sys/firmware/qemu_fw_cfg/by_name/opt/masterKey/raw" > "${sopsKeyPath}"
               echo "bootstrapped sops key to vm"
-            else
-              # Existing keys (nixos-rebuild/nixos-anywhere --extra-files)
-              # Convert host & user ssh keys to age keys
-              priv_ssh_to_age "${hostSSHKeyPath}" >> "${sopsKeyPath}"
-              priv_ssh_to_age "${userSSHKeyPath config.preferences.user.name}" >> "${sopsKeyPath}"
+            elif [ -f "${hostSSHKeyPath}" ] && [ -f "${userSSHKeyPath}" ]; then
+              # First time install
+              echo "first time install"
+              priv_ssh_to_age "${hostSSHKeyPath}" > "${sopsKeyPath}"
+              priv_ssh_to_age "${userSSHKeyPath}" >> "${sopsKeyPath}"
+              echo "Converted ssh keys to age keys"
             fi
           '';
         deps = ["specialfs"];
+      };
+
+      system.activationScripts.installSshKeys = {
+        text = 
+          # bash
+          ''
+            if [ -f "${hostSSHKeyPath}" ] && [ -f "${userSSHKeyPath}" ]; then
+              mv "${hostSSHKeyPath}" /etc/ssh/ssh_host_ed25519_key
+              mv "${userSSHKeyPath}" "${config.preferences.user.home}/.ssh/id_ed25519"
+            fi
+          '';
+        deps = [ "ageKeyInjector" "users" "groups" ];
       };
     };
   };

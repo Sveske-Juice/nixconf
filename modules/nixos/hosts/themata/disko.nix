@@ -1,29 +1,33 @@
-# TODO: multiplex for if installing to metal/vm with isVM flag
 {
-  flake.diskoConfigurations.themata.disko.devices = {
-    disk = {
-      main = {
-        device = "/dev/vda";
-        type = "disk";
-        content = {
-          type = "gpt";
-          partitions = {
-            ESP = {
-              type = "EF00";
-              size = "500M";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
+  flake.lib.mkThemataDisko = {
+    rootDisk,
+    bootSize ? "1G",
+  }: {
+    disko.devices = {
+      disk = {
+        main = {
+          device = rootDisk;
+          type = "disk";
+          content = {
+            type = "gpt";
+            partitions = {
+              ESP = {
+                type = "EF00";
+                size = bootSize;
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  mountpoint = "/boot";
+                  mountOptions = ["umask=0077"];
+                };
               };
-            };
-            root = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
+              root = {
+                size = "100%";
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/";
+                };
               };
             };
           };
