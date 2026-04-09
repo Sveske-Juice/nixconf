@@ -18,11 +18,10 @@
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-themata
-        ]
+      ]
       ++ lib.optionals (!isVM) [
         self.nixosModules.hardware-metal-themata
-        ];
-
+      ];
 
     preferences.host = {
       name = "themata";

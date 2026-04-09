@@ -14,7 +14,6 @@
       initrd.kernelModules = [];
       kernelModules = ["kvm-intel"];
       extraModulePackages = [];
-
     };
 
     nixpkgs = {

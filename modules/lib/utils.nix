@@ -22,11 +22,13 @@ in {
         specialArgs = {
           isVM = true;
         };
-        modules = modules ++ [
-          {
-            preferences.secrets = lib.mkForce true;
-          }
-        ];
+        modules =
+          modules
+          ++ [
+            {
+              preferences.secrets = lib.mkForce true;
+            }
+          ];
       };
     };
   };

@@ -34,6 +34,7 @@ _: {
           User = config.preferences.user.name;
           ExecStart = "${
             pkgs.writeShellScript "deploy-gpg.sh" # bash
+            
             ''
               if [ -s ${config.sops.secrets."${sopsKeyPath}".path} ]; then
                 mkdir -p ${gnupgphome} -m "0700"

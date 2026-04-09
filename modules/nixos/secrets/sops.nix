@@ -5,67 +5,67 @@
     pkgs,
     config,
     ...
-    }: let
-      masterKeyPath = "/tmp/sops-master-key";
-      sopsKeyPath = "/var/lib/sops-nix/key.txt";
-      hostSSHKeyPath = "/etc/ssh/ssh_host_ed25519_key";
-      userSSHKeyPath = username: "/home/${username}/.ssh/id_ed25519";
-    in {
-      imports = [
-        inputs.sops-nix.nixosModules.sops
+  }: let
+    masterKeyPath = "/tmp/sops-master-key";
+    sopsKeyPath = "/var/lib/sops-nix/key.txt";
+    hostSSHKeyPath = "/etc/ssh/ssh_host_ed25519_key";
+    userSSHKeyPath = username: "/home/${username}/.ssh/id_ed25519";
+  in {
+    imports = [
+      inputs.sops-nix.nixosModules.sops
+    ];
+    config = lib.mkIf config.preferences.secrets {
+      environment.systemPackages = with pkgs; [
+        sops
+        age
+        ssh-to-age
       ];
-      config = lib.mkIf config.preferences.secrets {
-        environment.systemPackages = with pkgs; [
-          sops
-          age
-          ssh-to-age
+
+      sops = {
+        defaultSopsFile = lib.path.append ../../../secrets/hosts "${config.preferences.host.name}.yaml";
+        age.keyFile = sopsKeyPath;
+      };
+      virtualisation.vmVariant = {
+        # NOTE: so that it gets loaded before ageKeyInjector script runs
+        boot.initrd.kernelModules = ["qemu_fw_cfg"];
+
+        # Bootstrap master key into vm
+        virtualisation.qemu.options = [
+          "-fw_cfg name=opt/masterKey,file=${masterKeyPath}"
         ];
+      };
 
-        sops = {
-          defaultSopsFile = lib.path.append ../../../secrets/hosts "${config.preferences.host.name}.yaml";
-          age.keyFile = sopsKeyPath;
-        };
-        virtualisation.vmVariant = {
-          # NOTE: so that it gets loaded before ageKeyInjector script runs
-          boot.initrd.kernelModules = [ "qemu_fw_cfg" ];
+      # Generate age keys from potential bootstrapped ssh keys
+      system.activationScripts.ageKeyInjector = {
+        text =
+          # bash
+          ''
+            mkdir -p $(dirname "${sopsKeyPath}")
+            : > "${sopsKeyPath}"
+            chmod 600 "${sopsKeyPath}"
 
-          # Bootstrap master key into vm
-          virtualisation.qemu.options = [
-            "-fw_cfg name=opt/masterKey,file=${masterKeyPath}"
-          ];
-        };
+            priv_ssh_to_age() {
+              local input_path=$1
+              if [ -f "$input_path" ]; then
+                ${lib.getExe pkgs.ssh-to-age} -private-key -i "$input_path"
+              else
+                echo "FATAL: Input SSH key: $input_path doesn't exist"
+              fi
+            }
 
-        # Generate age keys from potential bootstrapped ssh keys
-        system.activationScripts.ageKeyInjector = {
-          text = 
-            # bash
-            ''
-          mkdir -p $(dirname "${sopsKeyPath}")
-          : > "${sopsKeyPath}"
-          chmod 600 "${sopsKeyPath}"
-
-          priv_ssh_to_age() {
-            local input_path=$1
-            if [ -f "$input_path" ]; then
-              ${lib.getExe pkgs.ssh-to-age} -private-key -i "$input_path"
+            # QEMU: Copy bootstrapped master key to vm
+            if [ -d /sys/firmware/qemu_fw_cfg/by_name/opt/masterKey ]; then
+              cat "/sys/firmware/qemu_fw_cfg/by_name/opt/masterKey/raw" > "${sopsKeyPath}"
+              echo "bootstrapped sops key to vm"
             else
-              echo "FATAL: Input SSH key: $input_path doesn't exist"
+              # Existing keys (nixos-rebuild/nixos-anywhere --extra-files)
+              # Convert host & user ssh keys to age keys
+              priv_ssh_to_age "${hostSSHKeyPath}" >> "${sopsKeyPath}"
+              priv_ssh_to_age "${userSSHKeyPath config.preferences.user.name}" >> "${sopsKeyPath}"
             fi
-          }
-
-          # QEMU: Copy bootstrapped master key to vm
-          if [ -d /sys/firmware/qemu_fw_cfg/by_name/opt/masterKey ]; then
-            cat "/sys/firmware/qemu_fw_cfg/by_name/opt/masterKey/raw" > "${sopsKeyPath}"
-            echo "bootstrapped sops key to vm"
-          else
-            # Existing keys (nixos-rebuild/nixos-anywhere --extra-files)
-            # Convert host & user ssh keys to age keys
-            priv_ssh_to_age "${hostSSHKeyPath}" >> "${sopsKeyPath}"
-            priv_ssh_to_age "${userSSHKeyPath config.preferences.user.name}" >> "${sopsKeyPath}"
-          fi
           '';
-          deps = [ "specialfs" ];
-        };
+        deps = ["specialfs"];
       };
     };
+  };
 }
