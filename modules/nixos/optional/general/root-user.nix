@@ -12,8 +12,9 @@
     };
 
     users.users.root = {
-      password = lib.mkIf (!config.preferences.secrets) "root";
-      hashedPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."users/root".path;
+      password = "root";
+      # password = lib.mkIf (!config.preferences.secrets) "root";
+      # hashedPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."users/root".path;
     };
   };
 }

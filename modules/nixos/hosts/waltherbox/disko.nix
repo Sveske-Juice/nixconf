@@ -9,11 +9,17 @@ in {
       zfs
     ];
 
-    boot.zfs.devNodes = "/dev/disk/by-path";
+    boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-path";
+    fileSystems."/".neededForBoot = true;
+    fileSystems."/nix".neededForBoot = true;
+    fileSystems."/home".neededForBoot = true;
+    fileSystems."/var".neededForBoot = true;
   };
 
   flake.lib.mkWaltherboxDisko = {
     rootDisk,
+    rootDiskSize ? "100%",
+    raidz1DisksSize ? "100%",
     raidz1Disks,
     bootSize,
     swapSize,
@@ -24,6 +30,7 @@ in {
           main = {
             type = "disk";
             device = rootDisk;
+            imageSize = rootDiskSize;
             content = {
               type = "gpt";
               partitions = {
@@ -59,6 +66,7 @@ in {
         // lib.attrsets.genAttrs raidz1Disks (name: {
           type = "disk";
           device = "/dev/${name}";
+          imageSize = raidz1DisksSize;
           content = {
             type = "gpt";
             partitions = {

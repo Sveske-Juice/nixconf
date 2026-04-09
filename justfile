@@ -13,11 +13,11 @@ build-vm-with-secrets host *args:
   echo "$TEMP_VAL" > "{{masterKeyPath}}"
   chmod 600 "{{masterKeyPath}}"
 
-  nixos-rebuild build-vm --flake '.#{{host}}-vm-secrets' {{args}}
+  nix build -L '.#nixosConfigurations.{{host}}-vm-secrets.config.system.build.vmWithDisko'
 
 run-vm-with-secrets host *args:
   just build-vm-with-secrets {{host}}
-  ./result/bin/run-*-vm {{args}}
+  ./result/bin/disko-vm {{args}}
   rm -rf "{{masterKeyPath}}"
 
 install-remote host user metal *args:

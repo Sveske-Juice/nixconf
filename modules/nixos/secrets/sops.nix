@@ -25,7 +25,7 @@
         defaultSopsFile = lib.path.append ../../../secrets/hosts "${config.preferences.host.name}.yaml";
         age.keyFile = sopsKeyPath;
       };
-      virtualisation.vmVariant = {
+      virtualisation.vmVariantWithDisko = {
         # NOTE: so that it gets loaded before ageKeyInjector script runs
         boot.initrd.kernelModules = ["qemu_fw_cfg"];
 

@@ -26,6 +26,8 @@
           ];
           bootSize = "500M";
           swapSize = "500M";
+          rootDiskSize = "10G";
+          raidz1DisksSize = "4G";
         })
       ]
       ++ lib.optionals (!isVM) [
