@@ -17,6 +17,17 @@ in {
         };
         inherit modules;
       };
+
+      "${host}-vm-secrets" = lib.nixosSystem {
+        specialArgs = {
+          isVM = true;
+        };
+        modules = modules ++ [
+          {
+            preferences.secrets = lib.mkForce true;
+          }
+        ];
+      };
     };
   };
 }

@@ -1,8 +1,8 @@
-build-vm-with-secrets *args:
-  #!/usr/bin/env bash
-  KEY_PATH="/tmp/sops-master-key"
+masterKeyPath := '/tmp/sops-master-key'
 
-  # 1. Get the key
+build-vm-with-secrets host *args:
+  #!/usr/bin/env bash
+  # get master key
   if [ -z "$SOPS_AGE_KEY" ]; then
       echo "Sops master key (Ctrl+D):"
       TEMP_VAL=$(cat)
@@ -10,11 +10,53 @@ build-vm-with-secrets *args:
       TEMP_VAL="$SOPS_AGE_KEY"
   fi
 
-  echo "$TEMP_VAL" > "$KEY_PATH"
-  chmod 600 "$KEY_PATH"
+  echo "$TEMP_VAL" > "{{masterKeyPath}}"
+  chmod 600 "{{masterKeyPath}}"
 
-  nixos-rebuild build-vm --flake . {{args}}
+  nixos-rebuild build-vm --flake '.#{{host}}-vm-secrets' {{args}}
 
-run-vm-with-secrets *args:
-  just build-vm-with-secrets
+run-vm-with-secrets host *args:
+  just build-vm-with-secrets {{host}}
   ./result/bin/run-*-vm {{args}}
+  rm -rf "{{masterKeyPath}}"
+
+install-remote host user metal *args:
+  #! /usr/bin/env nix-shell
+  #! nix-shell -i bash -p sops yq nixos-anywhere
+  umask 077
+  temp=$(mktemp -d)
+  cleanup() {
+    rm -rf "$temp"
+  }
+  trap cleanup EXIT
+
+  HOST="{{host}}"
+  if [ "{{metal}}" == "metal" ]; then
+    echo "Installing bare metal"
+  elif [ "{{metal}}" == "vm" ]; then
+    HOST="{{host}}-vm-secrets"
+    echo "Installing host as vm: $HOST"
+  else
+    echo "error: Must be either metal or vm"
+    exit 1
+  fi
+
+  # get master key
+  if [ -z "$SOPS_AGE_KEY" ]; then
+      echo "Sops master key (Ctrl+D):"
+      TEMP_VAL=$(cat)
+  else
+      TEMP_VAL="$SOPS_AGE_KEY"
+  fi
+
+  install -dm755 "$temp/etc/ssh"
+  install -dm755 "$temp/home/{{user}}/.ssh"
+
+  echo "extracting '{{host}}' key..."
+  sops -d "secrets/hosts/{{host}}.yaml" | yq -r ".ssh.key" > "$temp/etc/ssh/ssh_host_ed25519_key"
+
+  echo "extracting '{{user}}' key..."
+  sops -d "secrets/users/{{user}}.yaml" | yq -r ".ssh.key" > "$temp/home/{{user}}/.ssh/id_ed25519"
+
+  # nixos-anywhere
+  nixos-anywhere --extra-files "$temp" --flake .#$HOST {{args}} 

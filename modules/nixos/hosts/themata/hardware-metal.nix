@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.host-themata = {
+  flake.nixosModules.hardware-metal-themata = {
     config,
     lib,
     modulesPath,
@@ -15,13 +15,6 @@
       kernelModules = ["kvm-intel"];
       extraModulePackages = [];
 
-      loader.grub = {
-        enable = true;
-        device = "nodev";
-        useOSProber = true;
-        efiSupport = true;
-      };
-      loader.efi.canTouchEfiVariables = true;
     };
 
     nixpkgs = {
@@ -39,22 +32,5 @@
       enableAllFirmware = true;
       cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     };
-
-    fileSystems."/" = {
-      device = "/dev/disk/by-uuid/6d465feb-ba25-4cbc-88ae-54fc5ac3957c";
-      fsType = "ext4";
-    };
-
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/97A2-3DFC";
-      fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
-    };
-
-    swapDevices = [
-      {
-        device = "/dev/disk/by-uuid/68adaddb-40da-418b-870f-3610518571d9";
-      }
-    ];
   };
 }
