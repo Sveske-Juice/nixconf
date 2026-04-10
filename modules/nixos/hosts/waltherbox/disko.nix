@@ -3,17 +3,13 @@
 in {
   flake.nixosModules.host-waltherbox = {pkgs, ...}: {
     # Required by ZFS
-    networking.hostId = "ea92eebd";
+    networking.hostId = "deadbeef"; # hehe
 
     environment.systemPackages = with pkgs; [
       zfs
     ];
 
     boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-path";
-    fileSystems."/".neededForBoot = true;
-    fileSystems."/nix".neededForBoot = true;
-    fileSystems."/home".neededForBoot = true;
-    fileSystems."/var".neededForBoot = true;
   };
 
   flake.lib.mkWaltherboxDisko = {
@@ -86,31 +82,29 @@ in {
           type = "zpool";
           rootFsOptions = {
             mountpoint = "none";
+            canmount = "off";
             acltype = "posixacl";
             xattr = "sa";
             atime = "off"; # disable access time better performance
+          };
+
+          options = {
+            ashift = "12"; # 4K blocksize
+            autotrim = "on";
           };
 
           datasets = {
             root = {
               type = "zfs_fs";
               mountpoint = "/";
-              options.canmount = "on";
             };
             nix = {
               type = "zfs_fs";
               mountpoint = "/nix";
-              options.canmount = "on";
             };
             var = {
               type = "zfs_fs";
               mountpoint = "/var";
-              options.canmount = "on";
-            };
-            home = {
-              type = "zfs_fs";
-              mountpoint = "/home";
-              options.canmount = "on";
             };
           };
         };
@@ -130,7 +124,6 @@ in {
             data = {
               type = "zfs_fs";
               mountpoint = "/data";
-              options.canmount = "on";
             };
           };
         };
