@@ -10,6 +10,13 @@ in {
     ];
 
     boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-path";
+    boot.initrd.systemd.enable = true;
+    boot.supportedFilesystems = [ "zfs" ];
+    boot.initrd.kernelModules = [ "zfs" ];
+    fileSystems."/" = {
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
   };
 
   flake.lib.mkWaltherboxDisko = {
@@ -97,14 +104,22 @@ in {
             root = {
               type = "zfs_fs";
               mountpoint = "/";
+              options."com.sun:auto-snapshot" = "false";
             };
             nix = {
               type = "zfs_fs";
               mountpoint = "/nix";
+              options."com.sun:auto-snapshot" = "false";
             };
             var = {
               type = "zfs_fs";
               mountpoint = "/var";
+              options."com.sun:auto-snapshot" = "false";
+            };
+            home = {
+              type = "zfs_fs";
+              mountpoint = "/home";
+              options."com.sun:auto-snapshot" = "true";
             };
           };
         };
