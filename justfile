@@ -1,6 +1,13 @@
 masterKeyPath := '/tmp/sops-master-key'
 
-build-vm-with-secrets host *args:
+build-vm host:
+  nix build -L '.#nixosConfigurations.{{host}}-vm.config.system.build.vmWithDisko'
+
+run-vm host *ARGS:
+  just build-vm {{host}}
+  ./result/bin/disko-vm {{ARGS}}
+
+build-vm-with-secrets host:
   #!/usr/bin/env bash
   # get master key
   if [ -z "$SOPS_AGE_KEY" ]; then
@@ -15,9 +22,9 @@ build-vm-with-secrets host *args:
 
   nix build -L '.#nixosConfigurations.{{host}}-vm-secrets.config.system.build.vmWithDisko'
 
-run-vm-with-secrets host *args:
+run-vm-with-secrets host *ARGS:
   just build-vm-with-secrets {{host}}
-  ./result/bin/disko-vm {{args}}
+  ./result/bin/disko-vm {{ARGS}}
   rm -rf "{{masterKeyPath}}"
 
 install-remote host user metal *args:

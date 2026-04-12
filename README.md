@@ -1,13 +1,13 @@
 # Installation
 
-## Test install to VM (`nixos-rebuild build-vm`)
+## VM with disko
 ```sh
-nixos-rebuild build-vm --flake .#<hostname>-vm
+just (run|build)-vm <hostname> [args to qemu]
 ```
-This will build the nixos config with stub secrets.
+This will build the nixosConfiguration with stub secrets.
 
-## Test install to VM with secrets
-```
+## VM with disko + secrets
+```sh
 SOPS_AGE_KEY=<master-key> just (build|run)-vm-with-secrets <hostname> [args to qemu]
 ```
 This will:
@@ -15,7 +15,7 @@ This will:
 - The custom activationScript will extract the key before sops is run.
 - Sops uses the extracted key as age key to extract secrets.
 
-## Install remotely (`nixos-anywhere`)
+## Remote (`nixos-anywhere`) with disko + secrets
 *Requirements:*
 - The Host's private SSH key should be in `./secrets/hosts/<hostname>.yaml`.
   - `ssh/key`
@@ -25,16 +25,16 @@ This will:
 - Target running NixOS installer
 - Set password for nixos user
 
-```
+```sh
 SOPS_AGE_KEY=<master-key> just install-remote <hostname> <username> (metal|vm) [nixos-anywhere args]
 ```
 Example:
-```
+```sh
 SOPS_AGE_KEY=<master-key> just install-remote themata dr3y vm --target-host nixos@192.168.67.67
 ```
 This will:
 - Extract the host and user's ssh keys into a tmp dir.
 - Copy the ssh keys over to the target with nixos-anywhere --extra-files.
-- Use nixos-anywhere to format disks (disko) and install.
-- The custom activationScript will convert the host and user' ssh keys to age
+- Use nixos-anywhere to format disks (disko) and install the configuration.
+- The custom activationScript will convert the host and user' ssh keys to age 
   keys for sops to extract secrets.
