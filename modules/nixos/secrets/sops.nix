@@ -68,7 +68,7 @@
       };
 
       system.activationScripts.installSshKeys = {
-        text = 
+        text =
           # bash
           ''
             if [ -f "${hostSSHKeyPath}" ] && [ -f "${userSSHKeyPath}" ]; then
@@ -76,7 +76,7 @@
               mv "${userSSHKeyPath}" "${config.preferences.user.home}/.ssh/id_ed25519"
             fi
           '';
-        deps = [ "ageKeyInjector" "users" "groups" ];
+        deps = ["ageKeyInjector" "users" "groups"];
       };
     };
   };
