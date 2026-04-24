@@ -1,4 +1,4 @@
-_: {
+{self, ...}: {
   flake.nixosModules.user-dr3y = {config, ...}: {
     preferences.user = {
       name = "dr3y";
@@ -7,5 +7,9 @@ _: {
     };
 
     deploy-gpg.enable = config.preferences.secrets;
+
+    imports = [
+      self.nixosModules.niri
+    ];
   };
 }
