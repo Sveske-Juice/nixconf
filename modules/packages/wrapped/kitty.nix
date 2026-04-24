@@ -1,7 +1,7 @@
 {
-self,
-inputs,
-...
+  self,
+  inputs,
+  ...
 }: {
   flake.wrappersModules.kitty = {
     font = {
@@ -11,7 +11,6 @@ inputs,
 
     settings = {
       enable_audio_bell = "no";
-
 
       cursor_text_color = "background";
 
