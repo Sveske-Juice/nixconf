@@ -11,11 +11,11 @@ in {
 
     boot.zfs.devNodes = lib.mkDefault "/dev/disk/by-path";
     boot.initrd.systemd.enable = true;
-    boot.supportedFilesystems = [ "zfs" ];
-    boot.initrd.kernelModules = [ "zfs" ];
+    boot.supportedFilesystems = ["zfs"];
+    boot.initrd.kernelModules = ["zfs"];
     fileSystems."/" = {
       fsType = "zfs";
-      options = [ "zfsutil" ];
+      options = ["zfsutil"];
     };
   };
 
