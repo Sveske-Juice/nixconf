@@ -16,10 +16,22 @@
     config,
     ...
   }: {
-    options.terminal = lib.mkOption {
-      type = lib.types.str;
-      default = "xdg-terminal-exec";
-      example = "kitty";
+    options = {
+      terminal = lib.mkOption {
+        type = lib.types.str;
+        default = "xdg-terminal-exec || $TERMINAL";
+        example = "kitty";
+      };
+      browser = lib.mkOption {
+        type = lib.types.str;
+        default = "xdg-open https://";
+        example = "firefox";
+      };
+      filemanager = lib.mkOption {
+        type = lib.types.str;
+        default = ''xdg-open getenv("HOME")'';
+        example = "thunar";
+      };
     };
 
     config = {
@@ -51,13 +63,15 @@
         binds = let
           screenshotExe = "${pkgs.hyprshot}/bin/hyprshot -m region --raw | ${pkgs.satty}/bin/satty --filename - --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy'";
         in {
-          "Mod+Return".spawn = "${config.terminal}";
+          "Mod+Return".spawn-sh = "${config.terminal}";
+          "Mod+B".spawn-sh = "${config.browser}";
+          "Mod+W".spawn = "${config.filemanager}";
 
           "Mod+Q".close-window = {};
           "Mod+F".maximize-column = {};
           "Mod+G".fullscreen-window = {};
           "Mod+Shift+F".toggle-window-floating = {};
-          "Mod+Shift+C".center-column = {};
+          "Mod+E".center-column = {};
 
           "Mod+H".focus-column-left = {};
           "Mod+L".focus-column-right = {};

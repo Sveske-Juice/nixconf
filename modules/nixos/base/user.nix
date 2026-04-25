@@ -32,6 +32,10 @@
             default = null;
             type = lib.types.nullOr lib.types.str;
           };
+          browser = lib.mkOption {
+            default = null;
+            type = lib.types.nullOr lib.types.str;
+          };
         };
       };
     };
