@@ -38,7 +38,7 @@ _: {
             ''
               if [ -s ${config.sops.secrets."${sopsKeyPath}".path} ]; then
                 mkdir -p ${gnupgphome} -m "0700"
-                ${pkgs.gnupg}/bin/gpg --pinentry-mode loopback --import ${
+                cat "${config.sops.secrets."${sopsPasswdPath}".path}" | ${pkgs.gnupg}/bin/gpg --passphrase-fd 0 --pinentry-mode loopback --import ${
                 config.sops.secrets."${sopsKeyPath}".path
               }
 
