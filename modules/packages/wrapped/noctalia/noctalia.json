@@ -220,16 +220,20 @@
       "lockScreenTint": 0,
       "keybinds": {
         "keyUp": [
-          "Up"
+          "Up",
+          "Ctrl+K"
         ],
         "keyDown": [
-          "Down"
+          "Down",
+          "Ctrl+N"
         ],
         "keyLeft": [
-          "Left"
+          "Left",
+          "Ctrl+H"
         ],
         "keyRight": [
-          "Right"
+          "Right",
+          "Ctrl+L"
         ],
         "keyEnter": [
           "Return",
@@ -627,7 +631,7 @@
     "colorSchemes": {
       "useWallpaperColors": false,
       "predefinedScheme": "Gruvbox",
-      "darkMode": true,
+      "darkMode": false,
       "schedulingMode": "manual",
       "manualSunrise": "06:30",
       "manualSunset": "18:30",
