@@ -41,7 +41,7 @@
           # bash
           ''
             mkdir -p $(dirname "${sopsKeyPath}")
-            : > "${sopsKeyPath}" && chmod 600 "${sopsKeyPath}"
+            chmod 600 "${sopsKeyPath}"
 
             priv_ssh_to_age() {
               local input_path=$1
