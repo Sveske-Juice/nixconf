@@ -1,6 +1,7 @@
 result
 result-*
 build/
+.direnv/
 .cache/
 *.qcow2
 *.fd
