@@ -6,6 +6,7 @@
       gpgKey = "44B31C98B111DF02";
       terminal = "kitty";
       browser = "librewolf";
+      filemanager = "nautilus";
     };
 
     deploy-gpg.enable = config.preferences.secrets;
@@ -15,6 +16,7 @@
 
       self.nixosModules.kitty
       self.nixosModules.librewolf
+      self.nixosModules.nautilus
     ];
   };
 }

@@ -93,6 +93,7 @@
           "Print".spawn-sh = screenshotExe;
           "Mod+S".spawn-sh = screenshotExe;
 
+          "Mod+Shift+S".spawn-sh = "${noctaliaExe} ipc call settings toggle";
           "Mod+D".spawn-sh = "${noctaliaExe} ipc call launcher toggle";
           "Mod+C".spawn-sh = "${noctaliaExe} ipc call launcher clipboard";
           "Mod+U".spawn-sh = "${noctaliaExe} ipc call lockScreen lock";
