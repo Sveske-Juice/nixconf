@@ -24,6 +24,15 @@
       sops = {
         defaultSopsFile = lib.path.append ../../../secrets/hosts "${config.preferences.host.name}.yaml";
         age.keyFile = sopsKeyPath;
+
+        secrets = {
+          "ssh/key" = {
+            sopsFile = lib.path.append ../../../secrets/users "${config.preferences.user.name}.yaml";
+            owner = config.preferences.user.name;
+            inherit (config.users.users."${config.preferences.user.name}") group;
+            path = "${config.preferences.user.home}/.ssh/id_ed25519";
+          };
+        };
       };
       virtualisation.vmVariantWithDisko = {
         # NOTE: so that it gets loaded before ageKeyInjector script runs
@@ -40,8 +49,7 @@
         text =
           # bash
           ''
-            mkdir -p $(dirname "${sopsKeyPath}")
-            chmod 600 "${sopsKeyPath}"
+            [ -e "${sopsKeyPath}" ] || install -Dm600 /dev/null "${sopsKeyPath}"
 
             priv_ssh_to_age() {
               local input_path=$1
@@ -71,6 +79,7 @@
         text =
           # bash
           ''
+            install -d -m 700 -o "${config.preferences.user.name}" -g "${config.users.users."${config.preferences.user.name}".group}" "${config.preferences.user.home}/.ssh"
             if [ -f "${hostSSHKeyPath}" ] && [ -f "${userSSHKeyPath}" ]; then
               mv "${hostSSHKeyPath}" /etc/ssh/ssh_host_ed25519_key
               mv "${userSSHKeyPath}" "${config.preferences.user.home}/.ssh/id_ed25519"
