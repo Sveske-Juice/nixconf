@@ -6,6 +6,8 @@
       self.inputs.sops-nix.nixosModules.sops
 
       self.inputs.disko.nixosModules.default
+
+      self.inputs.hjem.nixosModules.default
     ];
   };
 }
