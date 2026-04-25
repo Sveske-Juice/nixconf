@@ -4,7 +4,7 @@ _: {
       pavucontrol
       pwvucontrol
       coppwr
-      helvum
+      crosspipe
     ];
 
     security.rtkit.enable = true;
