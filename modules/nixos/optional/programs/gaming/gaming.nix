@@ -1,0 +1,27 @@
+{
+  flake.nixosModules.gaming = {lib, pkgs, ...}: {
+    programs = {
+      gamemode.enable = true;
+      gamescope.enable = true;
+      steam = {
+        enable = true;
+        protontricks.enable = true;
+      };
+    };
+
+    environment.systemPackages = with pkgs; [
+      gamescope
+
+      steam-run
+      prismlauncher
+      mangohud
+    ];
+
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "steam"
+      "steam-original"
+      "steam-unwrapped"
+      "steam-run"
+    ];
+  };
+}

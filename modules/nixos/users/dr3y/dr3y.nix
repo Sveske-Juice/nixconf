@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.user-dr3y = {config, ...}: {
+  flake.nixosModules.user-dr3y = {lib, config, isVM, ...}: {
     preferences.user = {
       name = "dr3y";
       email = "sveske_juice@tuta.com";
@@ -18,6 +18,9 @@
       self.nixosModules.kitty
       self.nixosModules.librewolf
       self.nixosModules.nautilus
-    ];
+    ] ++ lib.optionals (!isVM) [
+        # No need for these big packages to be included in vm tests
+        self.nixosModules.gaming
+      ];
   };
 }
