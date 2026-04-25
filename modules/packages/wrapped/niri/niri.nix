@@ -18,7 +18,8 @@
   }: {
     options.terminal = lib.mkOption {
       type = lib.types.str;
-      default = "kitty";
+      default = "xdg-terminal-exec";
+      example = "kitty";
     };
 
     config = {
@@ -47,14 +48,16 @@
             accel-profile = "flat";
           };
         };
-        binds = {
+        binds = let
+          screenshotExe = "${pkgs.hyprshot}/bin/hyprshot -m region --raw | ${pkgs.satty}/bin/satty --filename - --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy'";
+        in {
           "Mod+Return".spawn = "${config.terminal}";
 
           "Mod+Q".close-window = {};
           "Mod+F".maximize-column = {};
           "Mod+G".fullscreen-window = {};
           "Mod+Shift+F".toggle-window-floating = {};
-          "Mod+C".center-column = {};
+          "Mod+Shift+C".center-column = {};
 
           "Mod+H".focus-column-left = {};
           "Mod+L".focus-column-right = {};
@@ -70,6 +73,27 @@
           "Mod+Shift+L".move-column-right = {};
           "Mod+Shift+K".move-window-up = {};
           "Mod+Shift+J".move-window-down = {};
+
+          "Mod+O".toggle-overview = {};
+          "XF86SelectiveScreenshot".spawn-sh = screenshotExe;
+          "Print".spawn-sh = screenshotExe;
+          "Mod+S".spawn-sh = screenshotExe;
+
+          "Mod+D".spawn-sh = "${noctaliaExe} ipc call launcher toggle";
+          "Mod+C".spawn-sh = "${noctaliaExe} ipc call launcher clipboard";
+          "Mod+U".spawn-sh = "${noctaliaExe} ipc call lockScreen lock";
+
+          "Mod+Z".spawn-sh = "${noctaliaExe} ipc call volume muteInput";
+          "XF86AudioMicMute".spawn-sh = "${noctaliaExe} ipc call volume muteInput";
+          "XF86AudioRaiseVolume".spawn-sh = "${noctaliaExe} ipc call volume increase";
+          "XF86AudioLowerVolume".spawn-sh = "${noctaliaExe} ipc call volume decrease";
+
+          "XF86AudioPlay".spawn-sh = "${noctaliaExe} ipc call media playPause";
+          "XF86AudioPrev".spawn-sh = "${noctaliaExe} ipc call media previous";
+          "XF86AudioNext".spawn-sh = "${noctaliaExe} ipc call media next";
+
+          "XF86MonBrightnessUp".spawn-sh = "${noctaliaExe} ipc call brightness increase";
+          "XF86MonBrightnessDown".spawn-sh = "${noctaliaExe} ipc call brightness decrease";
         };
         layout = {
           gaps = 5;
