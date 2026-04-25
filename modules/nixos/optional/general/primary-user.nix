@@ -16,6 +16,7 @@
       isNormalUser = true;
       extraGroups = [
         "wheel"
+        "networkmanager"
       ];
       password = lib.mkIf (!config.preferences.secrets) config.preferences.user.name;
       hashedPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."users/${config.preferences.user.name}".path;

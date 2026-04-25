@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {lib, ...}: {
+  flake.nixosModules.base = {lib, config, ...}: {
     options.preferences.host = lib.mkOption {
       type = lib.types.submodule {
         options = {
@@ -8,6 +8,10 @@
           };
         };
       };
+    };
+
+    config = {
+      networking.hostName = config.preferences.host.name;
     };
   };
 }
