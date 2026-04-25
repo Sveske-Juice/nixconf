@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.base = {lib, config, ...}: {
+  flake.nixosModules.base = {
+    lib,
+    config,
+    ...
+  }: {
     options = {
       keyGroups = lib.mkOption {
         default = {};

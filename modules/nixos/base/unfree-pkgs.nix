@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.base = {lib, config, ...}: {
+  flake.nixosModules.base = {
+    lib,
+    config,
+    ...
+  }: {
     options.allowedUnfreePackages = lib.mkOption {
       default = [];
       type = lib.types.listOf lib.types.str;

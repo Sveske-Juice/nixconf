@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.gaming = {lib, pkgs, ...}: {
+  flake.nixosModules.gaming = {pkgs, ...}: {
     programs = {
       gamemode.enable = true;
       gamescope.enable = true;

@@ -1,5 +1,10 @@
 {
-  flake.nixosModules.nautilus = {lib, pkgs, config, ...}: {
+  flake.nixosModules.nautilus = {
+    lib,
+    pkgs,
+    config,
+    ...
+  }: {
     services.gvfs.enable = true;
 
     environment.systemPackages = [

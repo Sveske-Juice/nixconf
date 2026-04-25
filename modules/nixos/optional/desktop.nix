@@ -3,7 +3,7 @@
 # Actual DE/WM
 # XDG Desktop portal
 {self, ...}: {
-  flake.nixosModules.desktop = {lib, pkgs, ...}: {
+  flake.nixosModules.desktop = {pkgs, ...}: {
     imports = [
       self.nixosModules.driver-pipewire
       self.nixosModules.driver-bluetooth
