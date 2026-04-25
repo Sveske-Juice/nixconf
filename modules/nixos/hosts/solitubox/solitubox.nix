@@ -25,6 +25,7 @@
         self.nixosModules.hardware-metal-solitubox
         (self.lib.mkSolituboxDisko {
           rootDisk = "/dev/nvme0n1";
+          swapSize = "32G";
         })
       ];
 

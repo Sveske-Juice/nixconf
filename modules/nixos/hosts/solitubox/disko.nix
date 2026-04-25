@@ -2,6 +2,7 @@
   flake.lib.mkSolituboxDisko = {
     rootDisk,
     bootSize ? "1G",
+    swapSize ? "4G",
   }: {
     disko.devices = {
       disk = {
@@ -21,6 +22,14 @@
                   mountOptions = ["umask=0077"];
                 };
               };
+                swap = {
+                  size = swapSize;
+                  content = {
+                    type = "swap";
+                    discardPolicy = "both";
+                    resumeDevice = true;
+                  };
+                };
               root = {
                 size = "100%";
                 content = {
