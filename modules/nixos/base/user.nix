@@ -28,6 +28,21 @@
               then "/home/${user}"
               else "/Users/${user}";
           };
+          terminal = lib.mkOption {
+            default = null;
+            type = lib.types.nullOr lib.types.str;
+          };
+        };
+      };
+    };
+
+    config = {
+      xdg.terminal-exec = lib.mkIf (config.preferences.user.terminal != null) {
+        enable = true;
+        settings = {
+          default = [
+            "${config.preferences.user.terminal}.desktop"
+          ];
         };
       };
     };
