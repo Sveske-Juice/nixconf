@@ -1,5 +1,10 @@
 {self, ...}: {
-  flake.nixosModules.user-dr3y = {lib, config, isVM, ...}: {
+  flake.nixosModules.user-dr3y = {
+    lib,
+    config,
+    isVM,
+    ...
+  }: {
     preferences.user = {
       name = "dr3y";
       email = "sveske_juice@tuta.com";
@@ -11,16 +16,19 @@
 
     deploy-gpg.enable = config.preferences.secrets;
 
-    imports = [
-      self.nixosModules.desktop
-      self.nixosModules.niri
+    imports =
+      [
+        self.nixosModules.desktop
+        self.nixosModules.niri
 
-      self.nixosModules.kitty
-      self.nixosModules.librewolf
-      self.nixosModules.nautilus
-    ] ++ lib.optionals (!isVM) [
+        self.nixosModules.kitty
+        self.nixosModules.librewolf
+        self.nixosModules.nautilus
+      ]
+      ++ lib.optionals (!isVM) [
         # No need for these big packages to be included in vm tests
         self.nixosModules.gaming
+        self.nixosModules.virt-manager
       ];
   };
 }
