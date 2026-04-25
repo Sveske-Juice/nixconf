@@ -26,6 +26,7 @@
         self.nixosModules.kitty
         self.nixosModules.librewolf
         self.nixosModules.nautilus
+        self.nixosModules.keepassxc
       ]
       ++ lib.optionals (!isVM) [
         # No need for these big packages to be included in vm tests
