@@ -116,11 +116,12 @@ in {
               mountpoint = "/var";
               options."com.sun:auto-snapshot" = "false";
             };
-            home = {
-              type = "zfs_fs";
-              mountpoint = "/home";
-              options."com.sun:auto-snapshot" = "true";
-            };
+            # FIXME: https://discourse.nixos.org/t/zroot-home-not-mounted-in-stage-1-init-using-zfs-with-disko/76951
+            # home = {
+            #   type = "zfs_fs";
+            #   mountpoint = "/home";
+            #   options."com.sun:auto-snapshot" = "true";
+            # };
           };
         };
 
