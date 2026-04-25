@@ -14,9 +14,6 @@
         self.nixosModules.general
         self.nixosModules.user-dr3y
         self.nixosModules.secrets
-        
-        self.nixosModules.driver-pipewire
-        self.nixosModules.driver-bluetooth
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-themata
@@ -34,8 +31,6 @@
     preferences.host = {
       name = "themata";
     };
-
-    hardware.graphics.enable = true;
 
     system.stateVersion = "26.05";
   };

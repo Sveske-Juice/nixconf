@@ -12,6 +12,7 @@
     deploy-gpg.enable = config.preferences.secrets;
 
     imports = [
+      self.nixosModules.desktop
       self.nixosModules.niri
 
       self.nixosModules.kitty

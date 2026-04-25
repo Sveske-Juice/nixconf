@@ -1,0 +1,27 @@
+# Configuration that is common for all desktop systems
+# Except:
+# Actual DE/WM
+# XDG Desktop portal
+{self, ...}: {
+  flake.nixosModules.desktop = {lib, pkgs, ...}: {
+    imports = [
+      self.nixosModules.driver-pipewire
+      self.nixosModules.driver-bluetooth
+    ];
+
+    hardware.graphics.enable = true;
+    security.polkit.enable = true;
+
+    fonts.packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      ubuntu-sans
+      cm_unicode
+      corefonts
+      unifont
+    ];
+
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "corefonts"
+    ];
+  };
+}
