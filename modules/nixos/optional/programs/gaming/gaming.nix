@@ -17,7 +17,7 @@
       mangohud
     ];
 
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    allowedUnfreePackages = [
       "steam"
       "steam-original"
       "steam-unwrapped"
