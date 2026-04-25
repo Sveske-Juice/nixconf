@@ -22,14 +22,14 @@
                   mountOptions = ["umask=0077"];
                 };
               };
-                swap = {
-                  size = swapSize;
-                  content = {
-                    type = "swap";
-                    discardPolicy = "both";
-                    resumeDevice = true;
-                  };
+              swap = {
+                size = swapSize;
+                content = {
+                  type = "swap";
+                  discardPolicy = "both";
+                  resumeDevice = true;
                 };
+              };
               root = {
                 size = "100%";
                 content = {

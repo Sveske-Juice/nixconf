@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.base = {lib, config, ...}: {
+  flake.nixosModules.base = {
+    lib,
+    config,
+    ...
+  }: {
     options.preferences.host = lib.mkOption {
       type = lib.types.submodule {
         options = {
