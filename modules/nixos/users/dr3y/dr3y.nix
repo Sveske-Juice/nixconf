@@ -31,10 +31,11 @@
       ++ lib.optionals (!isVM) [
         # No need for these big packages to be included in VMs
         # too speed up build process
+        self.nixosModules.ocr
+        self.nixosModules.libreoffice
+
         self.nixosModules.gaming
         self.nixosModules.virt-manager
-
-        self.nixosModules.ocr
 
         self.nixosModules.spotify
         self.nixosModules.vesktop
