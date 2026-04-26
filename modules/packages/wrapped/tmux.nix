@@ -91,10 +91,10 @@
     };
   };
 
-  perSystem = {pkgs, ...}: {
-    packages.tmux = inputs.wrapper-modules.wrappers.tmux.wrap {
-      inherit pkgs;
-      imports = [self.wrappersModules.tmux];
-    };
+  flake.wrappers.tmux = {wlib, ...}: {
+    imports = [
+      wlib.wrapperModules.tmux
+      self.wrappersModules.tmux
+    ];
   };
 }
