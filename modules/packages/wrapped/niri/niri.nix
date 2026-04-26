@@ -31,9 +31,12 @@
     };
 
     config = {
-      extraPackages = [
-        pkgs.bibata-cursors
-      ];
+      env = {
+        # Since the cursor package lives inside the wrapped package niri
+        # doesnt know where to look for the cursor pkg, so set the env var
+        "XCURSOR_PATH" = "${pkgs.bibata-cursors}/share/icons";
+      };
+
       settings = let
         noctaliaExe = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-shell;
       in {
