@@ -1,8 +1,4 @@
-{
-  self,
-  inputs,
-  ...
-}: {
+{self, ...}: {
   flake.wrappersModules.tmux = {pkgs, ...}: let
     is_vim =
       pkgs.writeShellScriptBin "is_vim.sh"
