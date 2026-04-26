@@ -20,20 +20,12 @@
           Default = "DuckDuckGo";
         };
         Preferences = {
-          "webgl.disabled" = false; # enable WebGL
-          "privacy.resistFingerprinting" = false;
-          "privacy.clearOnShutdown.history" = false; # Keep history
-          "privacy.clearOnShutdown.cookies" = false; # Keep cookies (stay logged in)
+          "webgl.disabled" = false;
+          "privacy.resistFingerprinting" = true;
+          "privacy.clearOnShutdown.history" = false;
+          "privacy.clearOnShutdown.cookies" = false;
           "network.cookie.lifetimePolicy" = 0;
-
-          "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
-          "cookiebanners.service.mode" = 2; # Block cookie banners
-          "privacy.donottrackheader.enabled" = true;
           "privacy.fingerprintingProtection" = true;
-          "privacy.trackingprotection.emailtracking.enabled" = true;
-          "privacy.trackingprotection.enabled" = true;
-          "privacy.trackingprotection.fingerprinting.enabled" = true;
-          "privacy.trackingprotection.socialtracking.enabled" = true;
         };
         # To add new extensions:
         # 1. Install extension from GUI
