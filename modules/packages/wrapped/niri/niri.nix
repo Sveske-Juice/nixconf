@@ -35,6 +35,9 @@
     };
 
     config = {
+      extraPackages = [
+        pkgs.bibata-cursors
+      ];
       settings = let
         noctaliaExe = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-shell;
       in {
@@ -60,6 +63,12 @@
             accel-profile = "flat";
           };
         };
+
+        cursor = {
+          xcursor-theme = "Bibata-Modern-Classic";
+          xcursor-size = 24;
+        };
+
         binds = let
           screenshotExe = "${pkgs.hyprshot}/bin/hyprshot -m region --raw | ${pkgs.satty}/bin/satty --filename - --early-exit --actions-on-enter save-to-clipboard --copy-command 'wl-copy'";
         in {
@@ -163,10 +172,10 @@
     };
   };
 
-  perSystem = {pkgs, ...}: {
-    packages.niri = inputs.wrapper-modules.wrappers.niri.wrap {
-      inherit pkgs;
-      imports = [self.wrappersModules.niri];
-    };
+  flake.wrappers.niri = {wlib, ...}: {
+    imports = [
+      wlib.wrapperModules.niri
+      self.wrappersModules.niri
+    ];
   };
 }
