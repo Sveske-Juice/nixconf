@@ -27,15 +27,18 @@
         self.nixosModules.librewolf
         self.nixosModules.nautilus
         self.nixosModules.keepassxc
+      ]
+      ++ lib.optionals (!isVM) [
+        # No need for these big packages to be included in VMs
+        # too speed up build process
+        self.nixosModules.gaming
+        self.nixosModules.virt-manager
+
+        self.nixosModules.ocr
 
         self.nixosModules.spotify
         self.nixosModules.vesktop
         self.nixosModules.obsidian
-      ]
-      ++ lib.optionals (!isVM) [
-        # No need for these big packages to be included in vm tests
-        self.nixosModules.gaming
-        self.nixosModules.virt-manager
       ];
   };
 }
