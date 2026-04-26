@@ -29,6 +29,7 @@
         self.nixosModules.keepassxc
 
         self.nixosModules.spotify
+        self.nixosModules.obsidian
       ]
       ++ lib.optionals (!isVM) [
         # No need for these big packages to be included in vm tests
