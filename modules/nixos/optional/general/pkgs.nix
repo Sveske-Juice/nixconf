@@ -3,6 +3,7 @@
     environment.systemPackages = [
       self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
       pkgs.fastfetch
+      pkgs.btop
     ];
   };
 }
