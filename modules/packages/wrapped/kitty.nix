@@ -27,10 +27,10 @@
     };
   };
 
-  perSystem = {pkgs, ...}: {
-    packages.kitty = inputs.wrapper-modules.wrappers.kitty.wrap {
-      inherit pkgs;
-      imports = [self.wrappersModules.kitty];
-    };
+  flake.wrappers.kitty = {wlib, ...}: {
+    imports = [
+      wlib.wrapperModules.kitty
+      self.wrappersModules.kitty
+    ];
   };
 }
