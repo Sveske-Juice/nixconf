@@ -29,6 +29,7 @@
         self.nixosModules.keepassxc
 
         self.nixosModules.spotify
+        self.nixosModules.vesktop
         self.nixosModules.obsidian
       ]
       ++ lib.optionals (!isVM) [
