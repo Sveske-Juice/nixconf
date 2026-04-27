@@ -4,6 +4,13 @@
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
     };
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+    };
   };
 
   flake.wrappersModules.niri = {
