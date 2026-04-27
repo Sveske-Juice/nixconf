@@ -14,6 +14,10 @@
         self.nixosModules.general
         self.nixosModules.user-dr3y
         self.nixosModules.secrets
+
+        self.nixosModules.desktop
+        self.nixosModules.niri
+        self.nixosModules.greetd
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-solitubox
