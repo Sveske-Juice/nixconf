@@ -221,7 +221,7 @@
       "keybinds": {
         "keyUp": [
           "Up",
-          "Ctrl+K"
+          "Ctrl+P"
         ],
         "keyDown": [
           "Down",
@@ -713,29 +713,42 @@
     "barVisible": true,
     "openedPanel": "",
     "lockScreenActive": false,
-    "wallpapers": {
-      "winit": "/home/redux/nix-config/wallpapers/wallhaven-o5rmll.jpg"
-    },
+    "wallpapers": {},
     "desktopWidgetsEditMode": false,
     "display": {
-      "winit": {
-        "name": "winit",
+      "DP-1": {
+        "name": "DP-1",
         "connected": true,
         "scale": 1,
-        "width": 1695,
-        "height": 1360,
+        "width": 3440,
+        "height": 1440,
         "x": 0,
         "y": 0,
-        "physical_width": 0,
-        "physical_height": 0,
-        "refresh_rate": 60000,
-        "vrr_supported": false,
+        "physical_width": 800,
+        "physical_height": 340,
+        "refresh_rate": 59973,
+        "vrr_supported": true,
         "vrr_enabled": false,
-        "transform": "Flipped180"
+        "transform": "Normal"
+      },
+      "DP-2": {
+        "name": "DP-2",
+        "connected": true,
+        "scale": 1.5,
+        "width": 2560,
+        "height": 1440,
+        "x": 3440,
+        "y": 0,
+        "physical_width": 620,
+        "physical_height": 340,
+        "refresh_rate": 59997,
+        "vrr_supported": true,
+        "vrr_enabled": false,
+        "transform": "Normal"
       }
     },
     "notificationsState": {
-      "lastSeenTs": 1777069624000
+      "lastSeenTs": 1777236375000
     },
     "changelogState": {
       "lastSeenVersion": "v4.7.1"
