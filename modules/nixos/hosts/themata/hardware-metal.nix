@@ -16,16 +16,15 @@
       extraModulePackages = [];
     };
 
+    allowedUnfreePackages = [
+      "broadcom-bt-firmware"
+      "b43-firmware"
+      "xone-dongle-firmware"
+      "facetimehd-calibration"
+      "facetimehd-firmware"
+    ];
     nixpkgs = {
       hostPlatform = lib.mkDefault "x86_64-linux";
-      config.allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-          "broadcom-bt-firmware"
-          "b43-firmware"
-          "xone-dongle-firmware"
-          "facetimehd-calibration"
-          "facetimehd-firmware"
-        ];
     };
     hardware = {
       enableAllFirmware = true;
