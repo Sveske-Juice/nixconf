@@ -37,6 +37,7 @@
         self.nixosModules.spotify
         self.nixosModules.vesktop
         self.nixosModules.obsidian
+        self.nixosModules.mullvad
       ];
   };
 }
