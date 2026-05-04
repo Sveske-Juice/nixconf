@@ -38,6 +38,7 @@
         self.nixosModules.vesktop
         self.nixosModules.obsidian
         self.nixosModules.mullvad
+        self.nixosModules.remmina
       ];
   };
 }
