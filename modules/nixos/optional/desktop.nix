@@ -12,6 +12,10 @@
     hardware.graphics.enable = true;
     security.polkit.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      wl-clipboard
+    ];
+
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       ubuntu-sans
