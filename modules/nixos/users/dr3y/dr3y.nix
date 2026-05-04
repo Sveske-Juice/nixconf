@@ -39,6 +39,7 @@
         self.nixosModules.obsidian
         self.nixosModules.mullvad
         self.nixosModules.remmina
+        self.nixosModules.bitwarden-desktop
       ];
   };
 }
