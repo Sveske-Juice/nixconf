@@ -1,15 +1,24 @@
-{self, ...}: {
-  flake.nixosModules.niri = {pkgs, ...}: {
-    programs.niri = {
-      enable = true;
-      package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+{self, inputs, ...}: {
+  flake.nixosModules.niri = {lib, config, pkgs, ...}: {
+    options = {
+      extraNiriModules = lib.mkOption {
+        type = lib.types.listOf lib.types.attrs;
+        default = [];
+      };
     };
-    xdg.portal = {
-      enable = true;
-      wlr.enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
+    config = {
+      programs.niri = {
+        enable = true;
+        # How do i add the extra modules to this wrapped program??
+        package = self.legacyPackages.${pkgs.stdenv.hostPlatform.system}.niriWith config.extraNiriModules;
+      };
+      xdg.portal = {
+        enable = true;
+        wlr.enable = true;
+        extraPortals = [
+          pkgs.xdg-desktop-portal-gtk
+        ];
+      };
     };
   };
 
@@ -178,10 +187,14 @@
     };
   };
 
-  flake.wrappers.niri = {wlib, ...}: {
-    imports = [
-      wlib.wrapperModules.niri
-      self.wrappersModules.niri
-    ];
+  perSystem = {pkgs, ...}: {
+    packages.niri = inputs.wrapper-modules.wrappers.niri.wrap {
+      inherit pkgs;
+      imports = [self.wrappersModules.niri];
+    };
+    legacyPackages.niriWith = extraModules: inputs.wrapper-modules.wrappers.niri.wrap {
+      inherit pkgs;
+      imports = [self.wrappersModules.niri] ++ extraModules;
+    };
   };
 }
