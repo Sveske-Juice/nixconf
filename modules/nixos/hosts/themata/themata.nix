@@ -40,6 +40,7 @@
     extraNiriModules = [
       {
         settings = {
+          debug.wait-for-frame-completion-before-queueing = {};
           workspaces."w0".open-on-output = "HP Inc. HP E233 3CQ93400C2";
           workspaces."w1".open-on-output = "HP Inc. HP E233 3CQ93400BJ";
           workspaces."w2".open-on-output = "eDP-1";

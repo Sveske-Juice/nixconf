@@ -12,9 +12,9 @@
 
     boot = {
       initrd.availableKernelModules = ["xhci_pci" "nvme" "thunderbolt" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-      initrd.kernelModules = [ "evdi" ];
+      initrd.kernelModules = [];
       kernelModules = ["kvm-intel"];
-      extraModulePackages = [ config.boot.kernelPackages.evdi ];
+      extraModulePackages = [];
     };
 
     allowedUnfreePackages = [
@@ -23,12 +23,8 @@
       "xone-dongle-firmware"
       "facetimehd-calibration"
       "facetimehd-firmware"
-      "displaylink"
       "nvidia-settings"
       "nvidia-x11"
-    ];
-    environment.systemPackages = with pkgs; [
-      displaylink
     ];
     services.hardware.bolt.enable = true;
     services.xserver.videoDrivers = ["nvidia"];
@@ -44,17 +40,16 @@
       };
       nvidia = {
         modesetting.enable = true;
-        open = false;
+        open = true;
         nvidiaSettings = true;
         powerManagement = {
-          enable = false;
+          enable = true;
           finegrained = false;
         };
         prime = {
           intelBusId = "PCI:0:2:0";
           nvidiaBusId = "PCI:1:0:0";
-          offload.enable = true;
-          offload.enableOffloadCmd = true;
+          sync.enable = true;
         };
       };
     };
