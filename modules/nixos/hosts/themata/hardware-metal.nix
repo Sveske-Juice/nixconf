@@ -3,6 +3,7 @@
     config,
     lib,
     modulesPath,
+    pkgs,
     ...
   }: {
     imports = [
@@ -11,9 +12,9 @@
 
     boot = {
       initrd.availableKernelModules = ["xhci_pci" "nvme" "thunderbolt" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-      initrd.kernelModules = [];
+      initrd.kernelModules = [ "evdi" ];
       kernelModules = ["kvm-intel"];
-      extraModulePackages = [];
+      extraModulePackages = [ config.boot.kernelPackages.evdi ];
     };
 
     allowedUnfreePackages = [
@@ -22,7 +23,13 @@
       "xone-dongle-firmware"
       "facetimehd-calibration"
       "facetimehd-firmware"
+      "displaylink"
     ];
+    environment.systemPackages = with pkgs; [
+      displaylink
+    ];
+    services.hardware.bolt.enable = true;
+    services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
     nixpkgs = {
       hostPlatform = lib.mkDefault "x86_64-linux";
     };

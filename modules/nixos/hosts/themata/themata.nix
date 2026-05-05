@@ -5,6 +5,7 @@
 
   flake.nixosModules.host-themata = {
     lib,
+    pkgs,
     isVM,
     ...
   }: {
@@ -35,6 +36,43 @@
     preferences.host = {
       name = "themata";
     };
+
+    extraNiriModules = [
+      {
+        settings = {
+          outputs = {
+            "eDP-1" = {
+              mode = "1920x1200@60.003";
+              focus-at-startup = {};
+              position = _: {
+                props = {
+                  x = 0;
+                  y = 0;
+                };
+              };
+            };
+            "DP-9" = {
+              mode = "1920x1080@60.000";
+              position = _: {
+                props = {
+                  x = 1920;
+                  y = 0;
+                };
+              };
+            };
+            "DP-8" = {
+              mode = "1920x1080@60.000";
+              position = _: {
+                props = {
+                  x = 3840;
+                  y = 0;
+                };
+              };
+            };
+          };
+        };
+      }
+    ];
 
     system.stateVersion = "26.05";
   };

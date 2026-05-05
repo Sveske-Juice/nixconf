@@ -111,6 +111,21 @@
           "Mod+Shift+K".move-window-up = {};
           "Mod+Shift+J".move-window-down = {};
 
+          "Mod+Ctrl+H".focus-monitor-left = {};
+          "Mod+Ctrl+L".focus-monitor-right = {};
+          "Mod+Ctrl+Left".focus-monitor-left = {};
+          "Mod+Ctrl+Right".focus-monitor-right = {};
+
+          # Move column to monitor
+          "Mod+Ctrl+Shift+H".move-column-to-monitor-left = {};
+          "Mod+Ctrl+Shift+L".move-column-to-monitor-right = {};
+          "Mod+Ctrl+Shift+Left".move-column-to-monitor-left = {};
+          "Mod+Ctrl+Shift+Right".move-column-to-monitor-right = {};
+
+          # Move window to monitor (if you prefer window-level granularity)
+          "Mod+Alt+H".move-window-to-monitor-left = {};
+          "Mod+Alt+L".move-window-to-monitor-right = {};
+
           "Mod+O".toggle-overview = {};
           "XF86SelectiveScreenshot".spawn-sh = screenshotExe;
           "Print".spawn-sh = screenshotExe;
