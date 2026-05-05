@@ -26,7 +26,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${lib.getExe pkgs.sway} --config ${swayConfig}";
+          command = "${lib.getExe pkgs.sway} --unsupported-gpu --config ${swayConfig}";
         };
       };
     };

@@ -24,12 +24,14 @@
       "facetimehd-calibration"
       "facetimehd-firmware"
       "displaylink"
+      "nvidia-settings"
+      "nvidia-x11"
     ];
     environment.systemPackages = with pkgs; [
       displaylink
     ];
     services.hardware.bolt.enable = true;
-    services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+    services.xserver.videoDrivers = ["nvidia"];
     nixpkgs = {
       hostPlatform = lib.mkDefault "x86_64-linux";
     };
@@ -41,10 +43,18 @@
         enable = true;
       };
       nvidia = {
+        modesetting.enable = true;
+        open = false;
+        nvidiaSettings = true;
+        powerManagement = {
+          enable = false;
+          finegrained = false;
+        };
         prime = {
           intelBusId = "PCI:0:2:0";
           nvidiaBusId = "PCI:1:0:0";
           offload.enable = true;
+          offload.enableOffloadCmd = true;
         };
       };
     };

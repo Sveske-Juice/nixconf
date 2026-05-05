@@ -40,10 +40,12 @@
     extraNiriModules = [
       {
         settings = {
+          workspaces."w0".open-on-output = "HP Inc. HP E233 3CQ93400C2";
+          workspaces."w1".open-on-output = "HP Inc. HP E233 3CQ93400BJ";
+          workspaces."w2".open-on-output = "eDP-1";
           outputs = {
             "eDP-1" = {
               mode = "1920x1200@60.003";
-              focus-at-startup = {};
               position = _: {
                 props = {
                   x = 0;
@@ -51,8 +53,9 @@
                 };
               };
             };
-            "DP-9" = {
+            "HP Inc. HP E233 3CQ93400C2" = {
               mode = "1920x1080@60.000";
+              focus-at-startup = {};
               position = _: {
                 props = {
                   x = 1920;
@@ -60,7 +63,7 @@
                 };
               };
             };
-            "DP-8" = {
+            "HP Inc. HP E233 3CQ93400BJ" = {
               mode = "1920x1080@60.000";
               position = _: {
                 props = {
