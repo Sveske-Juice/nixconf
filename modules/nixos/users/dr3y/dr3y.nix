@@ -3,6 +3,7 @@
     lib,
     config,
     isVM,
+    pkgs,
     ...
   }: {
     preferences.user = {
@@ -41,5 +42,9 @@
         self.nixosModules.remmina
         self.nixosModules.bitwarden-desktop
       ];
+
+    environment.systemPackages = with pkgs; [
+      minicom
+    ];
   };
 }
