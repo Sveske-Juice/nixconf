@@ -20,6 +20,7 @@
     imports =
       [
         self.nixosModules.syncthing
+        self.nixosModules.cisco-ssh
 
         self.nixosModules.kitty
         self.nixosModules.librewolf
