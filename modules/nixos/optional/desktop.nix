@@ -18,6 +18,10 @@
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
+      hack-font
+      noto-fonts
+      noto-fonts-color-emoji
       ubuntu-sans
       cm_unicode
       corefonts
