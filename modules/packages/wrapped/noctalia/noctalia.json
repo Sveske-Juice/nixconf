@@ -123,7 +123,7 @@
             "blacklist": [],
             "chevronColor": "none",
             "colorizeIcons": false,
-            "drawerEnabled": true,
+            "drawerEnabled": false,
             "hidePassive": false,
             "id": "Tray",
             "pinned": []
@@ -138,12 +138,12 @@
           },
           {
             "deviceNativePath": "__default__",
-            "displayMode": "onhover",
+            "displayMode": "graphic",
             "hideIfIdle": false,
             "hideIfNotDetected": true,
             "id": "Battery",
             "showNoctaliaPerformance": false,
-            "showPowerProfiles": false
+            "showPowerProfiles": true
           },
           {
             "displayMode": "onhover",
@@ -300,6 +300,16 @@
         {
           "directory": "/home/redux/nix-config/wallpapers",
           "name": "winit",
+          "wallpaper": ""
+        },
+        {
+          "directory": "/home/redux/nix-config/wallpapers",
+          "name": "DP-1",
+          "wallpaper": ""
+        },
+        {
+          "directory": "/home/redux/nix-config/wallpapers",
+          "name": "DP-2",
           "wallpaper": ""
         }
       ],
@@ -630,9 +640,9 @@
     },
     "colorSchemes": {
       "useWallpaperColors": false,
-      "predefinedScheme": "Gruvbox",
-      "darkMode": false,
-      "schedulingMode": "manual",
+      "predefinedScheme": "Breeze",
+      "darkMode": true,
+      "schedulingMode": "off",
       "manualSunrise": "06:30",
       "manualSunset": "18:30",
       "generationMethod": "tonal-spot",
@@ -643,10 +653,10 @@
       "enableUserTheming": false
     },
     "nightLight": {
-      "enabled": false,
+      "enabled": true,
       "forced": false,
       "autoSchedule": true,
-      "nightTemp": "1000",
+      "nightTemp": "2985",
       "dayTemp": "6500",
       "manualSunrise": "06:30",
       "manualSunset": "18:30"
@@ -705,60 +715,6 @@
           ]
         }
       ]
-    }
-  },
-  "state": {
-    "doNotDisturb": false,
-    "noctaliaPerformanceMode": false,
-    "barVisible": true,
-    "openedPanel": "",
-    "lockScreenActive": false,
-    "wallpapers": {},
-    "desktopWidgetsEditMode": false,
-    "display": {
-      "DP-1": {
-        "name": "DP-1",
-        "connected": true,
-        "scale": 1,
-        "width": 3440,
-        "height": 1440,
-        "x": 0,
-        "y": 0,
-        "physical_width": 800,
-        "physical_height": 340,
-        "refresh_rate": 59973,
-        "vrr_supported": true,
-        "vrr_enabled": false,
-        "transform": "Normal"
-      },
-      "DP-2": {
-        "name": "DP-2",
-        "connected": true,
-        "scale": 1.5,
-        "width": 2560,
-        "height": 1440,
-        "x": 3440,
-        "y": 0,
-        "physical_width": 620,
-        "physical_height": 340,
-        "refresh_rate": 59997,
-        "vrr_supported": true,
-        "vrr_enabled": false,
-        "transform": "Normal"
-      }
-    },
-    "notificationsState": {
-      "lastSeenTs": 1777236375000
-    },
-    "changelogState": {
-      "lastSeenVersion": "v4.7.1"
-    },
-    "colorSchemesList": {
-      "schemes": [],
-      "timestamp": 0
-    },
-    "ui": {
-      "settingsSidebarExpanded": true
     }
   }
 }
