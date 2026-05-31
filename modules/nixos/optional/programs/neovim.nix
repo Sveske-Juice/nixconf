@@ -4,5 +4,7 @@
     environment.systemPackages = [
       self.packages.${pkgs.stdenv.hostPlatform.system}.neovim
     ];
+
+    environment.sessionVariables.EDITOR = "nvim";
   };
 }
