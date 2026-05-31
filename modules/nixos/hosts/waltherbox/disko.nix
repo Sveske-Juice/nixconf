@@ -21,7 +21,7 @@ in {
 
   flake.lib.mkWaltherboxDisko = {
     rootDisk,
-    rootDiskSize ? "100%",
+    rootDiskSize ? null,
     raidz1DisksSize ? "100%",
     raidz1Disks,
     bootSize,
@@ -33,7 +33,7 @@ in {
           main = {
             type = "disk";
             device = rootDisk;
-            imageSize = rootDiskSize;
+            imageSize = lib.mkIf (rootDiskSize != null) rootDiskSize;
             content = {
               type = "gpt";
               partitions = {

@@ -15,6 +15,8 @@
       filemanager = "nautilus";
     };
 
+    networking.firewall.allowedTCPPorts = [80];
+
     deploy-gpg.enable = config.preferences.secrets;
 
     imports =
@@ -35,6 +37,7 @@
 
         self.nixosModules.gaming
         self.nixosModules.virt-manager
+        self.nixosModules.docker
 
         self.nixosModules.spotify
         self.nixosModules.vesktop
