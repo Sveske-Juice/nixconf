@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.greetd = {lib, pkgs, ...}: {
+  flake.nixosModules.greetd = {
+    lib,
+    pkgs,
+    ...
+  }: {
     # TODO : make this agnostic of the DE/WM you use
     environment.etc."greetd/environments".text = ''
       niri-session
@@ -26,7 +30,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${lib.getExe pkgs.sway} --unsupported-gpu --config ${swayConfig}";
+          command = "${lib.getExe pkgs.sway} --config ${swayConfig} --unsupported-gpu";
         };
       };
     };
