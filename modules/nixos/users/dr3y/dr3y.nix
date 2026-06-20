@@ -44,6 +44,7 @@
         self.nixosModules.obsidian
         self.nixosModules.mullvad
         self.nixosModules.remmina
+        self.nixosModules.signal
         self.nixosModules.bitwarden-desktop
       ];
 
