@@ -1,5 +1,6 @@
 _: {
   flake.nixosModules.driver-amdgpu = {pkgs, ...}: {
+    nixpkgs.config.rocmSupport = true;
     hardware = {
       graphics = {
         enable = true;
@@ -14,6 +15,7 @@ _: {
 
     environment.systemPackages = [
       pkgs.clinfo # opencl cli helper
+      pkgs.rocmPackages.clr 
     ];
   };
 }

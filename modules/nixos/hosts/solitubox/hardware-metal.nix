@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.nixosModules.hardware-metal-solitubox = {
     config,
     lib,
@@ -7,6 +7,7 @@
   }: {
     imports = [
       (modulesPath + "/installer/scan/not-detected.nix")
+      self.nixosModules.driver-amdgpu
     ];
 
     boot = {
