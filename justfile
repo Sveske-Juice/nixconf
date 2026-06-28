@@ -56,6 +56,10 @@ install-remote host user metal *args:
       TEMP_VAL="$SOPS_AGE_KEY"
   fi
 
+  echo "$TEMP_VAL" > "{{masterKeyPath}}"
+  chmod 600 "{{masterKeyPath}}"
+  export SOPS_AGE_KEY_FILE="{{masterKeyPath}}"
+
   echo "extracting '{{host}}' key..."
   sops -d "secrets/hosts/{{host}}.yaml" | yq -r ".ssh.key" > "$temp/host-ssh-key"
 
