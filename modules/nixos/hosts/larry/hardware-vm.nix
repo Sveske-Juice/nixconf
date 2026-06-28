@@ -21,16 +21,6 @@
       "virtio_rng"
     ];
 
-    # required for graphics in qemu
-    virtualisation.vmVariantWithDisko = {
-      virtualisation.memorySize = 4096;
-      virtualisation.cores = 4;
-      virtualisation.qemu.options = [
-        "-device virtio-vga-gl"
-        "-display gtk,gl=on"
-      ];
-    };
-
     boot.kernelModules = ["kvm-amd"];
     boot.extraModulePackages = [];
 
