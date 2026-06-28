@@ -11,7 +11,8 @@ _: {
 
       config = {
         user = {
-          inherit (config.preferences.user) name email;
+          inherit (config.preferences.user) name;
+          email = lib.mkIf (config.preferences.user.email != null) config.preferences.user.email;
           signingkey = lib.mkIf (config.preferences.user.gpgKey != null) config.preferences.user.gpgKey;
         };
         safe.directory = ["/etc/nixos"];

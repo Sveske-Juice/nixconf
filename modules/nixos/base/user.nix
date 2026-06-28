@@ -12,7 +12,7 @@
             type = lib.types.str;
           };
           email = lib.mkOption {
-            type = lib.types.str;
+            type = lib.types.nullOr lib.types.str;
           };
           gpgKey = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
