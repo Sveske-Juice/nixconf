@@ -1,6 +1,7 @@
 {self, ...}: {
   flake.nixosModules.user-dr3y = {
     lib,
+    config,
     isVM,
     pkgs,
     ...
@@ -13,6 +14,10 @@
       browser = "librewolf";
       filemanager = "nautilus";
     };
+
+    networking.firewall.allowedTCPPorts = [80];
+
+    deploy-gpg.enable = config.preferences.secrets;
 
     imports =
       [
