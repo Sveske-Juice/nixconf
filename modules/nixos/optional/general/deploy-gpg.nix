@@ -1,5 +1,5 @@
 # inspiration: https://github.com/mateusauler/nixos-config
-_: {
+{
   flake.nixosModules.general = {
     lib,
     config,
@@ -12,7 +12,10 @@ _: {
     getSecretKeyIDs = "$(${pkgs.gnupg}/bin/gpg --list-secret-keys --keyid-format LONG | ${pkgs.gawk}/bin/awk '/sec/{if (match($0, /([0-9A-F]{16,})/, m)) print m[1]}')";
     cfg = config.deploy-gpg;
   in {
-    options.deploy-gpg.enable = lib.mkEnableOption "deploy-gpg";
+    options.deploy-gpg.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = config.preferences.secrets;
+    };
 
     config = lib.mkIf cfg.enable {
       sops.secrets."${sopsKeyPath}" = {
