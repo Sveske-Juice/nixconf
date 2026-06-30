@@ -14,6 +14,7 @@
       "gd" = "git diff";
 
       "ta" = "tmux attach";
+      "tns" = "tmux new -s";
     };
   };
 }
