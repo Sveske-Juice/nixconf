@@ -8,7 +8,6 @@
         AllowUsers = null;
         PermitRootLogin = "no";
       };
-      banner = "";
 
       allowSFTP = true;
     };

@@ -5,7 +5,6 @@
 
   flake.nixosModules.host-themata = {
     lib,
-    pkgs,
     isVM,
     ...
   }: {

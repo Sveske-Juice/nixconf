@@ -1,5 +1,10 @@
 {
-  flake.nixosModules.hardware-metal-larry = {lib, config, modulesPath, ...}: {
+  flake.nixosModules.hardware-metal-larry = {
+    lib,
+    config,
+    modulesPath,
+    ...
+  }: {
     imports = [
       (modulesPath + "/installer/scan/not-detected.nix")
     ];

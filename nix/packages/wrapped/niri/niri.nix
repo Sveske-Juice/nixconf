@@ -1,5 +1,14 @@
-{self, inputs, ...}: {
-  flake.nixosModules.niri = {lib, config, pkgs, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.niri = {
+    lib,
+    config,
+    pkgs,
+    ...
+  }: {
     options = {
       extraNiriModules = lib.mkOption {
         type = lib.types.listOf lib.types.attrs;
@@ -207,9 +216,10 @@
       inherit pkgs;
       imports = [self.wrappersModules.niri];
     };
-    legacyPackages.niriWith = extraModules: inputs.wrapper-modules.wrappers.niri.wrap {
-      inherit pkgs;
-      imports = [self.wrappersModules.niri] ++ extraModules;
-    };
+    legacyPackages.niriWith = extraModules:
+      inputs.wrapper-modules.wrappers.niri.wrap {
+        inherit pkgs;
+        imports = [self.wrappersModules.niri] ++ extraModules;
+      };
   };
 }

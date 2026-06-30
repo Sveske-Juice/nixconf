@@ -12,7 +12,7 @@
         ];
 
         routes = [
-          { Gateway = "192.168.8.1"; }
+          {Gateway = "192.168.8.1";}
         ];
 
         linkConfig.RequiredForOnline = "routable";

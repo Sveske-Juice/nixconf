@@ -1,11 +1,5 @@
-{self, ...}: {
-  flake.nixosModules.user-larry = {
-    lib,
-    isVM,
-    pkgs,
-    config,
-    ...
-  }: {
+_: {
+  flake.nixosModules.user-larry = {config, ...}: {
     preferences.user = {
       name = "larry";
     };

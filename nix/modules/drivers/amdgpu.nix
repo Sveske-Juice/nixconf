@@ -15,7 +15,7 @@ _: {
 
     environment.systemPackages = [
       pkgs.clinfo # opencl cli helper
-      pkgs.rocmPackages.clr 
+      pkgs.rocmPackages.clr
     ];
   };
 }
