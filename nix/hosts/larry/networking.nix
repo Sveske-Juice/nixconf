@@ -8,11 +8,11 @@
         matchConfig.Name = "enp0s31f6";
 
         address = [
-          "192.168.8.10/24"
+          "10.200.0.2/24"
         ];
 
         routes = [
-          {Gateway = "192.168.8.1";}
+          {Gateway = "10.200.0.1";}
         ];
 
         linkConfig.RequiredForOnline = "routable";
