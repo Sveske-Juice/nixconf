@@ -1,5 +1,5 @@
 # inspiration: https://github.com/mateusauler/nixos-config
-_: {
+{
   flake.nixosModules.general = {
     lib,
     config,
@@ -17,12 +17,12 @@ _: {
     config = lib.mkIf cfg.enable {
       sops.secrets."${sopsKeyPath}" = {
         owner = config.preferences.user.name;
-        sopsFile = ../../../../secrets/users/${config.preferences.user.name}.yaml;
+        sopsFile = lib.path.append ../../../secrets/users "${config.preferences.user.name}.yaml";
       };
 
       sops.secrets."${sopsPasswdPath}" = {
         owner = config.preferences.user.name;
-        sopsFile = ../../../../secrets/users/${config.preferences.user.name}.yaml;
+        sopsFile = lib.path.append ../../../secrets/users "${config.preferences.user.name}.yaml";
       };
 
       systemd.services.deploy-gpg = {

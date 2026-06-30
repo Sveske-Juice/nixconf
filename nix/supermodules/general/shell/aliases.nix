@@ -2,7 +2,7 @@
   flake.nixosModules.general = _: {
     programs.fish.shellAbbrs = {
       "nrs" = "nixos-rebuild switch --flake .# --sudo";
-      "nrrs" = "nixos-rebuild switch --flake --sudo --ask-sudo-password --target-host host@ip .#host";
+      "nrrs" = "nixos-rebuild switch --sudo --ask-sudo-password --flake .#host host@ip";
       "nrb" = "nixos-rebuild build --flake .# --sudo";
       "nrv" = "nixos-rebuild build-vm --flake .#";
 
