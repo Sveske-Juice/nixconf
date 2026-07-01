@@ -14,8 +14,6 @@
         self.nixosModules.general
         self.nixosModules.secrets
         self.nixosModules.user-larry
-
-        self.nixosModules.unifi-controller
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-larry
