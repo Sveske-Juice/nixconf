@@ -46,6 +46,7 @@
         self.nixosModules.remmina
         self.nixosModules.signal
         self.nixosModules.bitwarden-desktop
+        self.nixosModules.orca-slicer
       ];
 
     environment.systemPackages = with pkgs; [
