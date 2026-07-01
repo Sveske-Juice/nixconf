@@ -4,10 +4,13 @@
       self.nixosModules.neovim
     ];
 
-    environment.systemPackages = [
+    environment.systemPackages = with pkgs; [
       self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
-      pkgs.fastfetch
-      pkgs.btop
+      fastfetch
+      btop
+
+      zip
+      unzip
     ];
   };
 }
