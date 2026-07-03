@@ -105,6 +105,7 @@
           "Mod+G".fullscreen-window = {};
           "Mod+Shift+F".toggle-window-floating = {};
           "Mod+E".center-column = {};
+          "Mod+V".toggle-window-floating = {};
 
           "Mod+Left".focus-column-left = {};
           "Mod+Right".focus-column-right = {};
