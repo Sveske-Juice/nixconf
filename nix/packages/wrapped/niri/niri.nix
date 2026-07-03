@@ -187,6 +187,11 @@
             geometry-corner-radius = roundedCorners;
             clip-to-geometry = true;
           }
+          {
+            background-effect = {
+              blur = true;
+            };
+          }
         ];
 
         layout = {
