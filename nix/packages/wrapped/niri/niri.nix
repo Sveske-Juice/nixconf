@@ -64,6 +64,7 @@
 
       settings = let
         noctaliaExe = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-shell;
+        roundedCorners = 12.0;
       in {
         prefer-no-csd = {};
 
@@ -180,6 +181,14 @@
           "Mod+Shift+9".move-column-to-workspace = "w8";
           "Mod+Shift+0".move-column-to-workspace = "w9";
         };
+
+        window-rules = [
+          {
+            geometry-corner-radius = roundedCorners;
+            clip-to-geometry = true;
+          }
+        ];
+
         layout = {
           gaps = 5;
           focus-ring = {
