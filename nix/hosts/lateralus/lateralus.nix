@@ -11,6 +11,7 @@
     imports =
       [
         self.nixosModules.base
+        self.nixosModules.unfree
         self.nixosModules.general
         self.nixosModules.user-dr3y
         self.nixosModules.secrets

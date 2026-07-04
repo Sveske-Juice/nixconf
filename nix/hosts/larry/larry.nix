@@ -1,4 +1,4 @@
-{self, ...}: {
+{self, inputs, ...}: {
   flake.nixosConfigurations = self.lib.mkHost "larry" [
     self.nixosModules.host-larry
   ];
@@ -11,9 +11,11 @@
     imports =
       [
         self.nixosModules.base
+        self.nixosModules.unfree
         self.nixosModules.general
         self.nixosModules.secrets
         self.nixosModules.user-larry
+        inputs.microvm.nixosModules.microvm
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-larry

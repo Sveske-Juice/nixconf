@@ -11,6 +11,7 @@
       config = {
         imports = [
           self.nixosModules.base
+          self.nixosModules.unfree
           self.nixosModules.unifi-controller
         ];
         networking = {

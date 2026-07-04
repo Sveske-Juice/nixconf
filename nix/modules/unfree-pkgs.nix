@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {
+  flake.nixosModules.unfree = {
     lib,
     config,
     ...
