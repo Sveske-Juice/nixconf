@@ -46,6 +46,17 @@
               ENABLE_PUSH_CREATE_USER = true;
             };
 
+            service = {
+              ENABLE_AUTO_REGISTRATION = true;
+              DISABLE_REGISTRATION = true;
+            };
+            oauth2_client = {
+              ENABLE_AUTO_REGISTRATION = true;
+              USERNAME = "preferred_username";
+              ACCOUNT_LINKING = "auto";
+              UPDATE_AVATAR = true;
+            };
+
             server = {
               DOMAIN = "git.evil.deprived.dev";
               HTTP_PORT = webport;
@@ -64,7 +75,6 @@
 
             security.REVERSE_PROXY_TRUSTED_PROXIES = "127.0.0.0/8";
 
-            # service.DISABLE_REGISTRATION = true;
             actions = {
               ENABLED = true;
               DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
