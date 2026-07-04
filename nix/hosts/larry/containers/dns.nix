@@ -36,6 +36,9 @@
 
               ''"dns.evil. IN A 10.100.0.11"''
               ''"ntp.evil. IN A 10.100.0.13"''
+
+              ''"git.evil. IN A 10.100.0.14"''
+              ''"forgejo.evil. IN A 10.100.0.15"''
             ];
             # PTR records
             local-data-ptr = [
