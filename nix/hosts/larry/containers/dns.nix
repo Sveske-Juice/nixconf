@@ -26,24 +26,24 @@
             access-control = [ "127.0.0.0/8 allow" ];
 
             local-zone = [
-              ''"evil." static''
+              ''"evil.deprived.dev." transparent''
             ];
             local-data = [
-              ''"gw.evil. IN A 10.200.0.1"''
-              ''"switch.evil. IN A 10.200.0.3"''
-              ''"unifi.evil. IN A 10.200.0.11"''
-              ''"larry.evil. IN A 10.200.0.10"''
+              ''"gw.evil.deprived.dev. IN A 10.200.0.1"''
+              ''"switch.evil.deprived.dev. IN A 10.200.0.3"''
+              ''"unifi.evil.deprived.dev. IN A 10.200.0.11"''
+              ''"larry.evil.deprived.dev. IN A 10.200.0.10"''
+              ''"dns.evil.deprived.dev. IN A 10.100.0.11"''
+              ''"ntp.evil.deprived.dev. IN A 10.100.0.13"''
+              ''"forgejo.evil.deprived.dev. IN A 10.100.0.15"''
 
-              ''"dns.evil. IN A 10.100.0.11"''
-              ''"ntp.evil. IN A 10.100.0.13"''
-
-              ''"git.evil. IN A 10.100.0.14"''
-              ''"forgejo.evil. IN A 10.100.0.15"''
+              # Virtual Hosts
+              ''"git.evil.deprived.dev. IN A 10.100.0.14"''
+              ''"auth.evil.deprived.dev. IN A 10.100.0.14"''
             ];
-            # PTR records
             local-data-ptr = [
-              ''"10.200.0.10 larry.evil"''
-              ''"10.200.0.11 unifi.evil"''
+              ''"10.200.0.10 larry.evil.deprived.dev"''
+              ''"10.200.0.11 unifi.evil.deprived.dev"''
             ];
           };
         };

@@ -5,8 +5,8 @@
     sshport = 22;
     realsshport = 2222;
   in {
-    containers.proxy.config.services.caddy.virtualHosts."git.evil".extraConfig = ''
-      tls internal
+    containers.proxy.config.services.caddy.virtualHosts."git.evil.deprived.dev".extraConfig = ''
+      tls { dns cloudflare {env.CF_API_TOKEN} }
       reverse_proxy http://10.100.0.15:${toString webport}
     '';
 
@@ -47,14 +47,15 @@
             };
 
             server = {
-              DOMAIN = "git.evil";
+              DOMAIN = "git.evil.deprived.dev";
               HTTP_PORT = webport;
-              ROOT_URL = "https://git.evil";
+              ROOT_URL = "https://git.evil.deprived.dev";
 
               DISABLE_SSH = false;
               START_SSH_SERVER = true;
-              # Since we use caddy for HTTPS git.evil doesnt resolve to this container
-              SSH_DOMAIN = "forgejo.evil";
+              # Since we use caddy for HTTPS git.evil.deprived.dev doesnt 
+              # resolve to this container
+              SSH_DOMAIN = "forgejo.evil.deprived.dev";
               # Advertise sshport
               SSH_PORT = sshport;
               # Actually use realsshport
