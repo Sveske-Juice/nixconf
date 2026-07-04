@@ -12,7 +12,7 @@
       gpgKey = "44B31C98B111DF02";
       terminal = "kitty";
       browser = "librewolf";
-      filemanager = "nautilus";
+      filemanager = "pcmanfm-qt";
     };
 
     networking.firewall.allowedTCPPorts = [80];
@@ -26,7 +26,7 @@
 
         self.nixosModules.kitty
         self.nixosModules.librewolf
-        self.nixosModules.nautilus
+        self.nixosModules.pcmanfm-qt
         self.nixosModules.keepassxc
       ]
       ++ lib.optionals (!isVM) [
