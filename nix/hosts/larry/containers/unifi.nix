@@ -1,6 +1,8 @@
 {self, ...}: {
-  flake.nixosModules.host-larry = {
-    containers.unifi = {
+  flake.nixosModules.host-larry = let
+    name = "unifi";
+  in {
+    containers."${name}" = {
       autoStart = true;
       privateNetwork = true;
       hostBridge = "br0";
@@ -17,13 +19,13 @@
           defaultGateway = "10.200.0.1";
         };
 
-        preferences.host.name = "unifi-01";
+        preferences.host.name = "${name}";
         system.stateVersion = "26.05";
       };
     };
 
-    systemd.network.networks."50-vb-unifi" = {
-      matchConfig.Name = "vb-unifi";
+    systemd.network.networks."50-vb-${name}" = {
+      matchConfig.Name = "vb-${name}";
       networkConfig.Bridge = "br0";
       bridgeVLANs = [
         {

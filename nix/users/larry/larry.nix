@@ -1,4 +1,4 @@
-_: {
+{
   flake.nixosModules.user-larry = {config, ...}: {
     preferences.user = {
       name = "larry";
