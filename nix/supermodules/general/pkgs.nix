@@ -9,6 +9,11 @@
       fastfetch
       btop
 
+      net-tools
+      bind
+      iputils
+      traceroute
+
       zip
       unzip
     ];
