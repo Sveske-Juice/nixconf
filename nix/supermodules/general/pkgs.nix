@@ -13,6 +13,8 @@
       bind
       iputils
       traceroute
+      nmap
+      tcpdump
 
       zip
       unzip
