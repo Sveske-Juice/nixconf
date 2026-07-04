@@ -31,6 +31,11 @@
             valid-lifetime = 3600;
             renew-timer = 900;
             rebind-timer = 1800;
+            # Global options
+            option-data = [
+              { name = "domain-name-servers"; data = "10.100.0.11"; }
+              { name = "ntp-servers"; data = "10.100.0.13"; }
+            ];
 
             subnet4 = [
               # Client
@@ -41,8 +46,6 @@
                 pools = [ { pool = "10.10.0.100 - 10.10.0.200"; } ];
                 option-data = [
                   { name = "routers"; data = "10.10.0.1"; }
-                  { name = "domain-name-servers"; data = "10.100.0.11"; }
-                  { name = "ntp-servers"; data = "10.100.0.13"; }
                 ];
               }
               # Management
@@ -53,8 +56,6 @@
                 pools = [ { pool = "10.200.0.100 - 10.200.0.200"; } ];
                 option-data = [
                   { name = "routers"; data = "10.200.0.1"; }
-                  { name = "domain-name-servers"; data = "10.100.0.11"; }
-                  { name = "ntp-servers"; data = "10.100.0.13"; }
                 ];
               }
             ];
