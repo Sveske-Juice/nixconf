@@ -35,6 +35,7 @@
               ''"larry.evil. IN A 10.200.0.10"''
 
               ''"dns.evil. IN A 10.100.0.11"''
+              ''"ntp.evil. IN A 10.100.0.13"''
             ];
             # PTR records
             local-data-ptr = [

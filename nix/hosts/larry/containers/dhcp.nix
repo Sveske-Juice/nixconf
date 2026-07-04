@@ -42,6 +42,7 @@
                 option-data = [
                   { name = "routers"; data = "10.10.0.1"; }
                   { name = "domain-name-servers"; data = "10.100.0.11"; }
+                  { name = "ntp-servers"; data = "10.100.0.13"; }
                 ];
               }
               # Management
@@ -53,6 +54,7 @@
                 option-data = [
                   { name = "routers"; data = "10.200.0.1"; }
                   { name = "domain-name-servers"; data = "10.100.0.11"; }
+                  { name = "ntp-servers"; data = "10.100.0.13"; }
                 ];
               }
             ];

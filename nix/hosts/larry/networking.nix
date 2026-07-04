@@ -1,6 +1,8 @@
 {
   flake.nixosModules.host-larry = {
     networking.useDHCP = false;
+    # Sync from ntp server in container
+    networking.timeServers = [ "10.100.0.13" ];
     systemd.network = {
       enable = true;
 
