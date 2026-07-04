@@ -1,7 +1,11 @@
 # This is a vibe coded mess, but i really dont want to spend time on figuring
 # this out myself
 {
-  flake.nixosModules.theme-material-qt-gtk = {config, pkgs, ...}: {
+  flake.nixosModules.theme-material-qt-gtk = {
+    config,
+    pkgs,
+    ...
+  }: {
     environment.systemPackages = with pkgs; [
       # gtk
       materia-theme

@@ -21,7 +21,7 @@
         services.kea.dhcp4 = {
           enable = true;
           settings = {
-            interfaces-config.interfaces = [ "eth0" ];
+            interfaces-config.interfaces = ["eth0"];
 
             lease-database = {
               type = "memfile";
@@ -33,8 +33,14 @@
             rebind-timer = 1800;
             # Global options
             option-data = [
-              { name = "domain-name-servers"; data = "10.100.0.11"; }
-              { name = "ntp-servers"; data = "10.100.0.13"; }
+              {
+                name = "domain-name-servers";
+                data = "10.100.0.11";
+              }
+              {
+                name = "ntp-servers";
+                data = "10.100.0.13";
+              }
             ];
 
             subnet4 = [
@@ -42,27 +48,33 @@
               {
                 id = 10;
                 subnet = "10.10.0.0/24";
-                relay.ip-addresses = [ "10.10.0.1" ];
-                pools = [ { pool = "10.10.0.100 - 10.10.0.200"; } ];
+                relay.ip-addresses = ["10.10.0.1"];
+                pools = [{pool = "10.10.0.100 - 10.10.0.200";}];
                 option-data = [
-                  { name = "routers"; data = "10.10.0.1"; }
+                  {
+                    name = "routers";
+                    data = "10.10.0.1";
+                  }
                 ];
               }
               # Management
               {
                 id = 200;
                 subnet = "10.200.0.0/24";
-                relay.ip-addresses = [ "10.200.0.1" ];
-                pools = [ { pool = "10.200.0.100 - 10.200.0.200"; } ];
+                relay.ip-addresses = ["10.200.0.1"];
+                pools = [{pool = "10.200.0.100 - 10.200.0.200";}];
                 option-data = [
-                  { name = "routers"; data = "10.200.0.1"; }
+                  {
+                    name = "routers";
+                    data = "10.200.0.1";
+                  }
                 ];
               }
             ];
           };
         };
 
-        networking.firewall.allowedUDPPorts = [ 67 ];
+        networking.firewall.allowedUDPPorts = [67];
 
         preferences.host.name = "${name}";
         system.stateVersion = "26.05";

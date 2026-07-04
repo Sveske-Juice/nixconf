@@ -8,7 +8,7 @@
       hostBridge = "br0";
       localAddress = "10.100.0.13/24";
       extraFlags = ["--resolv-conf=off"];
-      additionalCapabilities = [ "CAP_SYS_TIME" ];
+      additionalCapabilities = ["CAP_SYS_TIME"];
       config = {
         imports = [
           self.nixosModules.base
@@ -40,7 +40,7 @@
           '';
         };
 
-        networking.firewall.allowedUDPPorts = [ 123 ];
+        networking.firewall.allowedUDPPorts = [123];
 
         preferences.host.name = "${name}";
         system.stateVersion = "26.05";

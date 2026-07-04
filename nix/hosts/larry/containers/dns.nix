@@ -21,9 +21,9 @@
         services.unbound = {
           enable = true;
           settings.server = {
-            interface = [ "127.0.0.1" ];
+            interface = ["127.0.0.1"];
             port = 5335;
-            access-control = [ "127.0.0.0/8 allow" ];
+            access-control = ["127.0.0.0/8 allow"];
 
             local-zone = [
               ''"evil.deprived.dev." transparent''
@@ -52,16 +52,16 @@
           enable = true;
           settings = {
             ports.dns = 53;
-            upstreams.groups.default = [ "127.0.0.1:5335" ];
+            upstreams.groups.default = ["127.0.0.1:5335"];
             blocking.blackLists.ads = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             ];
-            blocking.clientGroupsBlock.default = [ "ads" ];
+            blocking.clientGroupsBlock.default = ["ads"];
           };
         };
 
-        networking.firewall.allowedTCPPorts = [ 53 ];
-        networking.firewall.allowedUDPPorts = [ 53 ];
+        networking.firewall.allowedTCPPorts = [53];
+        networking.firewall.allowedUDPPorts = [53];
 
         preferences.host.name = "${name}";
         system.stateVersion = "26.05";

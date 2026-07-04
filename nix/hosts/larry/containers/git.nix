@@ -25,7 +25,7 @@
           nameservers = ["10.100.0.11"];
           defaultGateway = "10.100.0.1";
 
-          # DNAT re-write sshport to realsshport, since it's bad practice to 
+          # DNAT re-write sshport to realsshport, since it's bad practice to
           # bind to :22, but users shouldn't have to use custom port
           firewall.extraCommands = ''
             iptables -t nat -A PREROUTING -p tcp --dport ${toString sshport} -j REDIRECT --to-ports ${toString realsshport}
@@ -64,7 +64,7 @@
 
               DISABLE_SSH = false;
               START_SSH_SERVER = true;
-              # Since we use caddy for HTTPS git.evil.deprived.dev doesnt 
+              # Since we use caddy for HTTPS git.evil.deprived.dev doesnt
               # resolve to this container
               SSH_DOMAIN = "forgejo.evil.deprived.dev";
               # Advertise sshport
@@ -83,7 +83,7 @@
           };
         };
 
-        networking.firewall.allowedTCPPorts = [ sshport realsshport webport ];
+        networking.firewall.allowedTCPPorts = [sshport realsshport webport];
 
         preferences.host.name = "${name}";
         system.stateVersion = "26.05";
