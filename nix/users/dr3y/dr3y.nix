@@ -49,6 +49,7 @@
         self.nixosModules.orca-slicer
         self.nixosModules.cura-slicer
         self.nixosModules.blender
+        self.nixosModules.godot-mono
       ];
 
     environment.systemPackages = with pkgs; [
