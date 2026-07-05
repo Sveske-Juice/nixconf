@@ -15,7 +15,7 @@
         self.nixosModules.general
         self.nixosModules.secrets
         self.nixosModules.user-larry
-        inputs.microvm.nixosModules.microvm
+        inputs.microvm.nixosModules.host
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-larry

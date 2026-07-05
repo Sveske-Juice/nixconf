@@ -42,9 +42,12 @@
       url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

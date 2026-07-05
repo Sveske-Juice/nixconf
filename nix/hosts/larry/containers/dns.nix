@@ -40,6 +40,7 @@
               # Virtual Hosts
               ''"git.evil.deprived.dev. IN A 10.100.0.14"''
               ''"auth.evil.deprived.dev. IN A 10.100.0.14"''
+              ''"plane.evil.deprived.dev. IN A 10.100.0.14"''
             ];
             local-data-ptr = [
               ''"10.200.0.10 larry.evil.deprived.dev"''

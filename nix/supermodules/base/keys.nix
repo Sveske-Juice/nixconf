@@ -49,6 +49,7 @@
       keys.ssh = {
         "pixel9a" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKeDUjke9DCqWRgQy7UFiCiTeIid6pXyzSTqYWS7MDf9 u0_a254@localhost";
         "dr3y" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwmQPKFQtZ7yluP24DcemFI749jIFLDLly9tsfDDVv8 dr3y";
+        "larry" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDvfZD+HEL1iOARg4RJ0G1pI7N2UBlhM/Kv7Ylc5xl5L larry";
       };
     };
   };
