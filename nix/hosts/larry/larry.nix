@@ -1,4 +1,8 @@
-{self, inputs, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosConfigurations = self.lib.mkHost "larry" [
     self.nixosModules.host-larry
   ];
