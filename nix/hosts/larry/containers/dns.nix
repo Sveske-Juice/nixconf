@@ -36,6 +36,7 @@
               ''"dns.evil.deprived.dev. IN A 10.100.0.11"''
               ''"ntp.evil.deprived.dev. IN A 10.100.0.13"''
               ''"forgejo.evil.deprived.dev. IN A 10.100.0.15"''
+              ''"smb.evil.deprived.dev. IN A 10.100.0.18"''
 
               # Virtual Hosts
               ''"git.evil.deprived.dev. IN A 10.100.0.14"''
