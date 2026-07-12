@@ -46,7 +46,8 @@ _: {
           };
           csharp = {
             enable = true;
-            lsp.servers = ["omnisharp"]; # csharp_ls doesn't seem to work (dll problems)
+            extensions.roslyn-nvim.enable = true;
+            lsp.servers = ["roslyn-ls"]; # csharp_ls doesn't seem to work (dll problems)
           };
 
           css.enable = true;
@@ -80,7 +81,7 @@ _: {
             listReferences = null;
             nextDiagnostic = null;
             previousDiagnostic = null;
-            openDiagnosticFloat = null;
+            openDiagnosticFloat = "<leader>le";
             documentHighlight = null;
             listDocumentSymbols = null;
             addWorkspaceFolder = null;
@@ -91,8 +92,8 @@ _: {
             signatureHelp = null;
             renameSymbol = null;
             codeAction = null;
-            format = null;
             toggleFormatOnSave = null;
+            format = "<F3>";
           };
         };
 
