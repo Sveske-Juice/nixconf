@@ -192,6 +192,13 @@
               blur = true;
             };
           }
+          {
+            matches = [
+                { app-id = "^TheMoen$"; }
+                { app-id = "^org\\.godotengine\\.Editor$"; title = "\\(DEBUG\\)"; }
+            ];
+            open-floating = true;
+          }
         ];
 
         layout = {
