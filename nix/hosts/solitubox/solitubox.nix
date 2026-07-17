@@ -35,6 +35,15 @@
         })
       ];
 
+    extraNiriModules = [
+      {
+        settings.outputs."Dell Inc. AW3423DWF G51J2S3" = {
+          mode = "3440x1440@164.900";
+          variable-refresh-rate = {};
+        };
+      }
+    ];
+
     preferences.host = {
       name = "solitubox";
     };
