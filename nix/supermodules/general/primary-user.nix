@@ -17,6 +17,7 @@
       extraGroups = [
         "wheel"
         "networkmanager"
+        "i2c"
       ];
       password = lib.mkIf (!config.preferences.secrets) config.preferences.user.name;
       hashedPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."users/${config.preferences.user.name}".path;
