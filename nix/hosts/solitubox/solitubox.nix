@@ -17,7 +17,7 @@
         self.nixosModules.secrets
 
         self.nixosModules.desktop
-        self.nixosModules.theme-material-qt-gtk
+        # self.nixosModules.theme-material-qt-gtk
         self.nixosModules.niri
         self.nixosModules.greetd
       ]

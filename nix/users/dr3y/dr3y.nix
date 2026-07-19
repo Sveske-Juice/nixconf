@@ -15,8 +15,6 @@
       filemanager = "pcmanfm-qt";
     };
 
-    networking.firewall.allowedTCPPorts = [80];
-
     deploy-gpg.enable = config.preferences.secrets;
 
     imports =
@@ -24,6 +22,7 @@
         self.nixosModules.syncthing
         self.nixosModules.cisco-ssh
 
+        self.nixosModules.noctalia
         self.nixosModules.kitty
         self.nixosModules.librewolf
         self.nixosModules.pcmanfm-qt

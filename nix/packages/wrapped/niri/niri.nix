@@ -99,7 +99,14 @@
         in {
           "Mod+Return".spawn-sh = "${config.terminal}";
           "Mod+B".spawn-sh = "${config.browser}";
-          "Mod+W".spawn = "${config.filemanager}";
+          "Mod+R".spawn-sh = "${config.filemanager}";
+          "Mod+D".spawn-sh = "${noctaliaExe} msg panel-toggle launcher";
+          "Mod+C".spawn-sh = "${noctaliaExe} msg panel-toggle clipboard";
+          "Mod+W".spawn-sh = "${noctaliaExe} msg panel-toggle wallpaper";
+          "Mod+A".spawn-sh = "${noctaliaExe} msg panel-toggle control-center";
+          "Mod+X".spawn-sh = "${noctaliaExe} msg panel-toggle session";
+          "Print".spawn-sh = "${noctaliaExe} msg screenshot-region";
+          "Mod+S".spawn-sh = "${noctaliaExe} msg screenshot-region";
 
           "Mod+Q".close-window = {};
           "Mod+F".maximize-column = {};
@@ -139,25 +146,21 @@
 
           "Mod+O".toggle-overview = {};
           "XF86SelectiveScreenshot".spawn-sh = screenshotExe;
-          "Print".spawn-sh = screenshotExe;
-          "Mod+S".spawn-sh = screenshotExe;
 
           "Mod+Shift+S".spawn-sh = "${noctaliaExe} ipc call settings toggle";
-          "Mod+D".spawn-sh = "${noctaliaExe} ipc call launcher toggle";
-          "Mod+C".spawn-sh = "${noctaliaExe} ipc call launcher clipboard";
-          "Mod+U".spawn-sh = "${noctaliaExe} ipc call lockScreen lock";
+          "Mod+U".spawn-sh = "${noctaliaExe} msg session lock";
 
-          "Mod+Z".spawn-sh = "${noctaliaExe} ipc call volume muteInput";
-          "XF86AudioMicMute".spawn-sh = "${noctaliaExe} ipc call volume muteInput";
-          "XF86AudioRaiseVolume".spawn-sh = "${noctaliaExe} ipc call volume increase";
-          "XF86AudioLowerVolume".spawn-sh = "${noctaliaExe} ipc call volume decrease";
+          "Mod+Z".spawn-sh = "${noctaliaExe} msg mic-mute";
+          "XF86AudioMicMute".spawn-sh = "${noctaliaExe} msg mic-mute";
+          "XF86AudioRaiseVolume".spawn-sh = "${noctaliaExe} msg volume-up";
+          "XF86AudioLowerVolume".spawn-sh = "${noctaliaExe} msg volume-down";
 
-          "XF86AudioPlay".spawn-sh = "${noctaliaExe} ipc call media playPause";
-          "XF86AudioPrev".spawn-sh = "${noctaliaExe} ipc call media previous";
-          "XF86AudioNext".spawn-sh = "${noctaliaExe} ipc call media next";
+          "XF86AudioPlay".spawn-sh = "${noctaliaExe} msg media toggle";
+          "XF86AudioPrev".spawn-sh = "${noctaliaExe} msg media previous";
+          "XF86AudioNext".spawn-sh = "${noctaliaExe} msg media next";
 
-          "XF86MonBrightnessUp".spawn-sh = "${noctaliaExe} ipc call brightness increase";
-          "XF86MonBrightnessDown".spawn-sh = "${noctaliaExe} ipc call brightness decrease";
+          "XF86MonBrightnessUp".spawn-sh = "${noctaliaExe} msg brightness-up";
+          "XF86MonBrightnessDown".spawn-sh = "${noctaliaExe} msg brightness-down";
 
           "Mod+1".focus-workspace = "w0";
           "Mod+2".focus-workspace = "w1";
