@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.greetd = {
+  flake.nixosModules.greetd-gtkgreet = {
     lib,
     pkgs,
     ...

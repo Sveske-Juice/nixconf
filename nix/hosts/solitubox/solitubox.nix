@@ -19,7 +19,7 @@
         self.nixosModules.desktop
         # self.nixosModules.theme-material-qt-gtk
         self.nixosModules.niri
-        self.nixosModules.greetd
+        self.nixosModules.greetd-noctalia-greeter
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-solitubox
