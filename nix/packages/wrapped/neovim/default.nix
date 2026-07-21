@@ -1,30 +1,29 @@
-# A "hacky" way to integrate NVF so every file is at a toplevel definition
-# (dentritic pattern). Every nvf file populates the options.nvfModules list
-# which gets collected and evaulated by nvf to produce the neovim package.
 {
   flake-parts-lib,
   inputs,
+  lib,
   ...
-}: {
-  # https://flake.parts/generate-documentation.html?highlight=mkPer#make-sure-to-use-mkpersystemoption
-  options.perSystem = flake-parts-lib.mkPerSystemOption ({
-    lib,
-    config,
-    pkgs,
-    ...
-  }: {
-    options.nvfModules = lib.mkOption {
-      type = lib.types.listOf lib.types.deferredModule;
-      default = [];
-      description = ''
-        NVF modules to be merged into neovimConfiguration
-      '';
+}@top: {
+  options.flake = flake-parts-lib.mkSubmoduleOptions {
+    nvfModules = lib.mkOption {
+      type = lib.types.lazyAttrsOf lib.types.deferredModule;
+      default = {};
+      description = "nvf module fragments";
     };
-    config.packages.neovim =
-      (inputs.nvf.lib.neovimConfiguration {
+  };
+
+  options.perSystem = flake-parts-lib.mkPerSystemOption ({pkgs, config, ...}: {
+    config.packages = {
+      neovim = config.packages.neovim-minimal;
+      neovim-minimal = (inputs.nvf.lib.neovimConfiguration {
         inherit pkgs;
-        modules = config.nvfModules;
+        modules = with top.config.flake.nvfModules; [ core ];
       }).neovim;
+      neovim-max = (inputs.nvf.lib.neovimConfiguration {
+        inherit pkgs;
+        modules = with top.config.flake.nvfModules; [ core lsp ];
+      }).neovim;
+    };
   });
 
   config.perSystem = {system, ...}: {

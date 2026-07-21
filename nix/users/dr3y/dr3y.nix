@@ -28,11 +28,15 @@
         self.nixosModules.pcmanfm-qt
         self.nixosModules.keepassxc
       ]
+      ++ lib.optionals isVM [
+        self.nixosModules.neovim
+      ]
       ++ lib.optionals (!isVM) [
         # No need for these big packages to be included in VMs
         # too speed up build process
         self.nixosModules.ocr
         self.nixosModules.libreoffice
+        self.nixosModules.neovim-max
 
         self.nixosModules.gaming
         self.nixosModules.virt-manager
