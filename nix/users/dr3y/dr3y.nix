@@ -54,6 +54,7 @@
         self.nixosModules.cura-slicer
         self.nixosModules.blender
         self.nixosModules.godot-mono
+        self.nixosModules.filezilla
       ];
 
     environment.systemPackages = with pkgs; [
