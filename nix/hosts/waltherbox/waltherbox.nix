@@ -20,14 +20,16 @@
         self.nixosModules.hardware-vm-waltherbox
         (self.lib.mkWaltherboxDisko {
           rootDisk = "/dev/vda";
+          fastDisk = "/dev/vdb";
           raidz1Disks = [
-            "vdb"
             "vdc"
             "vdd"
+            "vde"
           ];
           bootSize = "500M";
           swapSize = "500M";
           rootDiskSize = "10G";
+          fastDiskSize = "8G";
           raidz1DisksSize = "4G";
         })
       ]
@@ -35,6 +37,7 @@
         self.nixosModules.hardware-metal-waltherbox
         (self.lib.mkWaltherboxDisko {
           rootDisk = "/dev/nvme0n1";
+          fastDisk = "/dev/nvme1n1";
           raidz1Disks = [
             "sda"
             "sdb"
