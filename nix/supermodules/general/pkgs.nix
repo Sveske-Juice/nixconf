@@ -11,6 +11,7 @@
       traceroute
       nmap
       tcpdump
+      ntp
 
       zip
       unzip
