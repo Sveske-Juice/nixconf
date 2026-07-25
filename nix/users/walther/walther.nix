@@ -1,7 +1,11 @@
-_: {
+{self, ...}: {
   flake.nixosModules.user-walther = {config, ...}: let
     name = "walther";
   in {
+    imports = [
+      self.nixosModules.neovim
+    ];
+
     config = {
       preferences.user = {
         inherit name;
