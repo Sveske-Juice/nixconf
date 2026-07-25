@@ -15,6 +15,7 @@
         ];
         networking = {
           useHostResolvConf = false;
+          nameservers = [ "192.168.1.71" ];
           defaultGateway = "192.168.1.1";
         };
 

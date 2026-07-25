@@ -17,6 +17,7 @@
         self.nixosModules.user-walther
 
         self.nixosModules.ct-ntp
+        self.nixosModules.ct-dns
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox
