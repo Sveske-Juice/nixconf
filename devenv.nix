@@ -117,7 +117,7 @@
       ''
         set -euo pipefail
         if [ $# -lt 1 ]; then
-          echo "usage: build-vm-with-secrets HOST" >&2
+          echo "usage: build-vm-with-secrets <host>" >&2
           exit 2
         fi
         HOST="$1"; shift
@@ -131,7 +131,7 @@
       ''
         set -euo pipefail
         if [ $# -lt 1 ]; then
-          echo "usage: run-vm-with-secrets HOST [qemu args...]" >&2
+          echo "usage: run-vm-with-secrets <host> [qemu args...]" >&2
           exit 2
         fi
         HOST="$1"; shift
@@ -146,7 +146,7 @@
       ''
         set -euo pipefail
         if [ $# -lt 3 ]; then
-          echo "usage: install-remote HOST USER (metal|vm) [nixos-anywhere args...]" >&2
+          echo "usage: install-remote <host> <user> (metal|vm) [nixos-anywhere args...]" >&2
           exit 2
         fi
         HOST="$1"; USER_ARG="$2"; METAL="$3"

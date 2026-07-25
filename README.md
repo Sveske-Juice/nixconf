@@ -1,21 +1,58 @@
-# Installation
+# Features
+* Dendritic pattern - each nix file is a top-level config
+* Re-usable nixos modules - each common module gets defined as a nixosModule
+  in the flake (see `nix flake show`)
+* Wrapped packages that can be run with `nix run` for neovim, tmux, niri etc.
+* Secret management with [sops-nix](https://github.com/Mic92/sops-nix) as 
+  a git submodule
+* Custom bootstrap scripts for building, running and installing NixOS
+  configurations with secrets
+* User home management with [hjem](https://github.com/feel-co/hjem) and 
+  [hjem-rum](https://github.com/snugnug/hjem-rum)
 
-## VM with disko
+## Packages
+### Neovim
+Uses [NVF](https://github.com/NotAShelf/nvf) to wrap neovim. Minimal (default)
+has all my base configurations, while the max version `.#neovim-max` comes 
+with a lot of bundled LSP servers that I use.
+
 ```sh
-just (run|build)-vm <hostname> [args to qemu]
+nix run github:Sveske-Juice/nixconf#neovim
+nix run github:Sveske-Juice/nixconf#neovim-max
+```
+### Tmux
+My tmux config wrapped with [nix-wrapper-modules](https://github.com/BirdeeHub/nix-wrapper-modules).
+
+```sh
+nix run github:Sveske-Juice/nixconf#tmux
+```
+
+### Niri
+Niri with noctalia shell v5 wrapped with [nix-wrapper-modules](https://github.com/BirdeeHub/nix-wrapper-modules).
+
+```sh
+nix run github:Sveske-Juice/nixconf#niri
+```
+
+# Installation
+Enter dev shell:
+
+```sh
+devenv shell
+```
+
+## VM with disko (no secrets)
+```sh
+(run|build)-vm <hostname> [qemu args...]
 ```
 This will build the nixosConfiguration with stub secrets.
 
-## VM with disko + secrets
+## VM with disko and secrets
 ```sh
-SOPS_AGE_KEY=<master-key> just (build|run)-vm-with-secrets <hostname> [args to qemu]
+(build|run)-vm-with-secrets <hostname> [qemu args...]
 ```
-This will:
-- Pass the master key to the VM with qemu_fw_cfg.
-- The custom activationScript will extract the key before sops is run.
-- Sops uses the extracted key as age key to extract secrets.
 
-## Remote (`nixos-anywhere`) with disko + secrets
+## Remote (`nixos-anywhere`) with disko and secrets
 *Requirements:*
 - The Host's private SSH key should be in `./secrets/hosts/<hostname>.yaml`.
   - `ssh/key`
@@ -26,11 +63,11 @@ This will:
 - Set password for nixos user
 
 ```sh
-SOPS_AGE_KEY=<master-key> just install-remote <hostname> <username> (metal|vm) [nixos-anywhere args]
+install-remote <hostname> <username> (metal|vm) [nixos-anywhere args...]
 ```
 Example:
 ```sh
-SOPS_AGE_KEY=<master-key> just install-remote themata dr3y vm --target-host nixos@192.168.67.67
+install-remote themata dr3y vm --target-host nixos@192.168.67.67
 ```
 This will:
 - Extract the host and user's ssh keys into a tmp dir.
