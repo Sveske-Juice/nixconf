@@ -4,6 +4,8 @@
       self.packages.${pkgs.stdenv.hostPlatform.system}.tmux
       fastfetch
       btop
+      secretspec
+      devenv
 
       net-tools
       bind
