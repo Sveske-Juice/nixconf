@@ -18,7 +18,7 @@
 
         self.nixosModules.desktop
         self.nixosModules.niri
-        self.nixosModules.greetd-gtkgreet
+        self.nixosModules.greetd-noctalia-greeter
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-lateralus
