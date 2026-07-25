@@ -20,7 +20,8 @@
     nvf.url = "github:NotAShelf/nvf";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
 
-    disko.url = "github:nix-community/disko";
+    # FIXME: go back to official disko once https://github.com/nix-community/disko/pull/1170 is merged
+    disko.url = "github:AlexLov/disko/6747342da148f6cb28c8405a70fe00455a0ba027";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     hjem.url = "github:feel-co/hjem";
