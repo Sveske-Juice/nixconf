@@ -15,6 +15,8 @@
         self.nixosModules.general
         self.nixosModules.secrets
         self.nixosModules.user-walther
+
+        self.nixosModules.ct-ntp
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox
