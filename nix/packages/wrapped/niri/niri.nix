@@ -197,8 +197,11 @@
           }
           {
             matches = [
-                { app-id = "^TheMoen$"; }
-                { app-id = "^org\\.godotengine\\.Editor$"; title = "\\(DEBUG\\)"; }
+              {app-id = "^TheMoen$";}
+              {
+                app-id = "^org\\.godotengine\\.Editor$";
+                title = "\\(DEBUG\\)";
+              }
             ];
             open-floating = true;
           }

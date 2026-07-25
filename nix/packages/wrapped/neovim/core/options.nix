@@ -1,5 +1,9 @@
 {
-  flake.nvfModules.core = {lib, pkgs, ...}: {
+  flake.nvfModules.core = {
+    lib,
+    pkgs,
+    ...
+  }: {
     vim = {
       theme = {
         enable = false;
@@ -27,11 +31,11 @@
             },
           });
           vim.cmd("colorscheme lackluster");
-          '';
-          luaConfigRC.colorcolumn =
-          lib.nvim.dag.entryAfter ["theme"]
-          # lua
-          ''
+        '';
+      luaConfigRC.colorcolumn =
+        lib.nvim.dag.entryAfter ["theme"]
+        # lua
+        ''
           local lackluster = require("lackluster")
           vim.api.nvim_set_hl(0, "ColorColumn", { bg = lackluster.color.gray3 })
         '';

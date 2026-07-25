@@ -1,5 +1,9 @@
 {inputs, ...}: {
-  flake.wrappers.noctalia-shell = {wlib, pkgs, ...}: {
+  flake.wrappers.noctalia-shell = {
+    wlib,
+    pkgs,
+    ...
+  }: {
     imports = [
       wlib.wrapperModules.noctalia-shell
     ];

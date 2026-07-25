@@ -1,5 +1,9 @@
 {inputs, ...}: {
-  flake.nixosModules.noctalia = {config, pkgs, ...}: {
+  flake.nixosModules.noctalia = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = [
       inputs.qtengine.nixosModules.default
     ];
@@ -35,7 +39,6 @@
         };
       };
     };
-
 
     hjem = {
       extraModules = [

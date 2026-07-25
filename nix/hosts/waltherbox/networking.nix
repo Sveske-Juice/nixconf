@@ -5,7 +5,7 @@
     networking.useDHCP = false;
     services.resolved.enable = true;
     # TODO: NTP server
-    
+
     systemd.network = {
       enable = true;
 
@@ -32,8 +32,8 @@
         };
         linkConfig.RequiredForOnline = "routable";
 
-        address = [ "192.168.1.69/24" ];
-        routes = [{ Gateway = "192.168.1.1"; }];
+        address = ["192.168.1.69/24"];
+        routes = [{Gateway = "192.168.1.1";}];
       };
     };
   };

@@ -1,5 +1,9 @@
 {
-  flake.nvfModules.core = {pkgs, lib, ...}: {
+  flake.nvfModules.core = {
+    pkgs,
+    lib,
+    ...
+  }: {
     vim.lazy.plugins = {
       "colorful-menu.nvim" = {
         package = pkgs.vimPlugins.colorful-menu-nvim;
@@ -49,41 +53,41 @@
         # Use colorful-menu
         completion.menu.draw =
           lib.generators.mkLuaInline # lua
-
+          
           ''
-          {
-            columns = { { "kind_icon" }, { "label", gap = 1 } },
-            components = {
-              label = {
-                text = function(ctx)
-                  return require("colorful-menu").blink_components_text(ctx);
-                end,
-                highlight = function(ctx)
-                  return require("colorful-menu").blink_components_highlight(ctx)
-                end,
-              },
-            }
-          },
-            '';
+            {
+              columns = { { "kind_icon" }, { "label", gap = 1 } },
+              components = {
+                label = {
+                  text = function(ctx)
+                    return require("colorful-menu").blink_components_text(ctx);
+                  end,
+                  highlight = function(ctx)
+                    return require("colorful-menu").blink_components_highlight(ctx)
+                  end,
+                },
+              }
+            },
+          '';
 
-            keymap = {
-            preset = "none"; # No default keybinds
+        keymap = {
+          preset = "none"; # No default keybinds
 
-            # When we press <esc> and hide the completion menu
-            # we normally stay in insert mode, this is anyoing,
-            # so we run "hide" and return false so the fallback
-            # runs and we return to normal mode without having
-            # to press <esc> twice.
-            "<esc>" = [
+          # When we press <esc> and hide the completion menu
+          # we normally stay in insert mode, this is anyoing,
+          # so we run "hide" and return false so the fallback
+          # runs and we return to normal mode without having
+          # to press <esc> twice.
+          "<esc>" = [
             (
-            lib.generators.mkLuaInline # lua
-
-            ''
-            function(cmp)
-            cmp["hide"]();
-            return false;
-          end
-          ''
+              lib.generators.mkLuaInline # lua
+              
+              ''
+                  function(cmp)
+                  cmp["hide"]();
+                  return false;
+                end
+              ''
             )
             "fallback"
           ];

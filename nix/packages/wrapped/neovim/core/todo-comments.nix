@@ -92,6 +92,5 @@
         desc = "Open Todo's in Telescope";
       }
     ];
-
   };
 }
