@@ -15,8 +15,13 @@
   env = {
     CLOUDFLARE_API_TOKEN = config.secretspec.secrets.CLOUDFLARE_API_TOKEN;
     TF_STATE_DIR = "${config.env.DEVENV_ROOT}/.state/cloudflare";
-    SOPS_MASTER_KEY_PATH = "\${XDG_RUNTIME_DIR:-/tmp}/sops-master-key";
   };
+
+  enterShell = 
+    # bash
+    ''
+      export SOPS_MASTER_KEY_PATH="''${XDG_RUNTIME_DIR:-/tmp}/sops-master-key"
+    '';
 
   scripts = {
     cf-prep.exec =
