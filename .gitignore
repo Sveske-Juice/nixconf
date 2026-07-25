@@ -2,6 +2,8 @@ result
 result-*
 build/
 .direnv/
+.devenv/
+.state/
 .cache/
 *.qcow2
 *.fd

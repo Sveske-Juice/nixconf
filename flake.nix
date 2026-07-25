@@ -8,6 +8,9 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    terranix.url = "github:terranix/terranix";
+    terranix.inputs.nixpkgs.follows = "nixpkgs";
+
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
