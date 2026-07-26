@@ -76,7 +76,7 @@
 
           preferences.host.name = "${name}";
           preferences.user.name = "${user}";
-          system.stateVersion = "26.11";
+          system.stateVersion = "26.05";
         };
       };
     };
