@@ -12,7 +12,7 @@
     # to disable default whichkey registers
     # see: https://github.com/NotAShelf/nvf/issues/746
     vim.binds.whichKey.register = lib.mkForce {
-      "<leader>l" = "LSP";
+      "g" = "LSP";
       "e" = "Telescope";
       "eg" = "Telescope Git";
     };

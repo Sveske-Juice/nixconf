@@ -104,7 +104,7 @@
           desc = "Preview Typst Document";
         }
         {
-          key = "la";
+          key = "ga";
           mode = "n";
           silent = true;
           action = "vim.lsp.buf.code_action";
@@ -112,7 +112,7 @@
           desc = "Code actions";
         }
         {
-          key = "le";
+          key = "ge";
           mode = "n";
           silent = true;
           action = "vim.diagnostic.open_float";
@@ -137,7 +137,7 @@
         #   desc = "Signature help";
         # }
         {
-          key = "ld";
+          key = "gd";
           mode = "n";
           silent = true;
           action = "vim.lsp.buf.definition";
@@ -145,14 +145,14 @@
           desc = "Go to definition";
         }
         {
-          key = "lh";
+          key = "gh";
           mode = "n";
           silent = true;
           action = ":LspClangdSwitchSourceHeader<CR>";
           desc = "Clangd: Switch Source/Header file";
         }
         {
-          key = "lD";
+          key = "gD";
           mode = "n";
           silent = true;
           action = "vim.lsp.buf.declaration";
@@ -160,7 +160,7 @@
           desc = "Go to declaration";
         }
         {
-          key = "lR";
+          key = "gR";
           mode = "n";
           silent = true;
           action = "vim.lsp.buf.rename";
@@ -168,7 +168,7 @@
           desc = "Rename symbol";
         }
         {
-          key = "lf";
+          key = "gf";
           mode = "n";
           silent = true;
           action = "vim.lsp.buf.format";
