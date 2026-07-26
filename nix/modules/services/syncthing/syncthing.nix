@@ -1,8 +1,12 @@
 {
-  flake.nixosModules.syncthing = {config, ...}: let
+  flake.nixosModules.syncthing = {
+    config,
+    lib,
+    ...
+  }: let
     allDevices = keys: builtins.attrNames keys.syncthing;
   in {
-    sops.secrets = {
+    sops.secrets = lib.mkIf config.preferences.secrets {
       "syncthing/certpem" = {
         owner = config.services.syncthing.user;
         inherit (config.services.syncthing) group;
@@ -47,11 +51,11 @@
       dataDir = config.preferences.user.home;
       user = config.preferences.user.name;
       inherit (config.users.users.${config.preferences.user.name}) group;
-      cert = config.sops.secrets."syncthing/certpem".path;
-      key = config.sops.secrets."syncthing/keypem".path;
+      cert = lib.mkIf config.preferences.secrets config.sops.secrets."syncthing/certpem".path;
+      key = lib.mkIf config.preferences.secrets config.sops.secrets."syncthing/keypem".path;
 
       # Extracted in primary-user-nix
-      guiPasswordFile = config.sops.secrets."syncthing/passphrase".path;
+      guiPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."syncthing/passphrase".path;
 
       settings = {
         devices = config.keys.syncthing;

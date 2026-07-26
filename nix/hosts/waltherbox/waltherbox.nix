@@ -21,6 +21,7 @@
         self.nixosModules.ct-proxy
 
         self.nixosModules.ct-radicale
+        self.nixosModules.ct-syncthing
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox
