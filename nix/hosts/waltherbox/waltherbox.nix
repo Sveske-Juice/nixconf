@@ -19,6 +19,8 @@
         self.nixosModules.ct-ntp
         self.nixosModules.ct-dns
         self.nixosModules.ct-proxy
+
+        self.nixosModules.ct-radicale
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox

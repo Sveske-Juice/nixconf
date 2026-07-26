@@ -201,8 +201,7 @@ in {
 
             "apps/radicale" = {
               type = "zfs_fs";
-              mountpoint = "/fast/apps/immich";
-              options.canmount = "off";
+              mountpoint = "/fast/apps/radicale";
               options."com.sun:auto-snapshot" = "true";
             };
 
@@ -210,7 +209,6 @@ in {
               type = "zfs_fs";
               mountpoint = "/fast/apps/immich";
               options.canmount = "off";
-              options."com.sun:auto-snapshot" = "true";
             };
 
             "apps/immich/library" = {
