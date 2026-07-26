@@ -11,6 +11,11 @@
         uid = radicaleUid;
       };
 
+      containers.proxy.config.services.caddy.virtualHosts."radicale.waltherbox.org".extraConfig = ''
+        tls { dns cloudflare {env.CF_API_TOKEN} }
+        reverse_proxy http://192.168.1.73:5232
+      '';
+
       containers."${name}" = {
         autoStart = true;
         privateNetwork = true;
