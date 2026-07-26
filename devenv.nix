@@ -17,7 +17,7 @@
     TF_STATE_DIR = "${config.env.DEVENV_ROOT}/.state/cloudflare";
   };
 
-  enterShell = 
+  enterShell =
     # bash
     ''
       export SOPS_MASTER_KEY_PATH="''${XDG_RUNTIME_DIR:-/tmp}/sops-master-key"
