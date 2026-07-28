@@ -58,7 +58,7 @@
         preferences.enabledLibraries = [ "Movies" "Shows" ];
       };
     };
-  in {
+  in {...}@hostArgs: {
     # Extract all user passwords on host
     sops.secrets = builtins.listToAttrs (
       map (user: {
@@ -102,6 +102,7 @@
         };
 
         # Bind mount host zfs datasets to jellyfin container
+        "/data/media" = { isReadOnly = false; };
         ${dataDir}       = { hostPath = hostDataDir;       isReadOnly = false; };
         ${metadataDir}   = { hostPath = hostMetadataDir;   isReadOnly = false; };
         ${cacheDir}      = { hostPath = hostCacheDir;      isReadOnly = false; };
@@ -129,7 +130,14 @@
           defaultGateway = "192.168.1.1";
         };
 
-        users.users.${config.services.jellyfin.user}.uid = uid;
+        # Create container local groups and match gid with host
+        users.groups.media.gid = hostArgs.config.users.groups.media.gid;
+        users.groups.photos.gid = hostArgs.config.users.groups.photos.gid;
+
+        users.users.${config.services.jellyfin.user} = {
+          inherit uid;
+          extraGroups = [ "video" "render" "media" "photos"];
+        };
         users.groups.${config.services.jellyfin.group}.gid = gid;
 
         hardware.graphics.enable = true;
@@ -161,6 +169,22 @@
 
           # Merge user's hashedPasswordFile with their settings
           users = lib.recursiveUpdate userPasswords userOverrides;
+
+          encoding = {
+            enableHardwareEncoding = true;
+            hardwareAccelerationType = "vaapi";
+            enableDecodingColorDepth10Hevc = true;
+            allowHevcEncoding = true;
+            allowAv1Encoding = true;
+            hardwareDecodingCodecs = [
+              "h264"
+              "hevc"
+              "mpeg2video"
+              "vc1"
+              "vp9"
+              "av1"
+            ];
+          };
         };
 
         preferences.host.name = "${name}";
