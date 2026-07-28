@@ -9,7 +9,7 @@
     radarrPort = 8787;
 
     qbitConfigDir = "/var/lib/qbittorrent";
-    qbitDataDir = "/data";
+    qbitDataDir = "/buffer";
     hostQbitConfigDir = "/fast/apps/qbittorrent/config";
     hostQbitDataDir = "/fast/apps/qbittorrent/data";
   in
@@ -103,6 +103,9 @@
             hostPath = config.sops.templates."wg0.conf".path;
             isReadOnly = true;
           };
+          "/data/media/" = {
+            isReadOnly = false;
+          };
           ${qbitConfigDir} = { hostPath = hostQbitConfigDir; isReadOnly = false; };
           ${qbitDataDir} = { hostPath = hostQbitDataDir; isReadOnly = false; };
         };
@@ -121,6 +124,10 @@
               autostart = true;
             };
           };
+
+          systemd.tmpfiles.rules = [
+            "d ${qbitDataDir} 770 qbittorrent media - - "
+          ];
 
           # Create container local group with matching gid of host group
           users.groups.media.gid = config.users.groups.media.gid;
@@ -182,6 +189,15 @@
                 GlobalMaxUploads = 50;
                 MaxConnectionsPerTorrent = 100;
                 MaxUploadsPerTorrent = 10;
+
+                QueueingSystemEnabled = true;
+                MaxActiveDownloads = 10;
+                MaxActiveUploads = 40;
+                MaxActiveTorrents = 50;
+                IgnoreSlowTorrentsForQueueing = true;
+                SlowTorrentsDownloadRate = 2; # KB/s
+                SlowTorrentsUploadRate = 2; # KB/s
+                SlowTorrentsInactivityTimer = 60;
               };
               Preferences = {
                 General.Locale = "en";
@@ -191,9 +207,11 @@
                   Port = qbitPort;
                   Username = "qbitadmin";
                   Password_PBKDF2 = "CMTz2RxO4FOFV/5MJfuF6A==:SK0skoW92U/vEzLyX5ovY2uM3KSbv80H8OSN56PhbmUdBHn6/g6QSVQBAPQgonYDRGer2SY5vpXf8x0TYkAuiw==";
+                  # Disable auth for localhos: sonarr, radarr
+                  LocalHostAuth = false;
 
                   # AuthSubnetWhitelistEnabled = true;
-                  # AuthSubnetWhitelist = "192.168.1.0/24";
+                  # AuthSubnetWhitelist = "192.168.1.0/24,10.0.0.0/8";
                   AlternativeUIEnabled = true;
                   RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
                 };
