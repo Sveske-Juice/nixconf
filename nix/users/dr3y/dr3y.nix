@@ -55,6 +55,7 @@
         self.nixosModules.blender
         self.nixosModules.godot-mono
         self.nixosModules.filezilla
+        self.nixosModules.localsend
       ];
 
     environment.systemPackages = with pkgs; [
