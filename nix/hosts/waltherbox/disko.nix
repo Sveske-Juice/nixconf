@@ -235,6 +235,51 @@ in {
               options."com.sun:auto-snapshot" = "false";
             };
 
+            "apps/jellyfin" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/jellyfin";
+              options.canmount = "off";
+            };
+
+            "apps/jellyfin/config" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/jellyfin/config";
+              options = {
+                # aligns with sqlite
+                recordsize = "16K";
+                compression = "zstd";
+                "com.sun:auto-snapshot" = "true";
+              };
+            };
+
+            "apps/jellyfin/metadata" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/jellyfin/metadata";
+              options = {
+                compression = "zstd";
+              };
+            };
+
+            "apps/jellyfin/cache" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/jellyfin/cache";
+              options = {
+                compression = "off";
+                recordsize = "1M";
+              };
+            };
+
+            "apps/jellyfin/transcodes" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/jellyfin/transcodes";
+              options = {
+                compression = "off";
+                recordsize = "1M";
+                # temp dir so crash loss is fine 
+                sync = "disabled";
+              };
+            };
+
             "apps/qbittorrent" = {
               type = "zfs_fs";
               mountpoint = "/fast/apps/qbittorrent";

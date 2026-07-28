@@ -15,5 +15,11 @@ in {
       content = primaryIpv4;
       comment = "Radicale";
     };
+    jellyfinIpv4 = {
+      name = "jellyfin";
+      type = "A";
+      content = primaryIpv4;
+      comment = "Jellyfin";
+    };
   };
 }

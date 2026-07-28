@@ -23,6 +23,7 @@
         self.nixosModules.ct-radicale
         self.nixosModules.ct-syncthing
         self.nixosModules.ct-torrentbox
+        self.nixosModules.ct-jellyfin
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox
