@@ -44,18 +44,18 @@
 
     services.syncthing = {
       enable = true;
-      openDefaultPorts = true;
+      openDefaultPorts = lib.mkDefault true;
       # Only open to localhost by default
-      guiAddress = "127.0.0.1:8384";
+      guiAddress = lib.mkDefault "127.0.0.1:8384";
 
-      dataDir = config.preferences.user.home;
+      dataDir = lib.mkDefault config.preferences.user.home;
       user = config.preferences.user.name;
       inherit (config.users.users.${config.preferences.user.name}) group;
-      cert = lib.mkIf config.preferences.secrets config.sops.secrets."syncthing/certpem".path;
-      key = lib.mkIf config.preferences.secrets config.sops.secrets."syncthing/keypem".path;
+      cert = lib.mkIf config.preferences.secrets (lib.mkDefault config.sops.secrets."syncthing/certpem".path);
+      key = lib.mkIf config.preferences.secrets (lib.mkDefault config.sops.secrets."syncthing/keypem".path);
 
       # Extracted in primary-user-nix
-      guiPasswordFile = lib.mkIf config.preferences.secrets config.sops.secrets."syncthing/passphrase".path;
+      guiPasswordFile = lib.mkIf config.preferences.secrets (lib.mkDefault config.sops.secrets."syncthing/passphrase".path);
 
       settings = {
         devices = config.keys.syncthing;

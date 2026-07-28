@@ -4,6 +4,7 @@
     syncthingUid = 8002;
     secretPath = "/run/secrets/syncthing";
     user = "syncuser";
+    guiPort = 8384;
   in
     {
       config,
@@ -16,6 +17,12 @@
         "syncthing/keypem".uid = syncthingUid;
         "syncthing/passphrase".uid = syncthingUid;
       };
+
+      containers.proxy.config.services.caddy.virtualHosts."syncthing.waltherbox.org".extraConfig = ''
+        import cf_tls
+        import lan_only
+        reverse_proxy http://192.168.1.74:${toString guiPort}
+      '';
 
       containers."${name}" = {
         autoStart = true;
@@ -65,10 +72,14 @@
           users.groups."${user}" = {};
 
           # Use the imported secrets instead of using sops in the container
+          networking.firewall.allowedTCPPorts = [guiPort];
           services.syncthing = {
-            cert = lib.mkForce "${secretPath}/certpem";
-            key = lib.mkForce "${secretPath}/keypem";
-            guiPasswordFile = lib.mkForce "${secretPath}/passphrase";
+            openDefaultPorts = true;
+            guiAddress = "[::]:${toString guiPort}";
+
+            cert = "${secretPath}/certpem";
+            key = "${secretPath}/keypem";
+            guiPasswordFile = "${secretPath}/passphrase";
           };
 
           # syncthing module should not try extract secrets inside the container

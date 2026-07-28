@@ -30,6 +30,9 @@
             ];
             local-data = [
               ''"ntp.waltherbox.org IN A 192.168.1.70"''
+
+              # Local Vhosts
+              ''"syncthing.waltherbox.org IN A 192.168.1.72"''
             ];
             local-data-ptr = [
             ];

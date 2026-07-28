@@ -12,7 +12,7 @@
       };
 
       containers.proxy.config.services.caddy.virtualHosts."radicale.waltherbox.org".extraConfig = ''
-        tls { dns cloudflare {env.CF_API_TOKEN} }
+        import cf_tls
         reverse_proxy http://192.168.1.73:5232
       '';
 

@@ -44,6 +44,17 @@
             globalConfig = ''
               acme_dns cloudflare {env.CF_API_TOKEN}
             '';
+            extraConfig = ''
+              (lan_only) {
+                @denied not remote_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 fc00::/7 fe80::/10
+                abort @denied
+              }
+              (cf_tls) {
+                tls {
+                  dns cloudflare {env.CF_API_TOKEN}
+                }
+              }
+            '';
           };
 
           # QUIC
