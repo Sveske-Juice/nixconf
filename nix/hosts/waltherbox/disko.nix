@@ -275,7 +275,7 @@ in {
               options = {
                 compression = "off";
                 recordsize = "1M";
-                # temp dir so crash loss is fine 
+                # temp dir so crash loss is fine
                 sync = "disabled";
               };
             };
