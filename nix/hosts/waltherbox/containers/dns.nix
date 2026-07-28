@@ -38,6 +38,7 @@
               ''"torrent.lan.waltherbox.org IN A 192.168.1.72"''
               ''"jackett.lan.waltherbox.org IN A 192.168.1.72"''
               ''"sonarr.lan.waltherbox.org IN A 192.168.1.72"''
+              ''"radarr.lan.waltherbox.org IN A 192.168.1.72"''
             ];
             local-data-ptr = [
             ];

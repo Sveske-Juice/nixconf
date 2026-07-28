@@ -6,6 +6,7 @@
     qbitPort = 9091;
     jackettPort = 9117;
     sonarrPort = 8989;
+    radarrPort = 8787;
 
     qbitConfigDir = "/var/lib/qbittorrent";
     qbitDataDir = "/data";
@@ -73,6 +74,11 @@
           import lan_only
           reverse_proxy http://192.168.1.75:${toString sonarrPort}
         '';
+        "radarr.lan.waltherbox.org".extraConfig = ''
+          import cf_tls
+          import lan_only
+          reverse_proxy http://192.168.1.75:${toString radarrPort}
+        '';
       };
 
 
@@ -128,13 +134,22 @@
 
           services.sonarr = {
             enable = true;
-
             openFirewall = true;
-
             group = "media";
 
             settings = {
               server.port = sonarrPort;
+              log.analyticsEnabled = false;
+            };
+          };
+
+          services.radarr = {
+            enable = true;
+            openFirewall = true;
+            group = "media";
+
+            settings = {
+              server.port = radarrPort;
               log.analyticsEnabled = false;
             };
           };
