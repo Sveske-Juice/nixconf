@@ -26,13 +26,15 @@
             access-control = ["127.0.0.0/8 allow"];
 
             local-zone = [
-              ''"waltherbox.org" transparent''
+              ''"waltherbox.lan" transparent''
             ];
             local-data = [
-              ''"ntp.waltherbox.org IN A 192.168.1.70"''
+              ''"waltherbox.lan IN A 192.168.1.69"''
+
+              ''"ntp.waltherbox.lan IN A 192.168.1.70"''
 
               # Local Vhosts
-              ''"syncthing.waltherbox.org IN A 192.168.1.72"''
+              ''"syncthing.waltherbox.lan IN A 192.168.1.72"''
             ];
             local-data-ptr = [
             ];
@@ -48,6 +50,11 @@
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             ];
             blocking.clientGroupsBlock.default = ["ads"];
+
+            # Disable the RFC 6761 special-use domain block for local domains
+            specialUseDomains = {
+              enable = false;
+            };
           };
         };
 
