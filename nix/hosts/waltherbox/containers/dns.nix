@@ -26,15 +26,16 @@
             access-control = ["127.0.0.0/8 allow"];
 
             local-zone = [
-              ''"waltherbox.lan" transparent''
+              ''"waltherbox.org" transparent''
             ];
             local-data = [
-              ''"waltherbox.lan IN A 192.168.1.69"''
+              ''"lan.waltherbox.org IN A 192.168.1.69"''
 
-              ''"ntp.waltherbox.lan IN A 192.168.1.70"''
+              ''"ntp.lan.waltherbox.org IN A 192.168.1.70"''
 
               # Local Vhosts
-              ''"syncthing.waltherbox.lan IN A 192.168.1.72"''
+              ''"syncthing.lan.waltherbox.org IN A 192.168.1.72"''
+              ''"torrent.lan.waltherbox.org IN A 192.168.1.72"''
             ];
             local-data-ptr = [
             ];
