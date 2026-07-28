@@ -63,8 +63,8 @@
           user = config.preferences.user.name;
         };
         folders = {
-          pictures = {
-            path = "${config.services.syncthing.dataDir}/Pictures";
+          media = {
+            path = "${config.services.syncthing.dataDir}/media";
             devices = [
               "solitubox"
               "lateralus"
@@ -72,8 +72,8 @@
               "Pixel 9a"
             ];
           };
-          docs = {
-            path = "${config.services.syncthing.dataDir}/docs";
+          commondocs = {
+            path = "${config.services.syncthing.dataDir}/docs/common";
             devices = allDevices config.keys;
           };
           notes = {
