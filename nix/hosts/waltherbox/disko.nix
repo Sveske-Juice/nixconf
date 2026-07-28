@@ -92,9 +92,9 @@ in {
             };
           };
         }
-        // lib.attrsets.genAttrs raidz1Disks (name: {
+        // lib.attrsets.genAttrs raidz1Disks (disk: {
           type = "disk";
-          device = "/dev/${name}";
+          device = disk;
           imageSize = lib.mkIf (raidz1DisksSize != null) raidz1DisksSize;
           content = {
             type = "gpt";
@@ -103,7 +103,7 @@ in {
                 size = "100%";
                 content = {
                   type = "zfs";
-                  pool = "storage";
+                  pool = "data";
                 };
               };
             };
@@ -272,7 +272,7 @@ in {
           };
         };
 
-        storage = lib.mkIf (builtins.length raidz1Disks > 0) {
+        data = lib.mkIf (builtins.length raidz1Disks > 0) {
           type = "zpool";
           mode = "raidz";
 

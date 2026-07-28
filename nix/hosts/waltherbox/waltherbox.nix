@@ -30,9 +30,9 @@
           rootDisk = "/dev/vda";
           fastDisk = "/dev/vdb";
           raidz1Disks = [
-            "vdc"
-            "vdd"
-            "vde"
+            "/dev/vdc"
+            "/dev/vdd"
+            "/dev/vde"
           ];
           bootSize = "500M";
           swapSize = "500M";
@@ -44,12 +44,12 @@
       ++ lib.optionals (!isVM) [
         self.nixosModules.hardware-metal-waltherbox
         (self.lib.mkWaltherboxDisko {
-          rootDisk = "/dev/nvme0n1";
-          fastDisk = "/dev/nvme1n1";
+          rootDisk = "/dev/disk/by-id/nvme-eui.00000000000000000026b73815c0a1b5";
+          fastDisk = "/dev/disk/by-id/nvme-eui.00000000000000000026b728386c2675";
           raidz1Disks = [
-            "sda"
-            "sdb"
-            "sdc"
+            "/dev/disk/by-id/ata-WDC_WD161KFGX-68AFPN0_3HH24M2N"
+            "/dev/disk/by-id/ata-WDC_WD161KFGX-68CMAN0_T1G0RU8N"
+            "/dev/disk/by-id/ata-WDC_WD161KFGX-68CMAN0_T1G0RT5N"
           ];
           bootSize = "1G";
           swapSize = "64G";
