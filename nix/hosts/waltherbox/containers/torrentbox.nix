@@ -4,6 +4,7 @@
     # mullvad dns
     dns = "10.64.0.1";
     qbitPort = 9091;
+    jackettPort = 9117;
 
     qbitConfigDir = "/var/lib/qbittorrent";
     qbitDataDir = "/data";
@@ -55,11 +56,19 @@
         mode = "0400";
       };
 
-      containers.proxy.config.services.caddy.virtualHosts."torrent.lan.waltherbox.org".extraConfig = ''
-        import cf_tls
-        import lan_only
-        reverse_proxy http://192.168.1.75:${toString qbitPort}
-      '';
+      containers.proxy.config.services.caddy.virtualHosts = {
+        "torrent.lan.waltherbox.org".extraConfig = ''
+          import cf_tls
+          import lan_only
+          reverse_proxy http://192.168.1.75:${toString qbitPort}
+        '';
+        "jackett.lan.waltherbox.org".extraConfig = ''
+          import cf_tls
+          import lan_only
+          reverse_proxy http://192.168.1.75:${toString jackettPort}
+        '';
+      };
+
 
       containers."${name}" = {
         autoStart = true;
@@ -103,6 +112,13 @@
 
           # Create container local group with matching gid of host group
           users.groups.media.gid = config.users.groups.media.gid;
+
+          services.jackett = {
+            enable = true;
+            port = jackettPort;
+            openFirewall = true;
+            group = "media";
+          };
 
           services.qbittorrent = {
             enable = true;

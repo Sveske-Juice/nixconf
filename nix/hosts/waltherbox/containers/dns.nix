@@ -36,6 +36,7 @@
               # Local Vhosts
               ''"syncthing.lan.waltherbox.org IN A 192.168.1.72"''
               ''"torrent.lan.waltherbox.org IN A 192.168.1.72"''
+              ''"jackett.lan.waltherbox.org IN A 192.168.1.72"''
             ];
             local-data-ptr = [
             ];
