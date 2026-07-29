@@ -64,22 +64,22 @@
 
       containers.proxy.config.services.caddy.virtualHosts = {
         "torrent.lan.waltherbox.org".extraConfig = ''
-          import cf_tls
+          import cf_tls_waltherbox
           import lan_only
           reverse_proxy http://192.168.1.75:${toString qbitPort}
         '';
         "jackett.lan.waltherbox.org".extraConfig = ''
-          import cf_tls
+          import cf_tls_waltherbox
           import lan_only
           reverse_proxy http://192.168.1.75:${toString jackettPort}
         '';
         "sonarr.lan.waltherbox.org".extraConfig = ''
-          import cf_tls
+          import cf_tls_waltherbox
           import lan_only
           reverse_proxy http://192.168.1.75:${toString sonarrPort}
         '';
         "radarr.lan.waltherbox.org".extraConfig = ''
-          import cf_tls
+          import cf_tls_waltherbox
           import lan_only
           reverse_proxy http://192.168.1.75:${toString radarrPort}
         '';
@@ -100,8 +100,8 @@
           }
         ];
 
-        # Import rendered wg config to container
         bindMounts = {
+          # Import rendered wg config to container
           "/etc/wireguard/wg0.conf" = {
             hostPath = config.sops.templates."wg0.conf".path;
             isReadOnly = true;

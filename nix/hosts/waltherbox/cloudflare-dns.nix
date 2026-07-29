@@ -27,5 +27,11 @@ in {
       content = primaryIpv4;
       comment = "Seerr";
     };
+    gitIpv4 = {
+      name = "git";
+      type = "A";
+      content = primaryIpv4;
+      comment = "Git";
+    };
   };
 }

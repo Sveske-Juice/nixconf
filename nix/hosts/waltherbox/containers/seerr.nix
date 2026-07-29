@@ -4,7 +4,7 @@
     webPort = 5055;
   in {
     containers.proxy.config.services.caddy.virtualHosts."seerr.waltherbox.org".extraConfig = ''
-      import cf_tls
+      import cf_tls_waltherbox
       reverse_proxy http://192.168.1.77:${toString webPort}
     '';
 

@@ -25,6 +25,9 @@
         self.nixosModules.ct-torrentbox
         self.nixosModules.ct-jellyfin
         self.nixosModules.ct-seerr
+
+        # Deprived
+        self.nixosModules.ct-git
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox

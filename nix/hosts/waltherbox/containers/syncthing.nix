@@ -19,7 +19,7 @@
       };
 
       containers.proxy.config.services.caddy.virtualHosts."syncthing.lan.waltherbox.org".extraConfig = ''
-        import cf_tls
+        import cf_tls_waltherbox
         import lan_only
         reverse_proxy http://192.168.1.74:${toString guiPort}
       '';

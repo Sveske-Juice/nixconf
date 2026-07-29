@@ -7,9 +7,11 @@
       config,
       ...
     }: {
-      sops.secrets."cloudflare/api_token" = {};
+      sops.secrets."cloudflare/waltherbox_token" = {};
+      sops.secrets."cloudflare/deprived_token" = {};
       sops.templates."caddy.env".content = ''
-        CF_API_TOKEN=${config.sops.placeholder."cloudflare/api_token"}
+        CF_WALTHERBOX_TOKEN=${config.sops.placeholder."cloudflare/waltherbox_token"}
+        CF_DEPRIVED_TOKEN=${config.sops.placeholder."cloudflare/deprived_token"}
       '';
 
       containers."${name}" = {
@@ -41,17 +43,19 @@
               plugins = ["github.com/caddy-dns/cloudflare@v0.2.4"];
               hash = "sha256-hEHgAG0F0ozHRAPuxEqLyTATBrE+pajeXDiSNwniorg=";
             };
-            globalConfig = ''
-              acme_dns cloudflare {env.CF_API_TOKEN}
-            '';
             extraConfig = ''
               (lan_only) {
                 @denied not remote_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 fc00::/7 fe80::/10
                 abort @denied
               }
-              (cf_tls) {
+              (cf_tls_waltherbox) {
                 tls {
-                  dns cloudflare {env.CF_API_TOKEN}
+                  dns cloudflare {env.CF_WALTHERBOX_TOKEN}
+                }
+              }
+              (cf_tls_deprived) {
+                tls {
+                  dns cloudflare {env.CF_DEPRIVED_TOKEN}
                 }
               }
             '';
