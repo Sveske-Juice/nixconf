@@ -21,5 +21,11 @@ in {
       content = primaryIpv4;
       comment = "Jellyfin";
     };
+    seerrIpv4 = {
+      name = "seerr";
+      type = "A";
+      content = primaryIpv4;
+      comment = "Seerr";
+    };
   };
 }

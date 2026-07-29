@@ -13,7 +13,11 @@
     hostQbitConfigDir = "/fast/apps/qbittorrent/config";
     hostQbitDataDir = "/fast/apps/qbittorrent/data";
   in
-    {config, pkgs, ...}: {
+    {
+      config,
+      pkgs,
+      ...
+    }: {
       sops.secrets = {
         "mullvad/private-key" = {};
         "mullvad/address" = {};
@@ -81,7 +85,6 @@
         '';
       };
 
-
       containers."${name}" = {
         autoStart = true;
         privateNetwork = true;
@@ -106,8 +109,14 @@
           "/data/media/" = {
             isReadOnly = false;
           };
-          ${qbitConfigDir} = { hostPath = hostQbitConfigDir; isReadOnly = false; };
-          ${qbitDataDir} = { hostPath = hostQbitDataDir; isReadOnly = false; };
+          ${qbitConfigDir} = {
+            hostPath = hostQbitConfigDir;
+            isReadOnly = false;
+          };
+          ${qbitDataDir} = {
+            hostPath = hostQbitDataDir;
+            isReadOnly = false;
+          };
         };
 
         config = {
@@ -217,7 +226,7 @@
                 };
               };
             };
-            extraArgs = [ "--confirm-legal-notice" ];
+            extraArgs = ["--confirm-legal-notice"];
           };
 
           preferences.host.name = "${name}";

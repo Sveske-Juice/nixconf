@@ -24,6 +24,7 @@
         self.nixosModules.ct-syncthing
         self.nixosModules.ct-torrentbox
         self.nixosModules.ct-jellyfin
+        self.nixosModules.ct-seerr
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox
