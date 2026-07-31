@@ -29,6 +29,7 @@
         # Deprived
         self.nixosModules.ct-git
         self.nixosModules.ct-git-runner
+        self.nixosModules.ct-deprived-builder
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox
