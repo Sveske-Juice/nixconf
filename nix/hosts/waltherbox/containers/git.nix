@@ -41,7 +41,7 @@
 
             service = {
               ENABLE_AUTO_REGISTRATION = true;
-              DISABLE_REGISTRATION = false;
+              DISABLE_REGISTRATION = true;
             };
 
             server = {
@@ -56,7 +56,7 @@
               SSH_LISTEN_PORT = sshport;
             };
 
-            security.REVERSE_PROXY_TRUSTED_PROXIES = "127.0.0.0/8";
+            security.REVERSE_PROXY_TRUSTED_PROXIES = "127.0.0.0/8,192.168.0.0/16,10.0.0.0/8";
 
             actions = {
               ENABLED = true;

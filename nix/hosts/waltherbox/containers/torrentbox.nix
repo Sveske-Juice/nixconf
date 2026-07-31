@@ -216,7 +216,7 @@
                   Port = qbitPort;
                   Username = "qbitadmin";
                   Password_PBKDF2 = "CMTz2RxO4FOFV/5MJfuF6A==:SK0skoW92U/vEzLyX5ovY2uM3KSbv80H8OSN56PhbmUdBHn6/g6QSVQBAPQgonYDRGer2SY5vpXf8x0TYkAuiw==";
-                  # Disable auth for localhos: sonarr, radarr
+                  # Disable auth for localhost: sonarr, radarr
                   LocalHostAuth = false;
 
                   # AuthSubnetWhitelistEnabled = true;

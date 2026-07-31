@@ -28,6 +28,7 @@
 
         # Deprived
         self.nixosModules.ct-git
+        self.nixosModules.ct-git-runner
       ]
       ++ lib.optionals isVM [
         self.nixosModules.hardware-vm-waltherbox
