@@ -309,6 +309,50 @@ in {
               };
             };
 
+            "apps/plane" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/plane";
+              options.canmount = "off";
+              options."com.sun:auto-snapshot" = "false";
+            };
+
+            "apps/plane/img" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/plane/img";
+              options = {
+                recordsize = "128K";
+                compression = "zstd";
+                "com.sun:auto-snapshot" = "true";
+              };
+            };
+
+            "apps/plane/app" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/plane/app";
+              options = {
+                recordsize = "16K";
+                compression = "zstd";
+                "com.sun:auto-snapshot" = "true";
+              };
+            };
+
+            "apps/sftp" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/sftp";
+              options.canmount = "off";
+              options."com.sun:auto-snapshot" = "false";
+            };
+
+            "apps/sftp/deprived" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/sftp/deprived";
+              options = {
+                recordsize = "16K";
+                compression = "zstd";
+                "com.sun:auto-snapshot" = "true";
+              };
+            };
+
             scratch = {
               type = "zfs_fs";
               mountpoint = "/fast/scratch";

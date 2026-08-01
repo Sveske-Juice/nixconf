@@ -9,7 +9,7 @@
     wwwGid = 960;
     signallerAuthorizedKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHc4184ajSTTUyfi2BuXgd/iSM/ig6pkFFPWuzZo9dom forgejo-runner-signaller";
     sshPort = 22;
-  in {config, lib, ... }: {
+  in {config, lib, pkgs, ... }: {
     sops.secrets."deprived-builder/builder-key" = {
       uid = builderUid;
       gid = builderGid;
@@ -151,16 +151,60 @@
       };
     };
 
-    containers.proxy.bindMounts."/var/www/deprived" = {
-      isReadOnly = true;
+    containers.proxy.allowedDevices = [
+      { node = "/dev/fuse"; modifier = "rwm"; }
+    ];
+
+    containers.proxy.bindMounts = {
+      "/dev/fuse" = {
+        hostPath = "/dev/fuse";
+        isReadOnly = false;
+      };
+      "/var/www/deprived" = {
+        isReadOnly = false;
+      };
+      "/mnt/assets-raw" = {
+        hostPath = "/fast/apps/sftp/deprived/deprived/assets";
+        isReadOnly = true;
+      };
     };
 
+    # Re bind with fuse to allow caddy to read everything despite their original
+    # perms
+    containers.proxy.config = {
+      environment.systemPackages = [ pkgs.bindfs ];
+      programs.fuse.userAllowOther = true;
+      systemd.tmpfiles.rules = [
+        "d /var/www/deprived/assets 0755 root root -"
+      ];
+
+      systemd.services.bindfs-assets = {
+        description = "Bindfs remount of assets";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "local-fs.target" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.bindfs}/bin/bindfs -f -o allow_other -o force-user=caddy -o force-group=caddy -o perms=0777 /mnt/assets-raw /var/www/deprived/assets";
+          ExecStop = "${pkgs.umount}/bin/umount /var/www/deprived/assets";
+          Restart = "on-failure";
+          RestartSec = "5s";
+        };
+      };
+    };
     containers.proxy.config.services.caddy.virtualHosts = {
       "deprived.dev".extraConfig = ''
-        root * /var/www/deprived/${mainBranch}
-        file_server
-        encode gzip zstd
-        try_files {path} {path}/ /index.html
+        handle_path /assets* {
+          root * /var/www/deprived/assets
+          file_server browse
+          encode gzip zstd
+        }
+
+        handle {
+          root * /var/www/deprived/${mainBranch}
+          try_files {path} {path}/ /index.html
+          file_server
+          encode gzip zstd
+        }
       '';
 
       "www.deprived.dev".extraConfig = ''
