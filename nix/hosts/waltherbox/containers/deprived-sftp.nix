@@ -21,6 +21,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAhiPhFbCi64NduuV794omgS8mctBLXtqxbaEJyUo6lg botalex@DESKTOP-ENDVV0V"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKhcUZbIMX0W27l/FMF5WijpdsJAK329/P008OEAfcyz botmain@nixos"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKFmg+pf1BMC0K1wCxxcc/3vovVbfazEQTyZwHlVuVjS root@nixos"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKyZOZlcQBmqSPxjaGgE2tP+K7LYziqjFUo3EX12rGtf botlap@nixos"
     ];
 
     containers."${name}" = {
