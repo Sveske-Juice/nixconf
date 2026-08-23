@@ -1,12 +1,13 @@
 {self, ...}: {
   flake.nixosModules.ct-torrentbox = let
     name = "torrentbox";
-    # mullvad dns
-    dns = "10.64.0.1";
+    # airvpn dns
+    dns = "10.128.0.1";
     qbitPort = 9091;
     jackettPort = 9117;
     sonarrPort = 8989;
     radarrPort = 8787;
+    torrentingPort = 13661;
 
     qbitConfigDir = "/var/lib/qbittorrent";
     qbitDataDir = "/buffer";
@@ -22,14 +23,21 @@
         "mullvad/private-key" = {};
         "mullvad/address" = {};
         "mullvad/endpoint" = {};
+
+        "airvpn/private-key" = {};
+        "airvpn/preshared-key" = {};
+        "airvpn/address" = {};
+        "airvpn/endpoint" = {};
+        "airvpn/public-key" = {};
       };
 
       sops.templates."wg0.conf" = {
         content = ''
           [Interface]
-          PrivateKey = ${config.sops.placeholder."mullvad/private-key"}
-          Address = ${config.sops.placeholder."mullvad/address"}
+          PrivateKey = ${config.sops.placeholder."airvpn/private-key"}
+          Address = ${config.sops.placeholder."airvpn/address"}
           DNS = ${dns}
+          MTU = 1320
 
           # Add kill switch to WAN destinations rules
           PostUp  = iptables  -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
@@ -54,9 +62,10 @@
           PreDown = ip6tables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
 
           [Peer]
-          PublicKey = egl+0TkpFU39F5O6r6+hIBMPQLOa8/t5CymOZV6CC3Y=
+          PublicKey = ${config.sops.placeholder."airvpn/public-key"}
+          PresharedKey = ${config.sops.placeholder."airvpn/preshared-key"}
           AllowedIPs = 0.0.0.0/0, ::/0
-          Endpoint = ${config.sops.placeholder."mullvad/endpoint"}
+          Endpoint = ${config.sops.placeholder."airvpn/endpoint"}
           PersistentKeepalive = 25
         '';
         mode = "0400";
@@ -132,6 +141,9 @@
               configFile = "/etc/wireguard/wg0.conf";
               autostart = true;
             };
+
+            firewall.allowedTCPPorts = [ torrentingPort ];
+            firewall.allowedUDPPorts = [ torrentingPort ];
           };
 
           systemd.tmpfiles.rules = [
@@ -173,7 +185,7 @@
           services.qbittorrent = {
             enable = true;
             webuiPort = qbitPort;
-            torrentingPort = 6881;
+            inherit torrentingPort;
             openFirewall = true;
 
             profileDir = qbitConfigDir;
@@ -185,6 +197,7 @@
                 IPv6Enabled = true;
                 DefaultSavePath = qbitDataDir;
                 TempPathEnabled = false;
+                UseRandomPort = false;
 
                 DHTEnabled = true;
                 DHT = true;
