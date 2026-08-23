@@ -199,14 +199,14 @@
                 MaxConnectionsPerTorrent = 100;
                 MaxUploadsPerTorrent = 10;
 
-                QueueingSystemEnabled = true;
-                MaxActiveDownloads = 10;
-                MaxActiveUploads = 40;
-                MaxActiveTorrents = 50;
-                IgnoreSlowTorrentsForQueueing = true;
-                SlowTorrentsDownloadRate = 2; # KB/s
-                SlowTorrentsUploadRate = 2; # KB/s
-                SlowTorrentsInactivityTimer = 60;
+                QueueingSystemEnabled = false;
+                # MaxActiveDownloads = 10;
+                # MaxActiveUploads = 40;
+                # MaxActiveTorrents = 50;
+                # IgnoreSlowTorrentsForQueueing = true;
+                # SlowTorrentsDownloadRate = 2; # KB/s
+                # SlowTorrentsUploadRate = 2; # KB/s
+                # SlowTorrentsInactivityTimer = 60;
               };
               Preferences = {
                 General.Locale = "en";
