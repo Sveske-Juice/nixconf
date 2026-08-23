@@ -14,7 +14,8 @@
         };
         Security = {
           ClearClipboardTimeout = 60;
-          LockDatabaseIdleSeconds = 60 * 15;
+          # w hrs
+          LockDatabaseIdleSeconds = 60 * 60 * 2;
         };
         General = {
           BackupBeforeSave = true;
