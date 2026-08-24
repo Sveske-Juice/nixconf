@@ -1,5 +1,5 @@
 let
-  primaryIpv4 = "87.54.92.68";
+  primaryIpv4 = "80.248.139.59";
 in {
   cloudflare.zones."waltherbox.org".zoneId = "f2cdfb161e8aeb17df45b402c91a43fa";
   cloudflare.zones."waltherbox.org".records = {
