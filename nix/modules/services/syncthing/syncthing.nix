@@ -71,6 +71,7 @@
               "waltherbox"
               "Pixel 9a"
             ];
+            ignorePerms = true;
           };
           commondocs = {
             path = "${config.services.syncthing.dataDir}/docs/common";

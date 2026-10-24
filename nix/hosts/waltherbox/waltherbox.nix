@@ -26,6 +26,7 @@
         self.nixosModules.ct-jellyfin
         self.nixosModules.ct-seerr
         self.nixosModules.ct-firefly
+        self.nixosModules.ct-immich
 
         # Deprived
         self.nixosModules.ct-git

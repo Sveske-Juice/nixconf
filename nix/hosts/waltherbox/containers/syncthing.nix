@@ -4,13 +4,10 @@
     syncthingUid = 8002;
     secretPath = "/run/secrets/syncthing";
     user = "syncuser";
+    group = "media";
     guiPort = 8384;
   in
-    {
-      config,
-      lib,
-      ...
-    }: {
+    hostArgs: {
       # Extract on host with permissions for container user
       sops.secrets = {
         "syncthing/certpem".uid = syncthingUid;
@@ -33,21 +30,21 @@
 
         bindMounts = {
           # Bind mount host dataset to contianer's syncthing data dir
-          "${config.containers."${name}".config.services.syncthing.dataDir}" = {
+          "${hostArgs.config.containers."${name}".config.services.syncthing.dataDir}" = {
             hostPath = "/fast/syncthing";
             isReadOnly = false;
           };
           # Import secrets to containter
           "${secretPath}/certpem" = {
-            hostPath = config.sops.secrets."syncthing/certpem".path;
+            hostPath = hostArgs.config.sops.secrets."syncthing/certpem".path;
             isReadOnly = true;
           };
           "${secretPath}/keypem" = {
-            hostPath = config.sops.secrets."syncthing/keypem".path;
+            hostPath = hostArgs.config.sops.secrets."syncthing/keypem".path;
             isReadOnly = true;
           };
           "${secretPath}/passphrase" = {
-            hostPath = config.sops.secrets."syncthing/passphrase".path;
+            hostPath = hostArgs.config.sops.secrets."syncthing/passphrase".path;
             isReadOnly = true;
           };
         };
@@ -67,12 +64,16 @@
           users.users."${user}" = {
             isNormalUser = true;
             uid = syncthingUid;
-            group = "${user}";
+            inherit group;
           };
-          users.groups."${user}" = {};
+          # Match container GID with host GID
+          users.groups.${group}.gid = hostArgs.config.users.groups.${group}.gid;
 
-          # Use the imported secrets instead of using sops in the container
           networking.firewall.allowedTCPPorts = [guiPort];
+
+          # New files 0660, new folders 0770
+          systemd.services.syncthing.serviceConfig.UMask = "0007";
+
           services.syncthing = {
             openDefaultPorts = true;
             guiAddress = "[::]:${toString guiPort}";
@@ -83,7 +84,7 @@
           };
 
           # syncthing module should not try extract secrets inside the container
-          preferences.secrets = lib.mkForce false;
+          preferences.secrets = hostArgs.lib.mkForce false;
 
           preferences.host.name = "${name}";
           preferences.user.name = "${user}";
