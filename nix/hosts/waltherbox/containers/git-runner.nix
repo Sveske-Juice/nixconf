@@ -36,17 +36,11 @@
           defaultGateway = "192.168.1.1";
         };
 
-        services.gitea-actions-runner = {
+        services.forgejo-runner = {
           package = pkgs.forgejo-runner;
 
           instances.${instanceName} = {
             enable = true;
-            name = instanceName;
-            url = forgejoUrl;
-            tokenFile = "/run/secrets/forgejo-registration-token";
-            labels = [
-              "native:host"
-            ];
 
             hostPackages = lib.attrValues {
               inherit (pkgs)
@@ -67,6 +61,11 @@
 
             settings = {
               log.level = "info";
+              server.connections.default = {
+                url = forgejoUrl;
+                uuid = "396745ea-b4c8-4e73-95f5-38794460fc67";
+                token_url = "/run/secrets/forgejo-registration-token";
+              };
               runner = {
                 file = ".runner";
                 capacity = 2;
@@ -74,6 +73,9 @@
                 insecure = false;
                 fetch_timeout = "5s";
                 fetch_interval = "2s";
+                labels = [
+                  "native:host"
+                ];
               };
               cache = {
                 enabled = true;
