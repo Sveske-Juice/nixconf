@@ -27,5 +27,11 @@ in {
       content = primaryIpv4;
       comment = "Seerr";
     };
+    immichIpv4 = {
+      name = "immich";
+      type = "A";
+      content = primaryIpv4;
+      comment = "Immich";
+    };
   };
 }
