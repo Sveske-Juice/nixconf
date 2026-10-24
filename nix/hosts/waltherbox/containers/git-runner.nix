@@ -5,7 +5,7 @@
     forgejoUrl = "http://192.168.1.78:8080";
     runnerUid = 8120;
     runnerGid = 8120;
-  in { pkgs, config, ... }: {
+  in { config, ... }: {
     sops.secrets."forgejo/agurk-token" = {
       uid = runnerUid;
       gid = runnerGid;
@@ -20,7 +20,6 @@
       extraFlags = [ "--resolv-conf=off" ];
 
       bindMounts = {
-        # sops secret (token) — bind-mount just the resolved path directly
         "/run/secrets/forgejo-registration-token" = {
           hostPath = config.sops.secrets."forgejo/agurk-token".path;
           isReadOnly = true;

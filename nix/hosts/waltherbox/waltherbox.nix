@@ -25,6 +25,7 @@
         self.nixosModules.ct-torrentbox
         self.nixosModules.ct-jellyfin
         self.nixosModules.ct-seerr
+        self.nixosModules.ct-firefly
 
         # Deprived
         self.nixosModules.ct-git
