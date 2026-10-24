@@ -24,7 +24,7 @@
             default = let
               user = config.preferences.user.name;
             in
-              if pkgs.stdenv.isLinux
+              if pkgs.stdenv.hostPlatform.isLinux
               then "/home/${user}"
               else "/Users/${user}";
           };
