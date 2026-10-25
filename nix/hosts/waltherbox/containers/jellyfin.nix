@@ -240,10 +240,10 @@
                   extractTrickplayImagesDuringLibraryScan = true;
                 };
                 "Photos" = {
-                  # FIXME: fix photo libs
-                  enabled = true;
+                  enabled = false;
                   contentType = "homevideos";
                   pathInfos = ["/data/media/photos"];
+                  enablePhotos = true;
                   enableChapterImageExtraction = true;
                   extractChapterImagesDuringLibraryScan = true;
                   enableTrickplayImageExtraction = true;
