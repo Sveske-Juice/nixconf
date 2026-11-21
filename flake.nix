@@ -46,6 +46,8 @@
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     noctalia-greeter.inputs.nixpkgs.follows = "nixpkgs";
 
+    luciole.url = "github:noctalia-dev/luciole/cachix";
+
     qtengine.url = "github:kossLAN/qtengine";
     qtengine.inputs.nixpkgs.follows = "nixpkgs";
 
