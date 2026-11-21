@@ -19,7 +19,7 @@
         "sd_mod"
       ];
       initrd.kernelModules = [];
-      kernelModules = ["kvm-intel"];
+      kernelModules = ["kvm-amd"];
       extraModulePackages = [];
     };
 
