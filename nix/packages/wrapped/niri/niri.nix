@@ -166,6 +166,8 @@
 
           "XF86MonBrightnessUp".spawn-sh = "${noctaliaExe} msg brightness-up";
           "XF86MonBrightnessDown".spawn-sh = "${noctaliaExe} msg brightness-down";
+          "XF86KbdBrightnessUp".spawn-sh   = "${noctaliaExe} msg keyboard-backlight-up";
+          "XF86KbdBrightnessDown".spawn-sh = "${noctaliaExe} msg keyboard-backlight-down";
 
           "Mod+1".focus-workspace = 1;
           "Mod+2".focus-workspace = 2;
