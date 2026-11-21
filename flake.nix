@@ -40,13 +40,11 @@
     microvm.url = "github:microvm-nix/microvm.nix";
     microvm.inputs.nixpkgs.follows = "nixpkgs";
 
-    noctalia.url = "github:noctalia-dev/noctalia";
-    noctalia.inputs.nixpkgs.follows = "nixpkgs";
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    luciole.url = "github:noctalia-dev/luciole/cachix";
 
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     noctalia-greeter.inputs.nixpkgs.follows = "nixpkgs";
-
-    luciole.url = "github:noctalia-dev/luciole/cachix";
 
     qtengine.url = "github:kossLAN/qtengine";
     qtengine.inputs.nixpkgs.follows = "nixpkgs";
