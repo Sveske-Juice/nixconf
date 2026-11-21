@@ -12,7 +12,7 @@
       gpgKey = "44B31C98B111DF02";
       terminal = "kitty";
       browser = "librewolf";
-      filemanager = "pcmanfm-qt";
+      filemanager = "luciole";
     };
 
     deploy-gpg.enable = config.preferences.secrets;
@@ -25,7 +25,7 @@
         self.nixosModules.noctalia
         self.nixosModules.kitty
         self.nixosModules.librewolf
-        self.nixosModules.pcmanfm-qt
+        self.nixosModules.luciole
         self.nixosModules.keepassxc
       ]
       ++ lib.optionals isVM [
