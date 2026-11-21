@@ -11,41 +11,48 @@
       policies = {
         DisableTelemetry = true;
         DisableFirefoxStudies = true;
-        PasswordManagerEnabled = false; # use own password manager
+        # use own password manager
+        PasswordManagerEnabled = false;
         RequestedLocales = [
           "da"
           "en-US"
         ];
+        ClearOnShutdown = {
+          # Stay signed in
+          CookiesAndStorage = false;
+          # Dont clear history
+          BrowsingHistoryAndDownloads = false;
+          Cache = true;
+        };
         SearchEngines = {
           Default = "DuckDuckGo";
         };
         Preferences = {
           "webgl.disabled" = false;
-          "privacy.resistFingerprinting" = true;
-          "privacy.clearOnShutdown.history" = false;
-          "privacy.clearOnShutdown.cookies" = false;
-          "network.cookie.lifetimePolicy" = 0;
           "privacy.fingerprintingProtection" = true;
+
+          "sidebar.revamp" = {
+            Value = true;
+            Status = "default";
+          };
+          "sidebar.verticalTabs" = {
+            Value = true;
+            Status = "default";
+          };
+          "sidebar.visibility" = {
+            Value = "hide-sidebar";
+            Status = "default";
+          };
         };
-        # To add new extensions:
-        # 1. Install extension from GUI
-        # go to about:debugging
-        # This Librewolf->Extensions
-        # find the extension ID
-        # install_url = "https://addons.mozilla.org/firefox/downloads/latest/{extension name}/latest.xpi"
+        # Find the GUID of an extension to install new extensions:
+        # curl -sfL https://addons.mozilla.org/api/v5/addons/addon/<slug>/ | jq -r .guid
         ExtensionSettings = {
+          "*" = {
+            installation_mode = "blocked";
+            blocked_install_message = "Exensions managed by Nix";
+          };
           "uBlock0@raymondhill.net" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-            installation_mode = "force_installed";
-            private_browsing = true;
-          };
-          "addon@darkreader.org" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-            installation_mode = "force_installed";
-            private_browsing = true;
-          };
-          "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi";
             installation_mode = "force_installed";
             private_browsing = true;
           };
@@ -59,14 +66,15 @@
             installation_mode = "normal_installed";
             private_browsing = true;
           };
-          "jid1-MnnxcxisBPnSXQ@jetpack" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
+          # Vimium
+          "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
             installation_mode = "normal_installed";
             private_browsing = true;
           };
-          # vimium
-          "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+          # Sidebery
+          "{3c078156-979c-498b-8990-85f7987dd929}" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/sidebery/latest.xpi";
             installation_mode = "normal_installed";
             private_browsing = true;
           };
