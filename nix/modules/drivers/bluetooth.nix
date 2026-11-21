@@ -10,9 +10,6 @@ _: {
       };
     };
 
-    # Blueman
-    services.blueman.enable = true;
-
     # Headset buttons with MPRIS proxy
     systemd.user.services.mpris-proxy = {
       description = "Mpris proxy";
