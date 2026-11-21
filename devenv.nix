@@ -10,10 +10,10 @@
     sops
     yq
     nixos-anywhere
+    secretspec
   ];
 
   env = {
-    CLOUDFLARE_API_TOKEN = config.secretspec.secrets.CLOUDFLARE_API_TOKEN;
     TF_STATE_DIR = "${config.env.DEVENV_ROOT}/.state/cloudflare";
   };
 
@@ -44,8 +44,8 @@
       ''
         set -euo pipefail
         cf-prep
-        cd "$TF_STATE_DIR"
-        exec tofu plan "$@"
+        cd "$DEVENV_ROOT"
+        exec secretspec run -- tofu -chdir="$TF_STATE_DIR" plan "$@"
       '';
 
     cf-apply.exec =
@@ -53,8 +53,8 @@
       ''
         set -euo pipefail
         cf-prep
-        cd "$TF_STATE_DIR"
-        exec tofu apply "$@"
+        cd "$DEVENV_ROOT"
+        exec secretspec run -- tofu -chdir="$TF_STATE_DIR" apply "$@"
       '';
 
     cf-destroy.exec =
@@ -62,8 +62,8 @@
       ''
         set -euo pipefail
         cf-prep
-        cd "$TF_STATE_DIR"
-        exec tofu destroy "$@"
+        cd "$DEVENV_ROOT"
+        exec secretspec run -- tofu -chdir="$TF_STATE_DIR" destroy "$@"
       '';
 
     cf-config.exec =

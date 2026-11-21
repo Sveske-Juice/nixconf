@@ -10,6 +10,7 @@
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
+        ${pkgs.devenv}/bin/devenv hook fish | source
       '';
     };
 
