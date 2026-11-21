@@ -28,6 +28,10 @@
           pkgs.xdg-desktop-portal-gtk
         ];
       };
+      environment.systemPackages = with pkgs; [
+        shikane
+        wdisplays
+      ];
     };
   };
 
@@ -105,6 +109,7 @@
           "Mod+W".spawn-sh = "${noctaliaExe} msg panel-toggle wallpaper";
           "Mod+A".spawn-sh = "${noctaliaExe} msg panel-toggle control-center";
           "Mod+X".spawn-sh = "${noctaliaExe} msg panel-toggle session";
+          "Mod+P".spawn-sh = "${lib.getExe pkgs.wdisplays}";
           "Print".spawn-sh = "${noctaliaExe} msg screenshot-region";
           "Mod+S".spawn-sh = "${noctaliaExe} msg screenshot-region";
 
@@ -234,6 +239,7 @@
 
         spawn-at-startup = [
           noctaliaExe
+          "${pkgs.shikane}/bin/shikane"
         ];
       };
     };
