@@ -9,7 +9,6 @@ in {
       zfs
     ];
 
-    boot.initrd.systemd.enable = true;
     boot.supportedFilesystems = ["zfs"];
     boot.initrd.kernelModules = ["zfs"];
     boot.zfs.forceImportRoot = false;
@@ -202,6 +201,12 @@ in {
             "apps/radicale" = {
               type = "zfs_fs";
               mountpoint = "/fast/apps/radicale";
+              options."com.sun:auto-snapshot" = "true";
+            };
+
+            "apps/netbird" = {
+              type = "zfs_fs";
+              mountpoint = "/fast/apps/netbird";
               options."com.sun:auto-snapshot" = "true";
             };
 

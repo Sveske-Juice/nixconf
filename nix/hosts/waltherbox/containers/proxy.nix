@@ -39,9 +39,10 @@
           services.caddy = {
             enable = true;
             environmentFile = "/run/caddy.env";
+            # TODO: use security.acme to fetch certs, so we can fallback to normal caddy
             package = pkgs.caddy.withPlugins {
               plugins = ["github.com/caddy-dns/cloudflare@v0.2.4"];
-              hash = "sha256-5a5cpFl90pEWt0lUC4ZJQ7g+1//ZvsRhee64Dt9vh5o=";
+              hash = "sha256-QSiwKqKvSxhksWBF4/MlBOpyXba5xOQ2sRwA0R7399E=";
             };
             extraConfig = ''
               (lan_only) {

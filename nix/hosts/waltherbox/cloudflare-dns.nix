@@ -33,5 +33,11 @@ in {
       content = primaryIpv4;
       comment = "Immich";
     };
+    netbirdIpv4 = {
+      name = "netbird";
+      type = "A";
+      content = primaryIpv4;
+      comment = "Netbird";
+    };
   };
 }

@@ -27,6 +27,7 @@
         self.nixosModules.ct-seerr
         self.nixosModules.ct-firefly
         self.nixosModules.ct-immich
+        self.nixosModules.ct-netbird
 
         # Deprived
         self.nixosModules.ct-git
