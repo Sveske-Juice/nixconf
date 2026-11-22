@@ -28,6 +28,7 @@
         self.nixosModules.ct-firefly
         self.nixosModules.ct-immich
         self.nixosModules.ct-netbird
+        self.nixosModules.ct-netbird-router
 
         # Deprived
         self.nixosModules.ct-git
