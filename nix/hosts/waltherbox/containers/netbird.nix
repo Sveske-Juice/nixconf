@@ -1,16 +1,15 @@
-{self, ...}: {
+{self, config, ...}: {
   flake.nixosModules.ct-netbird = let
     name = "netbird";
     domain = "netbird.waltherbox.org";
     address = "192.168.1.85";
     proxyAddress = "192.168.1.72";
-    port = 8080;
+    publicIp = config.cloudflare.zones."waltherbox.org".records.netbirdIpv4.content;
     managementPort = 8011;
     signalPort = 8012;
     relayPort = 33080;
     stunPort = 3478;
     dataset = "/fast/apps/netbird";
-    netbirdUid = 8150;
 
     # Paths inside the container for the bind-mounted sops secrets.
     relaySecretPath = "/run/netbird-relay-secret";
@@ -24,24 +23,44 @@
     containers.proxy.config.services.caddy.virtualHosts."${domain}".extraConfig = ''
       import cf_tls_waltherbox
 
-      # Management
-      # Signal gRPC
-      @grpc header Content-Type application/grpc*
-      handle @grpc {
-        reverse_proxy h2c://${address}:${toString port}
+      # All ips not LAN ips and our own public (support no NAT hairpin)
+      @outside not remote_ip private_ranges ${publicIp}
+ 
+      @signal_grpc path /signalexchange.SignalExchange/*
+      handle @signal_grpc {
+        reverse_proxy h2c://${address}:${toString signalPort}
       }
-
-      # Relay (ws)
-      # Mangement API
-      # Built in login 
-      @backend path /relay* /ws-proxy/* /api/* /oauth2/*
-      handle @backend {
-        reverse_proxy http://${address}:${toString port}
+ 
+      @management_grpc path /management.ManagementService/* /management.ProxyService/*
+      handle @management_grpc {
+        reverse_proxy h2c://${address}:${toString managementPort}
       }
-
+ 
+      @signal path /ws-proxy/signal*
+      handle @signal {
+        reverse_proxy http://${address}:${toString signalPort}
+      }
+ 
+      @relay path /relay*
+      handle @relay {
+        reverse_proxy http://${address}:${toString relayPort}
+      }
+ 
+      @management path /ws-proxy/management* /oauth2/*
+      handle @management {
+        reverse_proxy http://${address}:${toString managementPort}
+      }
+ 
+      @api path /api /api/*
+      handle @api {
+        abort @outside
+        reverse_proxy http://${address}:${toString managementPort}
+      }
+ 
       handle {
+        abort @outside
         root * ${dashboard}
-        try_files {path} {path}.html {path}/
+        try_files {path} {path}.html {path}/ /404.html
         file_server
       }
     '';
@@ -60,7 +79,7 @@
       extraFlags = ["--resolv-conf=off"];
 
       bindMounts = {
-        "/var/lib/netbird" = {
+        "/var/lib/netbird-mgmt" = {
           hostPath = dataset;
           isReadOnly = false;
         };
@@ -88,13 +107,6 @@
           nameservers = ["192.168.1.71"];
           defaultGateway = "192.168.1.1";
         };
-
-        users.users.netbird = {
-          isSystemUser = true;
-          group = "netbird";
-          uid = netbirdUid;
-        };
-        users.groups.netbird.gid = netbirdUid;
 
         services.netbird.server = {
           enable = true;
@@ -135,7 +147,10 @@
                 Secret = null;
               };
 
-              ReverseProxy.TrustedHTTPProxies = ["${proxyAddress}/32"];
+              ReverseProxy = {
+                TrustedHTTPProxies = ["${proxyAddress}/32"];
+                TrustedPeers = ["${proxyAddress}/32"];
+              };
             };
           };
 
