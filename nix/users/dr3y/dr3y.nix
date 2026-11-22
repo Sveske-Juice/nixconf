@@ -56,6 +56,7 @@
         self.nixosModules.godot-mono
         self.nixosModules.filezilla
         self.nixosModules.localsend
+        self.nixosModules.netbird
       ];
 
     environment.systemPackages = with pkgs; [
